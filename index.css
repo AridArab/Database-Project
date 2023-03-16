@@ -1,0 +1,20 @@
+body{
+    background-color:rgb(50, 50, 50);
+    color:aliceblue;
+}
+
+ul{
+    background-color:darkgreen;
+    display: flex;
+    justify-content: center;
+}
+
+a{
+    color:aliceblue;
+    padding:50px
+}
+
+img{
+    width: auto;
+    height: 300px;
+}
