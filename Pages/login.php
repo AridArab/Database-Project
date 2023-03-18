@@ -18,14 +18,12 @@
         'id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
       }
       if($name == 'john' && $id == '11111'){
-        echo 'Welcome';
+        header('Location: view_Profile.php');
       }
       else {
         echo 'Incorrect Login';
       }
     }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -79,6 +77,7 @@
           </div>
           <div class="mb-3">
             <input type="submit" name="submit" value="Send" class="btn btn-dark w-100">
+            
           </div>
         </form>
     </center>
