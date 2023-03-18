@@ -1,3 +1,8 @@
+<?php
+    $name = '';
+    $nameErr = '';
+?>
+
 <!DOCTYPE html>
 <html>
 <header>
