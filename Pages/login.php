@@ -21,8 +21,10 @@ if (isset($_POST['submit'])) {
             FILTER_SANITIZE_FULL_SPECIAL_CHARS
         );
     }
-    if ($name == 'john' && $id == '11111') {
-        header('Location: view_Profile.php');
+    if ($name == 'john' && $id == '11111') { //Credential check logic
+        session_start(); //Starts session
+        $_SESSION['loggedIn'] = true; //Sets loggedIn to true
+        header('Location: ../');
     } else {
         echo 'Incorrect Login';
     }
