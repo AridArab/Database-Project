@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
     if ($name == 'john' && $id == '11111') { //Credential check logic
         session_start(); //Starts session
         $_SESSION['loggedIn'] = true; //Sets loggedIn to true
-        header('Location: ../');
+        header('Location: ./index.php');
     } else {
         echo 'Incorrect Login';
     }
@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
 <!DOCTYPE html>
 <html>
 <header>
-    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="./index.css">
     <link rel="stylesheet" href="./login.css">
     <meta charset="UTF-8">
     <meata http-equiv="X-UA-Compatible" content="IE=edge">
