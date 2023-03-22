@@ -1,5 +1,5 @@
 <?php
-    session_start();
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,7 +23,7 @@
         ?>
         <?php
         if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
-            echo '<li> <a href="./logout.php">Logout</a> </li>';
+            echo '<li> <a href="../Logic/logout.php">Logout</a> </li>';
         } else {
             echo '<li> <a href="./login.php">Login</a> </li>';
             echo '<li> <a href="./signup.php">Sign Up</a> </li>';
