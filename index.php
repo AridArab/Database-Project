@@ -26,16 +26,16 @@ if (isset($_POST['submit'])) {
 
         $obj = select_query("select ID, Password, First_Name from employee where ID = $id", $conn);
 
-        if ($obj['ID'] != null && $obj['Password'] == $pass) { //Credential check logic
-            sqlsrv_close($conn);
+        if (password_verify($_POST['pass'], $obj['Password'])) { //Credential check logic
             session_start(); //Starts session
-            $_SESSION['loggedIn'] = true; //Sets loggedIn to true
+            $_SESSION['id'] = $id; //Sets loggedIn to true
             $_SESSION['name'] = $obj['First_Name'];
             header('Location: ./Pages/home.php');
         } else {
-            sqlsrv_close($conn);
+
             $unauth = true;
         }
+        sqlsrv_close($conn);
     }
 }
 ?>

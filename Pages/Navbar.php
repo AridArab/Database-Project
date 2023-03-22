@@ -15,11 +15,11 @@ session_start();
     <ul>
         <li style="float:left"> <a href="../index.php">Home</a> </li>
         <?php
-        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) { //Given a user has logged in we want to display 
-            echo '<li style="float:left"> <a href="./Pages/view_Team.php">Team</a> </li>';
-            echo '<li style="float:left"> <a href="./Pages/view_Projects.php">Projects</a> </li>';
-            echo '<li> <a href="./Pages/view_Profile.php">See Profile</a> </li>';
-            echo '<li> <a href="./Logic/logout.php">Logout</a> </li>';
+        if (isset($_SESSION['id'])) { //Given a user has logged in we want to display 
+            echo '<li style="float:left"> <a href="./view_Team.php">Team</a> </li>';
+            echo '<li style="float:left"> <a href="./view_Projects.php">Projects</a> </li>';
+            echo '<li> <a href="./view_Profile.php">See Profile</a> </li>';
+            echo '<li> <a href="../Logic/logout.php">Logout</a> </li>';
         } else {
             echo '<li> <a href="./Pages/login.php">Login</a> </li>';
             echo '<li> <a href="./Pages/signup.php">Sign Up</a> </li>';
@@ -29,7 +29,7 @@ session_start();
     <center>
         <h1>
             <?php
-            if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
+            if (isset($_SESSION['id'])) {
                 echo "Hello " . $_SESSION['name'] . "!";
             }
             ?>

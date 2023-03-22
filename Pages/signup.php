@@ -130,12 +130,14 @@ if (isset($_POST['submit'])) {
 
         $conn = connect();
 
+        $password_hash = password_hash($_POST["pass"], PASSWORD_DEFAULT);
+
         insert_query(
             "insert into Employee (First_Name, Last_Name, Middle_Initial, 
             Birthday, City, State, Zip_Code, Street_Address, Sex, Phone_Number, 
             Email_Address, Password, Is_Manager) values ('$fName', '$lName', '$mName', 
             '$birthday', '$city', '$state', $zip_code, '$street', '$sex', $phone, 
-            '$mail', '$pass', $isMananger)",
+            '$mail', '$password_hash', $isMananger)",
             $conn
         );
 

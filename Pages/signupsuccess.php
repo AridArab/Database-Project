@@ -19,7 +19,7 @@ $id = $_SESSION['ID'];
         <h1>Your ID is
             <?php echo $id ?>
         </h1>
-        <h1><a href="./login.php"> Login!</a></h1>
+        <h1><a href="../"> Login!</a></h1>
     </center>
 </body>
 
