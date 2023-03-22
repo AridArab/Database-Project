@@ -1,17 +1,16 @@
 <?php
 require '../Logic/sqlconn.php';
 
-$fName = $lName = $mName = $birthday = $city = $state = $zip_code = 
-$street = $sex = $phone = $mail = $pass = $isMananger = '';
+$fName = $lName = $mName = $birthday = $city = $state = $zip_code =
+    $street = $sex = $phone = $mail = $pass = $isMananger = '';
 
-$fNameErr = $lNameErr = $mNameErr = $birthdayErr = $cityErr = $stateErr = $zip_codeErr = 
-$streetErr = $sexErr = $phoneErr = $mailErr = $passErr = '';
+$fNameErr = $lNameErr = $mNameErr = $birthdayErr = $cityErr = $stateErr = $zip_codeErr =
+    $streetErr = $sexErr = $phoneErr = $mailErr = $passErr = '';
 
 if (isset($_POST['submit'])) {
     if (empty($_POST['fName'])) {
         $fNameErr = 'First Name is required';
-    } 
-    else {
+    } else {
         $fName = filter_input(
             INPUT_POST,
             'fName',
@@ -20,8 +19,7 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['lName'])) {
         $lNameErr = 'Last Name is required';
-    } 
-    else {
+    } else {
         $lName = filter_input(
             INPUT_POST,
             'lName',
@@ -30,11 +28,9 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['mName'])) {
         $mName = null;
-    } 
-    else if (strlen($_POST['mName']) > 1) {
+    } else if (strlen($_POST['mName']) > 1) {
         $mNameErr = 'Only enter the initial';
-    } 
-    else {
+    } else {
         $mName = filter_input(
             INPUT_POST,
             'mName',
@@ -43,8 +39,7 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['birthday']) || substr_count($_POST['birthday'], '-') != 2) {
         $birthdayErr = 'Birthday is required';
-    } 
-    else {
+    } else {
         $birthday = filter_input(
             INPUT_POST,
             'birthday',
@@ -53,8 +48,7 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['city'])) {
         $cityErr = 'City is required';
-    } 
-    else {
+    } else {
         $city = filter_input(
             INPUT_POST,
             'city',
@@ -63,8 +57,7 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['state'])) {
         $stateErr = 'State is required';
-    } 
-    else {
+    } else {
         $state = filter_input(
             INPUT_POST,
             'state',
@@ -73,8 +66,7 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['zip_code'])) {
         $zip_codeErr = 'Zip Code is required';
-    } 
-    else {
+    } else {
         $zip_code = filter_input(
             INPUT_POST,
             'zip_code',
@@ -83,8 +75,7 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['street'])) {
         $streetErr = 'Street is required';
-    } 
-    else {
+    } else {
         $street = filter_input(
             INPUT_POST,
             'street',
@@ -93,8 +84,7 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['sex'])) {
         $sexErr = 'Sex is required';
-    } 
-    else {
+    } else {
         $sex = filter_input(
             INPUT_POST,
             'sex',
@@ -103,8 +93,7 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['phone']) || strlen($_POST['phone']) != 10) {
         $phoneErr = 'Phone is required';
-    } 
-    else {
+    } else {
         $phone = filter_input(
             INPUT_POST,
             'phone',
@@ -113,8 +102,7 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['mail'])) {
         $mailErr = 'Mail is required';
-    } 
-    else {
+    } else {
         $mail = filter_input(
             INPUT_POST,
             'mail',
@@ -123,35 +111,34 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['pass'])) {
         $passErr = 'Password is required';
-    } 
-    else {
+    } else {
         $pass = $_POST['pass'];
     }
     if (empty($_POST['pass'])) {
         $passErr = 'Password is required';
     }
-    if($_POST["isManager"] = "Employee") {
+    if ($_POST["isManager"] = "Employee") {
         $isMananger = 0;
-    }
-    else {
+    } else {
         $isMananger = 1;
     }
     if (
-        $fNameErr == '' && $lNameErr == '' && $birthdayErr == '' && $cityErr == '' && 
-        $stateErr == '' && $zip_codeErr == '' && $streetErr == '' && $sexErr == '' && 
+        $fNameErr == '' && $lNameErr == '' && $birthdayErr == '' && $cityErr == '' &&
+        $stateErr == '' && $zip_codeErr == '' && $streetErr == '' && $sexErr == '' &&
         $phoneErr == '' && $mailErr == '' && $passErr == ''
-        ) {
+    ) {
 
         $conn = connect();
-        
+
         insert_query(
             "insert into Employee (First_Name, Last_Name, Middle_Initial, 
             Birthday, City, State, Zip_Code, Street_Address, Sex, Phone_Number, 
             Email_Address, Password, Is_Manager) values ('$fName', '$lName', '$mName', 
             '$birthday', '$city', '$state', $zip_code, '$street', '$sex', $phone, 
-            '$mail', '$pass', $isMananger)", $conn
+            '$mail', '$pass', $isMananger)",
+            $conn
         );
-        
+
         $obj = select_query("select top 1 ID from employee order by ID desc", $conn);
 
         sqlsrv_close($conn);
@@ -160,8 +147,7 @@ if (isset($_POST['submit'])) {
         $_SESSION['ID'] = $obj['ID'];
 
         header('Location: ./signupsuccess.php');
-    }
-    else {
+    } else {
         echo 'Invalid Login';
     }
 }
@@ -175,8 +161,8 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="./signup.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Signup Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
 </header>
 
 <body>
@@ -208,7 +194,7 @@ if (isset($_POST['submit'])) {
                 <label for="mName" class="form-label">Middle Initial:</label>
                 <input type="text" class="form-control 
             <?php echo $mNameErr ? 'is-invalid' : null ?>
-            "id="mName" name="mName" placeholder="Enter your Middle Initial">
+            " id="mName" name="mName" placeholder="Enter your Middle Initial">
                 <div class="invalid-feedback">
                     <?php echo $mNameErr; ?>
                 </div>
@@ -295,8 +281,7 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
             <p>Job Status:</p>
-            <input type="radio" id="employee" name="isManager" value="Employee" style="margin-left: 75px"
-            checked />
+            <input type="radio" id="employee" name="isManager" value="Employee" style="margin-left: 75px" checked />
             <label for="html" style="text-align: left">Employee</label><br>
             <input type="radio" id="manager" name="isManager" value="Manager" style="margin-left: 75px">
             <label for="css" style="text-align: left">Manager</label><br>
@@ -305,7 +290,7 @@ if (isset($_POST['submit'])) {
                 <input type="submit" name="submit" value="Send" class="btn btn-dark w-100">
             </div>
         </form>
-        <a href="../index.php"> Return to Home Page</a>
+        <a href="../">Login</a>
     </center>
 </body>
 
