@@ -15,14 +15,10 @@ session_start();
     <ul>
         <li style="float:left"> <a href="../index.php">Home</a> </li>
         <?php
-        if (isset($_SESSION['loggedIn'])) { //Given a user has logged in we want to display 
+        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) { //Given a user has logged in we want to display 
             echo '<li style="float:left"> <a href="../Pages/view_Team.php">Team</a> </li>';
             echo '<li style="float:left"> <a href="../Pages/view_Projects.php">Projects</a> </li>';
             echo '<li> <a href="../Pages/view_Profile.php">See Profile</a> </li>';
-        }
-        ?>
-        <?php
-        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
             echo '<li> <a href="../Logic/logout.php">Logout</a> </li>';
         } else {
             echo '<li> <a href="./Pages/login.php">Login</a> </li>';
@@ -32,11 +28,11 @@ session_start();
     </ul>
     <center>
         <h1>
-        <?php 
+            <?php
             if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
-                echo "Hello ".$_SESSION['name']."!";
+                echo "Hello " . $_SESSION['name'] . "!";
             }
-        ?>
+            ?>
         </h1>
     </center>
 </body>

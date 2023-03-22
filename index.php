@@ -14,7 +14,7 @@
     <center>
         <h1>Welcome to the Project Managment website!</h1>
         <p>Please select one of the following links</p>
-        <img src="../Images/Team_image.jpg" alt="Example_Team" />
+        <img src="./Images/Team_image.jpg" alt="Example_Team" />
     </center>
 </body>
 
