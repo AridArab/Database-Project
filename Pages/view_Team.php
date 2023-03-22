@@ -14,7 +14,7 @@
         <h1>Team</h1>
     </center>
     <div>
-        <a href="./index.php"> Home</a>
+        <a href="../index.php"> Home</a>
     </div>
 </body>
 

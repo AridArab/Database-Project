@@ -14,7 +14,7 @@
         <h1>Project</h1>
     </center>
     <div>
-        <a href="./index.php"> Return to Home Page</a>
+        <a href="../index.php"> Return to Home Page</a>
     </div>
 </body>
 

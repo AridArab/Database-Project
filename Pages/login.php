@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
             session_start(); //Starts session
             $_SESSION['loggedIn'] = true; //Sets loggedIn to true
             $_SESSION['name'] = $obj['First_Name'];
-            header('Location: ./index.php');
+            header('Location: ../index.php');
         }
         else{
             sqlsrv_close($conn);
@@ -85,7 +85,7 @@ if (isset($_POST['submit'])) {
                 <input type="submit" name="submit" value="Send" class="btn btn-dark w-100">
             </div>
         </form>
-        <a href="./"> Return to Home Page</a>
+        <a href="../index.php"> Return to Home Page</a>
     </center>
 </body>
 

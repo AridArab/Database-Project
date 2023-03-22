@@ -7,15 +7,6 @@ $street = $sex = $phone = $mail = $pass = $isMananger = '';
 $fNameErr = $lNameErr = $mNameErr = $birthdayErr = $cityErr = $stateErr = $zip_codeErr = 
 $streetErr = $sexErr = $phoneErr = $mailErr = $passErr = '';
 
-function MItoSQL($mName) {
-    if ($mName != null) {
-        return "'$mName'";
-    }
-    else {
-        return 'null';
-    }
-}
-
 if (isset($_POST['submit'])) {
     if (empty($_POST['fName'])) {
         $fNameErr = 'First Name is required';
@@ -156,7 +147,7 @@ if (isset($_POST['submit'])) {
         insert_query(
             "insert into Employee (First_Name, Last_Name, Middle_Initial, 
             Birthday, City, State, Zip_Code, Street_Address, Sex, Phone_Number, 
-            Email_Address, Password, Is_Manager) values ('$fName', '$lName', ".MItoSQL($mName).", 
+            Email_Address, Password, Is_Manager) values ('$fName', '$lName', '$mName', 
             '$birthday', '$city', '$state', $zip_code, '$street', '$sex', $phone, 
             '$mail', '$pass', $isMananger)", $conn
         );
@@ -314,7 +305,7 @@ if (isset($_POST['submit'])) {
                 <input type="submit" name="submit" value="Send" class="btn btn-dark w-100">
             </div>
         </form>
-        <a href="./index.php"> Return to Home Page</a>
+        <a href="../index.php"> Return to Home Page</a>
     </center>
 </body>
 
