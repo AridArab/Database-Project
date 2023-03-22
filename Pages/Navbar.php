@@ -30,6 +30,15 @@
         }
         ?>
     </ul>
+    <center>
+        <h1>
+        <?php 
+            if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
+                echo "Hello ".$_SESSION['name']."!";
+            }
+        ?>
+        </h1>
+    </center>
 </body>
 
 </html>

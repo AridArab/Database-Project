@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    $id = $_SESSION['ID'];
+?>
+
 <!DOCTYPE html>
 <html>
 <header>
@@ -5,17 +10,15 @@
     <meta charset="UTF-8">
     <meata http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Project Manager Home Page</title>
+        <title>Successful Signup Page</title>
 </header>
 
 <body>
-    <?php include './Navbar.php' ?>
     <center>
-        <h1>Project</h1>
+        <h1>Successful Signup!</h1>
+        <h1>Your ID is <?php echo $id ?></h1>
+        <h1><a href="./login.php"> Login!</a></h1>
     </center>
-    <div>
-        <a href="./index.php"> Return to Home Page</a>
-    </div>
 </body>
 
 </html>
