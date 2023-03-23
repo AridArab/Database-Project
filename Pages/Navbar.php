@@ -13,7 +13,7 @@ session_start();
 
 <body>
     <ul>
-        <li style="float:left"> <a href="../index.php">Home</a> </li>
+        <li style="float:left"> <a href="../">Home</a> </li>
         <?php
         if (isset($_SESSION['id'])) { //Given a user has logged in we want to display 
             echo '<li style="float:left"> <a href="./view_Team.php">Team</a> </li>';
@@ -21,8 +21,8 @@ session_start();
             echo '<li> <a href="./view_Profile.php">See Profile</a> </li>';
             echo '<li> <a href="../Logic/logout.php">Logout</a> </li>';
         } else {
-            echo '<li> <a href="./Pages/login.php">Login</a> </li>';
-            echo '<li> <a href="./Pages/signup.php">Sign Up</a> </li>';
+            header('Location: ../');
+            exit();
         }
         ?>
     </ul>
