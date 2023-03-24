@@ -10,21 +10,31 @@ $fNameErr = $lNameErr = $mNameErr = $birthdayErr = $cityErr = $stateErr = $zip_c
 if (isset($_POST['submit'])) {
     if (empty($_POST['fName'])) {
         $fNameErr = 'First Name is required';
-    } else {
+    }
+    else if (strlen($_POST['fName']) > 50){
+        $fNameErr = 'First Name is too long';
+    } 
+    else {
         $fName = filter_input(
             INPUT_POST,
             'fName',
             FILTER_SANITIZE_FULL_SPECIAL_CHARS
         );
+        $fName = strtoupper($fName);
     }
     if (empty($_POST['lName'])) {
         $lNameErr = 'Last Name is required';
-    } else {
+    } 
+    else if (strlen($_POST['lName']) > 50){
+        $lNameErr = 'Last Name is too long';
+    } 
+    else {
         $lName = filter_input(
             INPUT_POST,
             'lName',
             FILTER_SANITIZE_FULL_SPECIAL_CHARS
         );
+        $lName = strtoupper($lName);
     }
     if (empty($_POST['mName'])) {
         $mName = null;
@@ -36,10 +46,21 @@ if (isset($_POST['submit'])) {
             'mName',
             FILTER_SANITIZE_FULL_SPECIAL_CHARS
         );
+        $mName = strtoupper($mName);
     }
-    if (empty($_POST['birthday']) || substr_count($_POST['birthday'], '-') != 2) {
+    if (empty($_POST['birthday'])) {
         $birthdayErr = 'Birthday is required';
-    } else {
+    }
+    else if (!is_numeric(substr($_POST['birthday'], 0, 4)) || substr($_POST['birthday'], 4, 1) != '-' ||
+    !is_numeric(substr($_POST['birthday'], 5, 2)) || substr($_POST['birthday'], 7, 1) != '-' ||
+    !is_numeric(substr($_POST['birthday'], 8, 2))) {
+        $birthdayErr = 'Birthday needs to be in YYYY-MM-DD';
+    }
+    else if (!checkdate((int)substr($_POST['birthday'], 5, 7), (int)substr($_POST['birthday'], 8, 10), 
+    (int)substr($_POST['birthday'], 0, 4))){
+        $birthdayErr = 'Birthday needs to be a real date';
+    }
+    else {
         $birthday = filter_input(
             INPUT_POST,
             'birthday',
@@ -48,25 +69,42 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['city'])) {
         $cityErr = 'City is required';
-    } else {
+    }
+    else if (strlen($_POST['city']) > 50){
+        $cityErr = 'City is too long';
+    }  
+    else {
         $city = filter_input(
             INPUT_POST,
             'city',
             FILTER_SANITIZE_FULL_SPECIAL_CHARS
         );
+        $city = strtoupper($city);
     }
     if (empty($_POST['state'])) {
         $stateErr = 'State is required';
-    } else {
+    }
+    else if (strlen($_POST['state']) > 50){
+        $stateErr = 'State is too long';
+    }   
+    else {
         $state = filter_input(
             INPUT_POST,
             'state',
             FILTER_SANITIZE_FULL_SPECIAL_CHARS
         );
+        $state = strtoupper($state);
     }
     if (empty($_POST['zip_code'])) {
         $zip_codeErr = 'Zip Code is required';
-    } else {
+    } 
+    else if (!is_numeric($_POST['zip_code'])){
+        $zip_codeErr = 'Zip Code needs to be a number';
+    }  
+    else if (strlen($_POST['zip_code']) != 5){
+        $zip_codeErr = 'Zip Code is 5 digits';
+    }  
+    else {
         $zip_code = filter_input(
             INPUT_POST,
             'zip_code',
@@ -75,25 +113,42 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['street'])) {
         $streetErr = 'Street is required';
-    } else {
+    }
+    else if (strlen($_POST['street']) > 50){
+        $streetErr = 'Street is too long';
+    }   
+    else {
         $street = filter_input(
             INPUT_POST,
             'street',
             FILTER_SANITIZE_FULL_SPECIAL_CHARS
         );
+        $street = strtoupper($street);
     }
     if (empty($_POST['sex'])) {
         $sexErr = 'Sex is required';
-    } else {
+    } 
+    else if (strlen($_POST['sex']) > 50){
+        $sexErr = 'Sex is too long';
+    }   
+    else {
         $sex = filter_input(
             INPUT_POST,
             'sex',
             FILTER_SANITIZE_FULL_SPECIAL_CHARS
         );
+        $sex = strtoupper($sex);
     }
-    if (empty($_POST['phone']) || strlen($_POST['phone']) != 10) {
+    if (empty($_POST['phone'])) {
         $phoneErr = 'Phone is required';
-    } else {
+    } 
+    else if (!is_numeric($_POST['phone'])){
+        $phoneErr = 'Phone needs to be a number';
+    }  
+    else if (strlen($_POST['phone']) != 10){
+        $phoneErr = 'Phone is 10 digits';
+    }  
+    else {
         $phone = filter_input(
             INPUT_POST,
             'phone',
@@ -101,8 +156,15 @@ if (isset($_POST['submit'])) {
         );
     }
     if (empty($_POST['mail'])) {
-        $mailErr = 'Mail is required';
-    } else {
+        $mailErr = 'Email is required';
+    } 
+    else if (strlen($_POST['mail']) > 50){
+        $mailErr = 'Email is too long';
+    }   
+    else if (!str_contains($_POST['mail'], '@')){
+        $mailErr = 'Not a valid Email';
+    }   
+    else {
         $mail = filter_input(
             INPUT_POST,
             'mail',
@@ -111,11 +173,12 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['pass'])) {
         $passErr = 'Password is required';
-    } else {
+    } 
+    else if (strlen($_POST['pass']) > 255){
+        $passErr = 'Password is too long';
+    } 
+    else {
         $pass = $_POST['pass'];
-    }
-    if (empty($_POST['pass'])) {
-        $passErr = 'Password is required';
     }
     if ($_POST["isManager"] = "Employee") {
         $isMananger = 0;
@@ -137,8 +200,7 @@ if (isset($_POST['submit'])) {
             Birthday, City, State, Zip_Code, Street_Address, Sex, Phone_Number, 
             Email_Address, Password, Is_Manager) values ('$fName', '$lName', '$mName', 
             '$birthday', '$city', '$state', $zip_code, '$street', '$sex', $phone, 
-            '$mail', '$password_hash', $isMananger)",
-            $conn
+            '$mail', '$password_hash', $isMananger)", $conn
         );
 
         $obj = select_query("select top 1 ID from employee order by ID desc", $conn);
@@ -149,8 +211,6 @@ if (isset($_POST['submit'])) {
         $_SESSION['ID'] = $obj['ID'];
 
         header('Location: ./signupsuccess.php');
-    } else {
-        echo 'Invalid Login';
     }
 }
 
@@ -171,6 +231,7 @@ if (isset($_POST['submit'])) {
     <center>
         <h1>Signup!</h1>
         <p>Please Enter Account Information</p>
+        <p>Already have an account? <a href="../">Login!</a></p>
         <form action="
         <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
         " method="POST" class="mt-4 w-75">
@@ -282,7 +343,7 @@ if (isset($_POST['submit'])) {
                     <?php echo $passErr; ?>
                 </div>
             </div>
-            <p>Job Status:</p>
+            <p style="margin-bottom: 1px">Job Status:</p>
             <input type="radio" id="employee" name="isManager" value="Employee" style="margin-left: 75px" checked />
             <label for="html" style="text-align: left">Employee</label><br>
             <input type="radio" id="manager" name="isManager" value="Manager" style="margin-left: 75px">
@@ -292,7 +353,6 @@ if (isset($_POST['submit'])) {
                 <input type="submit" name="submit" value="Send" class="btn btn-dark w-100">
             </div>
         </form>
-        <a href="../">Login</a>
     </center>
 </body>
 

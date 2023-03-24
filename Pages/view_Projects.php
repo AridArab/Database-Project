@@ -17,9 +17,6 @@ include_once ".env.php";
     <center>
         <h1>Projects</h1>
     </center>
-    <div>
-        <a href="../index.php"> Return to Home Page</a>
-    </div>
     <?php
     $conn = sqlsrv_connect(serverName, connectionInfo);
     if(!$conn)

@@ -9,7 +9,11 @@ $idErr = $passErr = '';
 if (isset($_POST['submit'])) {
     if (empty($_POST['id'])) {
         $idErr = 'ID is required';
-    } else {
+    } 
+    else if (!is_numeric($_POST['id'])){
+        $idErr = 'ID is a number';
+    }
+    else {
         $id = filter_input(
             INPUT_POST,
             'id',
@@ -18,7 +22,8 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['pass'])) {
         $passErr = 'Password is required';
-    } else {
+    } 
+    else {
         $pass = $_POST['pass'];
     }
     if ($idErr == '' && $passErr == '') {
@@ -31,7 +36,8 @@ if (isset($_POST['submit'])) {
             $_SESSION['id'] = $id; //Sets loggedIn to true
             $_SESSION['name'] = $obj['First_Name'];
             header('Location: ./Pages/home.php');
-        } else {
+        } 
+        else {
 
             $unauth = true;
         }
@@ -85,7 +91,7 @@ if (isset($_POST['submit'])) {
                 <input type="submit" name="submit" value="Send" class="btn btn-dark w-100">
             </div>
         </form>
-        <a href="./pages/signup.php">Sign Up</a>
+        <p>No account? <a href="./pages/signup.php">Sign Up!</a></p>
     </center>
 </body>
 

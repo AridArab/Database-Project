@@ -13,9 +13,6 @@
     <center>
         <h1>Profile</h1>
     </center>
-    <div>
-        <a href="../index.php"> Return to Home Page</a>
-    </div>
 </body>
 
 </html>
