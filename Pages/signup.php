@@ -208,7 +208,7 @@ if (isset($_POST['submit'])) {
         sqlsrv_close($conn);
 
         session_start();
-        $_SESSION['ID'] = $obj['ID'];
+        $_SESSION['id'] = $obj['ID'];
 
         header('Location: ./signupsuccess.php');
     }

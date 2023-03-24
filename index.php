@@ -29,13 +29,11 @@ if (isset($_POST['submit'])) {
     if ($idErr == '' && $passErr == '') {
         $conn = connect();
 
-        $obj = select_query("select ID, Password, First_Name, Is_Manager from employee where ID = $id", $conn);
+        $obj = select_query("select * from employee where ID = $id", $conn);
 
         if (password_verify($_POST['pass'], $obj['Password'])) { //Credential check logic
             session_start(); //Starts session
-            $_SESSION['id'] = $id; //Sets loggedIn to true
-            $_SESSION['name'] = $obj['First_Name'];
-            $_SESSION['manager'] = $obj['Is_Manager'];
+            $_SESSION['obj'] = $obj;
             header('Location: ./Pages/home.php');
         } 
         else {
@@ -51,11 +49,21 @@ if (isset($_POST['submit'])) {
 <html>
 <header>
     <link rel="stylesheet" href="./index.css">
-    <link rel="stylesheet" href="./login.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <style>
+        div {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: inline-block;
+            width: 75px;
+            text-align: right;
+        }
+    </style>
 </header>
 
 <body>

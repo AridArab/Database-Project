@@ -13,8 +13,8 @@
     <center>
         <h1>
             <?php
-            if (isset($_SESSION['id'])) {
-                echo "Hello " . $_SESSION['name'] . "!";
+            if (isset($_SESSION['obj'])) {
+                echo "Hello " . $_SESSION['obj']['First_Name'] . "!";
             }
             ?>
         </h1>
