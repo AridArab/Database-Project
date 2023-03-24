@@ -240,7 +240,7 @@ if (isset($_POST['submit'])) {
                 <input type="text" class="form-control 
             <?php echo $fNameErr ? 'is-invalid' : null ?>
             " id="fName" name="fName" placeholder="Enter your First Name">
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $fNameErr; ?>
                 </div>
             </div>
@@ -249,7 +249,7 @@ if (isset($_POST['submit'])) {
                 <input type="text" class="form-control 
             <?php echo $lNameErr ? 'is-invalid' : null ?>
             " id="lName" name="lName" placeholder="Enter your Last Name">
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $lNameErr; ?>
                 </div>
             </div>
@@ -258,7 +258,7 @@ if (isset($_POST['submit'])) {
                 <input type="text" class="form-control 
             <?php echo $mNameErr ? 'is-invalid' : null ?>
             " id="mName" name="mName" placeholder="Enter your Middle Initial">
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $mNameErr; ?>
                 </div>
             </div>
@@ -267,7 +267,7 @@ if (isset($_POST['submit'])) {
                 <input type="text" class="form-control 
             <?php echo $birthdayErr ? 'is-invalid' : null ?>
             " id="birthday" name="birthday" placeholder="YYYY-MM-DD">
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $birthdayErr; ?>
                 </div>
             </div>
@@ -276,7 +276,7 @@ if (isset($_POST['submit'])) {
                 <input type="text" class="form-control 
             <?php echo $cityErr ? 'is-invalid' : null ?>
             " id="city" name="city" placeholder="Enter your City">
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $cityErr; ?>
                 </div>
             </div>
@@ -285,7 +285,7 @@ if (isset($_POST['submit'])) {
                 <input type="text" class="form-control 
             <?php echo $stateErr ? 'is-invalid' : null ?>
             " id="state" name="state" placeholder="Enter your State">
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $stateErr; ?>
                 </div>
             </div>
@@ -294,7 +294,7 @@ if (isset($_POST['submit'])) {
                 <input type="text" class="form-control 
             <?php echo $zip_codeErr ? 'is-invalid' : null ?>
             " id="zip_code" name="zip_code" placeholder="Enter your Zip Code">
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $zip_codeErr; ?>
                 </div>
             </div>
@@ -303,7 +303,7 @@ if (isset($_POST['submit'])) {
                 <input type="text" class="form-control 
             <?php echo $streetErr ? 'is-invalid' : null ?>
             " id="street" name="street" placeholder="Enter your Street">
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $streetErr; ?>
                 </div>
             </div>
@@ -312,7 +312,7 @@ if (isset($_POST['submit'])) {
                 <input type="text" class="form-control 
             <?php echo $sexErr ? 'is-invalid' : null ?>
             " id="sex" name="sex" placeholder="Enter your Sex">
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $sexErr; ?>
                 </div>
             </div>
@@ -321,7 +321,7 @@ if (isset($_POST['submit'])) {
                 <input type="text" class="form-control 
             <?php echo $phoneErr ? 'is-invalid' : null ?>
             " id="phone" name="phone" placeholder='No dash/space'>
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $phoneErr; ?>
                 </div>
             </div>
@@ -330,7 +330,7 @@ if (isset($_POST['submit'])) {
                 <input type="text" class="form-control 
             <?php echo $mailErr ? 'is-invalid' : null ?>
             " id="mail" name="mail" placeholder="Enter your Email">
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $mailErr; ?>
                 </div>
             </div>
@@ -339,7 +339,7 @@ if (isset($_POST['submit'])) {
                 <input type="text" class="form-control 
             <?php echo $passErr ? 'is-invalid' : null ?>
             " id="pass" name="pass" placeholder="Enter your Password">
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $passErr; ?>
                 </div>
             </div>

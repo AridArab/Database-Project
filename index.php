@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
         $idErr = 'ID is required';
     } 
     else if (!is_numeric($_POST['id'])){
-        $idErr = 'ID is a number';
+        $idErr = 'ID needs to be a number';
     }
     else {
         $id = filter_input(
@@ -65,16 +65,18 @@ if (isset($_POST['submit'])) {
         <form action="
         <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
         " method="POST" class="mt-4 w-75">
+            <p style="color: rgb(255, 0, 0)">
             <?php if ($unauth) {
                 echo "Invalid Login";
             } ?>
+            </p>
             <p></p>
             <div class="mb-3">
                 <label for="id" class="form-label">ID:</label>
                 <input type="text" class="form-control 
             <?php echo $idErr ? 'is-invalid' : null ?>
             " id="id" name="id" placeholder="Enter your ID">
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $idErr; ?>
                 </div>
             </div>
@@ -83,7 +85,7 @@ if (isset($_POST['submit'])) {
                 <input type="text" class="form-control 
             <?php echo $passErr ? 'is-invalid' : null ?>
             " id="pass" name="pass" placeholder="Enter your Password">
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $passErr; ?>
                 </div>
             </div>
