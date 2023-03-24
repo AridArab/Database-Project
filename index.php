@@ -29,12 +29,13 @@ if (isset($_POST['submit'])) {
     if ($idErr == '' && $passErr == '') {
         $conn = connect();
 
-        $obj = select_query("select ID, Password, First_Name from employee where ID = $id", $conn);
+        $obj = select_query("select ID, Password, First_Name, Is_Manager from employee where ID = $id", $conn);
 
         if (password_verify($_POST['pass'], $obj['Password'])) { //Credential check logic
             session_start(); //Starts session
             $_SESSION['id'] = $id; //Sets loggedIn to true
             $_SESSION['name'] = $obj['First_Name'];
+            $_SESSION['manager'] = $obj['Is_Manager'];
             header('Location: ./Pages/home.php');
         } 
         else {
