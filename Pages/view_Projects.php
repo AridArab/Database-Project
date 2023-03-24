@@ -68,7 +68,7 @@ include_once ".env.php";
 
     <table>
     <h3 class="top">Add Project</h3>
-                <form method ="post">
+                <form action="add_Project.php" method ="POST">
                     <label for="progress">Progress</label>
                     <input type="text" id="progress" name="progress"><br>
                     <label for="projectID">ID</label>
