@@ -10,6 +10,15 @@
 
 <body>
     <?php include './Navbar.php' ?>
+    <center>
+        <h1>
+            <?php
+            if (isset($_SESSION['id'])) {
+                echo "Hello " . $_SESSION['name'] . "!";
+            }
+            ?>
+        </h1>
+    </center>
 
     <center>
         <h1>Welcome to the Project Managment website!</h1>

@@ -27,15 +27,6 @@ session_start();
         }
         ?>
     </ul>
-    <center>
-        <h1>
-            <?php
-            if (isset($_SESSION['id'])) {
-                echo "Hello " . $_SESSION['name'] . "!";
-            }
-            ?>
-        </h1>
-    </center>
 </body>
 
 </html>
