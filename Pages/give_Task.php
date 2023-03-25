@@ -17,6 +17,20 @@
 ?>
 
 <html>
+    <header>
+        <style>
+            div {
+                margin-bottom: 10px;
+            }
+
+            label {
+                display: inline-block;
+                width: 125px;
+                text-align: right;
+            }
+        </style>
+    </header>
+    <center>
     <?php echo "<h1>Give Task to $result[First_Name] $result[Last_Name]</h1> " ?>
     <form action="add_Task.php" method ="POST">
         <label for="project_id">Project ID: </label>
@@ -30,4 +44,5 @@
 
         <input type="submit" value="Give Task"><br>
     </form>
+        </center>
 </html>

@@ -220,11 +220,21 @@ if (isset($_POST['submit'])) {
 <html>
 <header>
     <link rel="stylesheet" href="./index.css">
-    <link rel="stylesheet" href="./signup.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Management</title>
+    <style>
+        div {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: inline-block;
+            width: 125px;
+            text-align: right;
+        }
+    </style>
 </header>
 
 <body>

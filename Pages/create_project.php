@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
         );
     }
     if (empty($_POST['addr'])) {
-        $addrErr = 'Sreet Address is required';
+        $addrErr = 'Street Address is required';
     } else {
         $addr = filter_input(
             INPUT_POST,
