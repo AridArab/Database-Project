@@ -20,7 +20,7 @@
 
 <body>
     <center>
-        <h1>Profile</h1>
+        <h1>Your Profile</h1>
         <table>
           <tr>
             <td>Name</td>
@@ -43,7 +43,7 @@
             <td>Job Status</td>
             <td>
                 <?php 
-                if ($_SESSION['obj']['Is_Manager'] = 1){
+                if ($_SESSION['obj']['Is_Manager'] == 1){
                   echo "Manager";
                 }
                 else{
@@ -114,6 +114,9 @@
             <td>
                 <?php 
                 echo $_SESSION['obj']['Salary'];
+                if($_SESSION['obj']['Is_Manager'] == 1){
+                  echo " <a href='./edit_Salary.php'>Edit Salary</a>";
+                }
                 ?>
             </td>
           </tr>

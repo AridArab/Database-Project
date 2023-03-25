@@ -16,6 +16,11 @@
     $conn = connect();
 
     $result = select_query("select * from Employee where ID = ".$id, $conn);
+
+    if ($result['Super_ID'] != $_SESSION['obj']['ID']) {
+      header('Location: ./home.php');
+      exit();
+    }
     
     sqlsrv_close($conn);
 ?>
@@ -40,7 +45,8 @@
 
 <body>
     <center>
-        <h1>Profile</h1>
+        <h1><?php echo $result['First_Name']." ".
+            $result['Middle_Initial'].". ".$result['Last_Name']?>'s Profile</h1>
         <table>
           <tr>
             <td>Name</td>
@@ -133,8 +139,8 @@
             <td>Salary</td>
             <td>
                 <?php 
-                    echo $result['Salary']." <a href='./edit_Salary.php'>Edit Salary</a>"; 
-                    $_SESSION['salaryID'] = $id;
+                    echo $result['Salary']." <a href='./edit_Salary_M.php'>Edit Salary</a>"; 
+                    $_SESSION['salaryE'] = $result;
                 ?>
             </td>
           </tr>
