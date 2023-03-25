@@ -6,14 +6,13 @@
 
     if(isset($_GET['id'])){
         $result = select_query("select * from Employee where ID = ".$_GET['id'],$conn);
+        $_POST['id'] = $_GET['id'];
     }
     else {
         header('Location: ./home.php');
         exit();
-      }
-
-    
-    
+      } 
+      //Unfinished need to handle case submitting nothing
 ?>
 
 <html>
@@ -28,6 +27,6 @@
         <label for="deadline">Deadline:</label>
         <input type="text" id="deadline" name="deadline" placeholder="YYYY/MM/DD"><br>
 
-        <input type="submit" value="Give Task"><br>
+        <input type="submit" name = "submit" value="Give Task"><br>
     </form>
 </html>
