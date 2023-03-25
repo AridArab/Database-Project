@@ -97,9 +97,9 @@
         <p></p>
         <table>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Profile</th>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Profile</td>
             </tr>
             <?php
                 while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
