@@ -30,7 +30,7 @@
         </style>
     </header>
     <center>
-    <?php echo "<h1>Give Task to $result[First_Name] $result[Last_Name]</h1> " ?>
+    <?php echo "<h1>Give Task to $result[First_Name] $result[Middle_Initial] $result[Last_Name]</h1> " ?>
     <form action="add_Task.php" method ="POST">
         <label for="project_id">Project ID: </label>
         <input type="text" id="project_id" name="project_id" placeholder="Enter Project ID"><br>

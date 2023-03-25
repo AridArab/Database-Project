@@ -4,9 +4,11 @@
 
     $conn = connect();
 
-    if ($_SESSION['obj']['Is_Manager'] == 0) {
-      header('Location: ./home.php');
-      exit();
+    if ( 
+        select_query("select Super_ID from Employee where ID = 
+        ".$_SESSION['salaryE']['ID'], $conn)['Super_ID'] != $_SESSION['obj']['ID']) {
+        header('Location: ./home.php');
+        exit();
     }
 
     $salary = '';
@@ -29,11 +31,10 @@
         if ($salaryErr == ''){
             sqlsrv_query($conn, 
                 "update Employee set Salary = ".$_POST['editSalary']." 
-                where ID = ".$_SESSION['obj']['ID']
+                where ID = ".$_SESSION['salaryE']['ID']
             );
-            $_SESSION['obj']['Salary'] = $_POST['editSalary'];
             
-            header("Location: ./view_Profile.php");
+            header("Location: ./view_Profile_M.php?id=".$_SESSION['salaryE']['ID']);
 
             sqlsrv_close($conn);
         }
@@ -48,7 +49,10 @@
 
 <body>
     <center>
-        <h1>Edit Your Salary</h1>
+        <h1>
+            Edit Salary for <?php echo $_SESSION['salaryE']['First_Name']." ".
+            $_SESSION['salaryE']['Middle_Initial']." ".$_SESSION['salaryE']['Last_Name']?>
+        </h1>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
         method="POST" class="mt-4 w-75">
             <div class="mb-3">

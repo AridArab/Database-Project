@@ -77,7 +77,8 @@
 <body>
     <center>
         <h1>Management</h1>
-        <h2>View Employees</h2>
+        <h2>View Employees (<?php echo select_query("select count(*) as Employees from 
+        Employee where Super_ID = ".$_SESSION['obj']['ID'], $conn)['Employees'] ?>)</h2>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
         method="POST" class="mt-4 w-75">
             <div class="mb-3">
@@ -107,7 +108,7 @@
                     echo
                     "<tr>
                         <td>$row[ID]</td>
-                        <td>$row[First_Name]"." "."$row[Middle_Initial]".". "."$row[Last_Name]</td>
+                        <td>$row[First_Name]"." "."$row[Middle_Initial]"." "."$row[Last_Name]</td>
                         <td><a href='./view_Profile_M.php?id=".$row['ID']."'>View Profile</a></td>
                         <td><a href='./give_Task.php?id=".$row['ID']."'>Assign Task</a></td>
                     </tr>";
