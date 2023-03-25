@@ -9,6 +9,7 @@
 ?>
 
 <html>
+    <center>
     <h1>Tasks Assigned</h1>
     <?php 
         $query =   
@@ -49,4 +50,5 @@
             exit("<p> Query Error </p>");
         }
     ?>
+    </center>
 </html>
