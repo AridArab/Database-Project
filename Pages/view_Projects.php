@@ -17,6 +17,7 @@ include './Navbar.php';
         }
     
     ?>
+    <center>
     <table>
         <?php
         $query = "SELECT * FROM Project";
@@ -38,6 +39,7 @@ include './Navbar.php';
             <th>Department ID</th>
             <th>Budget</th>
         </tr>
+        
         <?php
             while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
                 echo "<tr><td>$row[Progress]</td>
@@ -53,57 +55,56 @@ include './Navbar.php';
 
                 </tr>";
         ?>
-        </table>
-
-    <table>
-    <h3 class="top">Add Project</h3>
-                <form action="add_Project.php" method ="POST">
-                    <label for="progress">Progress % </label>
-                    <input type="text" id="progress" name="progress"><br>
-                    <label for="projectID">ID </label>
-                    <input type="text" id="projectID" name="projectID"><br>
-                    <label for="projectName">Name </label>
-                    <input type="text" id="projectName" name="projectName"><br>
-                    <label for="cost">Total Cost </label>
-                    <input type="text" id="cost" name="cost"><br>
-                    <label for="address">Street Address </label>
-                    <input type="text" id="address" name="address"><br>
-                    <label for="city">City </label>
-                    <input type="text" id="city" name="city"><br>
-                    <label for="state">State </label>
-                    <input type="text" id="state" name="state"><br>
-                    <label for="zip">ZipCode </label>
-                    <input type="text" id="zip" name="zip"><br>
-                    <label for="deptID">Department ID </label>
-                    <input type="text" id="deptID" name="deptID"><br>
-                    <label for="budget">Budget </label>
-                    <input type="text" id="budget" name="budget"><br>
-                    <input type="submit" value="Add Project">
-                </form>
-                <table>
-    <h3 class="top">Delete Project</h3>
-                <form action="delete_Project.php" method ="POST">
-                    <label for="projectID">Enter ID  </label>
-                    <input type="text" id="projectID" name="projectID"><br>
-                    <input type="submit" value="Delete Project">
-                </form>
-    <h3 class="top">Update Project</h3>
-                <form action="update_Project.php" method ="POST">
-                    <label for="projectID">Enter ID  </label>
-                    <input type="text" id="projectID" name="projectID"><br>
-                    <label for="column">Select Category  </label>
-                    <input type="text" id="column" name="column"><br>
-                    <label for="update">Enter new value  </label>
-                    <input type="text" id="update" name="update"><br>
-
-                    <input type="submit" value="Update Project">
-                </form>
-
-
+        
     </table>
+    </center>
+    <?php 
+        if($_SESSION['obj']['Is_Manager'] == 1) {
+            echo '<table>
+                    <h3 class="top">Add Project</h3>
+                        <form action="add_Project.php" method ="POST">
+                            <label for="progress">Progress % </label>
+                            <input type="text" id="progress" name="progress"><br>
+                            <label for="projectID">ID </label>
+                            <input type="text" id="projectID" name="projectID"><br>
+                            <label for="projectName">Name </label>
+                            <input type="text" id="projectName" name="projectName"><br>
+                            <label for="cost">Total Cost </label>
+                            <input type="text" id="cost" name="cost"><br>
+                            <label for="address">Street Address </label>
+                            <input type="text" id="address" name="address"><br>
+                            <label for="city">City </label>
+                            <input type="text" id="city" name="city"><br>
+                            <label for="state">State </label>
+                            <input type="text" id="state" name="state"><br>
+                            <label for="zip">ZipCode </label>
+                            <input type="text" id="zip" name="zip"><br>
+                            <label for="deptID">Department ID </label>
+                            <input type="text" id="deptID" name="deptID"><br>
+                            <label for="budget">Budget </label>
+                            <input type="text" id="budget" name="budget"><br>
+                            <input type="submit" value="Add Project">
+                        </form>
+                    <h3 class="top">Delete Project</h3>
+                        <form action="delete_Project.php" method ="POST">
+                            <label for="projectID">Enter ID  </label>
+                            <input type="text" id="projectID" name="projectID"><br>
+                            <input type="submit" value="Delete Project">
+                        </form>
+                    <h3 class="top">Update Project</h3>
+                        <form action="update_Project.php" method ="POST">
+                            <label for="projectID">Enter ID  </label>
+                            <input type="text" id="projectID" name="projectID"><br>
+                            <label for="column">Select Category  </label>
+                            <input type="text" id="column" name="column"><br>
+                            <label for="update">Enter new value  </label>
+                            <input type="text" id="update" name="update"><br>
 
-
-    </table>
+                            <input type="submit" value="Update Project">
+                        </form>
+                </table>';
+        }
+    ?>
 
 </body>
 

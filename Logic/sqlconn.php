@@ -20,14 +20,6 @@ function connect() {
     return $conn;
 }
 
-//$tsql = "select * from employee";
-
-//$stmt = sqlsrv_query($conn, $tsql);
-
-//if($stmt == false){
-//    echo 'Error';
-//}
-
 function select_query($input, $conn) {
     $stmt = sqlsrv_query($conn, $input);
     $obj = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_BOTH);
@@ -39,14 +31,4 @@ function insert_query($input, $conn) {
     $stmt = sqlsrv_query($conn, $input);
     sqlsrv_free_stmt($stmt);
 }
-    
-
-// $obj = create_query('select * from employee', $conn);
-
-// echo $obj['First_Name'].'</br>';
-
-// while($obj = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
-//     echo $obj['First_Name'].'</br>';
-// }
-
 ?>

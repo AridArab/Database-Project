@@ -70,7 +70,7 @@ if (isset($_POST['submit'])) {
     <center>
         <h1>Welcome to the Project Managment website!</h1>
         <h2>Login</h2>
-        <p>Please Enter Login information</p>
+        <p>Enter Login information</p>
         <form action="
         <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
         " method="POST" class="mt-4 w-75">
@@ -79,7 +79,6 @@ if (isset($_POST['submit'])) {
                 echo "Invalid Login";
             } ?>
             </p>
-            <p></p>
             <div class="mb-3">
                 <label for="id" class="form-label">ID:</label>
                 <input type="text" class="form-control 
@@ -102,7 +101,7 @@ if (isset($_POST['submit'])) {
                 <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100">
             </div>
         </form>
-        <p>No account? <a href="./pages/signup.php">Sign Up!</a></p>
+        <p>No account? <a href="./pages/signup.php">Sign Up Here!</a></p>
     </center>
 </body>
 
