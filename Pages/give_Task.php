@@ -1,25 +1,33 @@
 <?php 
-    include ".env.php";
+    include '../Logic/sqlconn.php';
     include "./Navbar.php";
 
-    $conn = sqlsrv_connect(serverName, connectionInfo);
-    if($conn === false ) {
-        die( print_r( sqlsrv_errors(), true));
+    $conn = connect();
+
+    if(isset($_GET['id'])){
+        $result = select_query("select * from Employee where ID = ".$_GET['id'],$conn);
     }
+    else {
+        header('Location: ./home.php');
+        exit();
+      }
+
+    
+    
 ?>
 
 <html>
-    <h1>Make Task</h1>
+    <?php echo "<h1>Give Task to $result[First_Name] $result[Last_Name]</h1> " ?>
     <form action="add_Task.php" method ="POST">
-        <label for="job_title">Task Name </label>
-        <input type="text" id="job_title" name="job_title"><br>
-        <label for="description">Task Name </label>
-        <input type="text" id="description" name="description"><br>
-        <label for="employee_id">Task Name </label>
-        <input type="text" id="employee_id" name="employee_id"><br>
-        <label for="deadline">Task Name </label>
-        <input type="date" id="deadline" name="deadline"><br>
+        <label for="project_id">Project ID: </label>
+        <input type="text" id="project_id" name="project_id" placeholder="Enter Project ID"><br>
+        <label for="job_title">Task Name: </label>
+        <input type="text" id="job_title" name="job_title" placeholder="Enter Task Name"><br>
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" placeholder="Enter Description"><br>
+        <label for="deadline">Deadline:</label>
+        <input type="text" id="deadline" name="deadline" placeholder="YYYY/MM/DD"><br>
 
-        <input type="submit" value="make_Task"><br>
+        <input type="submit" value="Give Task"><br>
     </form>
 </html>
