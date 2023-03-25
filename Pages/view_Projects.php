@@ -66,28 +66,49 @@ include_once ".env.php";
     <table>
     <h3 class="top">Add Project</h3>
                 <form action="add_Project.php" method ="POST">
-                    <label for="progress">Progress</label>
+                    <label for="progress">Progress % </label>
                     <input type="text" id="progress" name="progress"><br>
-                    <label for="projectID">ID</label>
+                    <label for="projectID">ID </label>
                     <input type="text" id="projectID" name="projectID"><br>
-                    <label for="projectName">Name</label>
+                    <label for="projectName">Name </label>
                     <input type="text" id="projectName" name="projectName"><br>
-                    <label for="cost">Total Cost</label>
+                    <label for="cost">Total Cost </label>
                     <input type="text" id="cost" name="cost"><br>
-                    <label for="address">Street Address</label>
+                    <label for="address">Street Address </label>
                     <input type="text" id="address" name="address"><br>
-                    <label for="city">City</label>
+                    <label for="city">City </label>
                     <input type="text" id="city" name="city"><br>
-                    <label for="state">State</label>
+                    <label for="state">State </label>
                     <input type="text" id="state" name="state"><br>
-                    <label for="zip">ZipCode</label>
+                    <label for="zip">ZipCode </label>
                     <input type="text" id="zip" name="zip"><br>
-                    <label for="deptID">Department ID</label>
+                    <label for="deptID">Department ID </label>
                     <input type="text" id="deptID" name="deptID"><br>
-                    <label for="budget">Budget</label>
+                    <label for="budget">Budget </label>
                     <input type="text" id="budget" name="budget"><br>
                     <input type="submit" value="Add Project">
                 </form>
+                <table>
+    <h3 class="top">Delete Project</h3>
+                <form action="delete_Project.php" method ="POST">
+                    <label for="projectID">Enter ID  </label>
+                    <input type="text" id="projectID" name="projectID"><br>
+                    <input type="submit" value="Delete Project">
+                </form>
+    <h3 class="top">Update Project</h3>
+                <form action="update_Project.php" method ="POST">
+                    <label for="projectID">Enter ID  </label>
+                    <input type="text" id="projectID" name="projectID"><br>
+                    <label for="column">Select Category  </label>
+                    <input type="text" id="column" name="column"><br>
+                    <label for="update">Enter new value  </label>
+                    <input type="text" id="update" name="update"><br>
+
+                    <input type="submit" value="Update Project">
+                </form>
+
+
+    </table>
 
 
     </table>
