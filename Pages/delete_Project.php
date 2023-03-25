@@ -6,8 +6,9 @@ if($conn === false ) {
      die( print_r( sqlsrv_errors(), true));
 }
 
-//TODO: Need to change schema so that there is an isActive column
 $sql = "UPDATE Project SET isActive = 0 WHERE ID = ?";
+
+
 $params = array($_POST['projectID']);
 
 $stmt = sqlsrv_query($conn, $sql, $params);
