@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
     if ($idErr == '' && $passErr == '') {
         $conn = connect();
 
-        $obj = select_query("select * from employee where ID = $id", $conn);
+        $obj = select_query("select * from Employee where ID = $id", $conn);
 
         if (password_verify($_POST['pass'], $obj['Password'])) { //Credential check logic
             session_start(); //Starts session
@@ -99,7 +99,7 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
             <div class="mb-3">
-                <input type="submit" name="submit" value="Send" class="btn btn-dark w-100">
+                <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100">
             </div>
         </form>
         <p>No account? <a href="./pages/signup.php">Sign Up!</a></p>

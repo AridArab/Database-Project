@@ -203,7 +203,7 @@ if (isset($_POST['submit'])) {
             '$mail', '$password_hash', $isMananger)", $conn
         );
 
-        $obj = select_query("select top 1 ID from employee order by ID desc", $conn);
+        $obj = select_query("select top 1 ID from Employee order by ID desc", $conn);
 
         sqlsrv_close($conn);
 
@@ -350,7 +350,7 @@ if (isset($_POST['submit'])) {
             <label for="css" style="text-align: left">Manager</label><br>
             <p></p>
             <div class="mb-3">
-                <input type="submit" name="submit" value="Send" class="btn btn-dark w-100">
+                <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100">
             </div>
         </form>
     </center>

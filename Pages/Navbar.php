@@ -16,7 +16,9 @@ session_start();
         <li style="float:left"> <a href="./home.php">Home</a> </li>
         <?php
         if (isset($_SESSION['obj'])) { //Given a user has logged in we want to display 
-            echo '<li style="float:left"> <a href="./view_Team.php">Team</a> </li>';
+            if($_SESSION['obj']['Is_Manager'] == 1){
+                echo '<li style="float:left"> <a href="./view_Management.php">Manage</a> </li>';
+            }
             echo '<li style="float:left"> <a href="./view_Projects.php">Projects</a> </li>';
             echo '<li> <a href="./view_Profile.php">See Profile</a> </li>';
             echo '<li> <a href="../Logic/logout.php">Logout</a> </li>';
