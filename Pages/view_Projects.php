@@ -4,6 +4,27 @@ include './Navbar.php';
 ?>
 
 <html>
+<header>
+    <style>
+        label {
+            margin-bottom: 10px;
+            padding-right: 5px;
+            display: inline-block;
+            width: 125px;
+            text-align: right;
+        }
+        table {
+            width: 75%;
+        }
+        td {
+            border: 1px solid rgb(0, 0, 0);
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: rgb(225, 225, 225);
+        }
+    </style>
+</header>
 
 <body>
     <center>
@@ -28,16 +49,16 @@ include './Navbar.php';
             }
         ?>
         <tr>
-            <th>Progress</th>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Total Cost</th>
-            <th>Street Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip Code</th>
-            <th>Department ID</th>
-            <th>Budget</th>
+            <td>Progress</td>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Total Cost</td>
+            <td>Street Address</td>
+            <td>City</td>
+            <td>State</td>
+            <td>Zip Code</td>
+            <td>Department ID</td>
+            <td>Budget</td>
         </tr>
         
         <?php
@@ -57,47 +78,46 @@ include './Navbar.php';
         ?>
         
     </table>
-    </center>
     <?php 
         if($_SESSION['obj']['Is_Manager'] == 1) {
             echo '<table>
                     <h3 class="top">Add Project</h3>
                         <form action="add_Project.php" method ="POST">
-                            <label for="progress">Progress % </label>
+                            <label for="progress">Progress:</label>
                             <input type="text" id="progress" name="progress"><br>
-                            <label for="projectID">ID </label>
+                            <label for="projectID">ID:</label>
                             <input type="text" id="projectID" name="projectID"><br>
-                            <label for="projectName">Name </label>
+                            <label for="projectName">Name:</label>
                             <input type="text" id="projectName" name="projectName"><br>
-                            <label for="cost">Total Cost </label>
+                            <label for="cost">Total Cost:</label>
                             <input type="text" id="cost" name="cost"><br>
-                            <label for="address">Street Address </label>
+                            <label for="address">Street Address:</label>
                             <input type="text" id="address" name="address"><br>
-                            <label for="city">City </label>
+                            <label for="city">City:</label>
                             <input type="text" id="city" name="city"><br>
-                            <label for="state">State </label>
+                            <label for="state">State:</label>
                             <input type="text" id="state" name="state"><br>
-                            <label for="zip">ZipCode </label>
+                            <label for="zip">ZipCode:</label>
                             <input type="text" id="zip" name="zip"><br>
-                            <label for="deptID">Department ID </label>
+                            <label for="deptID">Department ID:</label>
                             <input type="text" id="deptID" name="deptID"><br>
-                            <label for="budget">Budget </label>
+                            <label for="budget">Budget:</label>
                             <input type="text" id="budget" name="budget"><br>
                             <input type="submit" value="Add Project">
                         </form>
                     <h3 class="top">Delete Project</h3>
                         <form action="delete_Project.php" method ="POST">
-                            <label for="projectID">Enter ID  </label>
+                            <label for="projectID">Enter ID:</label>
                             <input type="text" id="projectID" name="projectID"><br>
                             <input type="submit" value="Delete Project">
                         </form>
                     <h3 class="top">Update Project</h3>
                         <form action="update_Project.php" method ="POST">
-                            <label for="projectID">Enter ID  </label>
+                            <label for="projectID">Enter ID:</label>
                             <input type="text" id="projectID" name="projectID"><br>
-                            <label for="column">Select Category  </label>
+                            <label for="column">Select Category:</label>
                             <input type="text" id="column" name="column"><br>
-                            <label for="update">Enter new value  </label>
+                            <label for="update">Enter new value:</label>
                             <input type="text" id="update" name="update"><br>
 
                             <input type="submit" value="Update Project">
@@ -105,6 +125,7 @@ include './Navbar.php';
                 </table>';
         }
     ?>
+    </center>
 
 </body>
 

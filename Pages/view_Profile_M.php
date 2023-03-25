@@ -4,14 +4,20 @@
 
     if (isset($_GET["id"])) {
       $id = $_GET["id"];
-    } else {
+    } 
+    else {
       header('Location: ./home.php');
       exit();
     }
 
+    $salary = '';
+    $salaryErr = '';
+
     $conn = connect();
 
-    $result = select_query("select * from Employee where ID = ".$_GET["id"], $conn);
+    $result = select_query("select * from Employee where ID = ".$id, $conn);
+    
+    sqlsrv_close($conn);
 ?>
 
 <html>
@@ -127,7 +133,8 @@
             <td>Salary</td>
             <td>
                 <?php 
-                echo $result['Salary'];
+                    echo $result['Salary']." <a href='./edit_Salary.php'>Edit Salary</a>"; 
+                    $_SESSION['salaryID'] = $id;
                 ?>
             </td>
           </tr>
