@@ -170,6 +170,7 @@ if (isset($_POST['submit'])) {
             'mail',
             FILTER_SANITIZE_EMAIL
         );
+        $mail = strtolower($mail);
     }
     if (empty($_POST['pass'])) {
         $passErr = 'Password is required';
