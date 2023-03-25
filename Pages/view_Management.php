@@ -1,42 +1,23 @@
-<!DOCTYPE html>
-<html>
-<header>
-    <link rel="stylesheet" href="./index.css">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Manager Home Page</title>
-    <style>
-        table {
-          width: 75%;
-        }
-
-        td {
-          border: 1px solid rgb(0, 0, 0);
-          text-align: left;
-        }
-
-        tr:nth-child(even) {
-          background-color: rgb(225, 225, 225);
-        }
-    </style>
-</header>
-
-<body>
-    <?php 
+<?php 
     error_reporting(E_ERROR | E_PARSE);
     include './Navbar.php';
+    include '../Logic/sqlconn.php';
+
     if($_SESSION['obj']['Is_Manager'] == 0){
         header('Location: ./home.php');
         exit();
     }
-    include '../Logic/sqlconn.php';
-
     $conn = connect();
+    if($_SESSION['obj']['Is_Manager'] == 1 && select_query("select Department_ID from Employee where 
+    ID = ".$_SESSION['obj']['ID'], $conn)['Department_ID'] == null){
+        header('Location: ./assign_dept.php');
+        sqlsrv_close($conn);
+        exit();
+    }
 
     $result = sqlsrv_query($conn, 
-        "select E.ID, E.First_Name, E.Middle_Initial, E.Last_Name 
-        from Employee as E, Employee as S where E.Super_ID = S.ID"
+        "select ID, First_Name, Middle_Initial, Last_Name 
+        from Employee where Super_ID = ".$_SESSION['obj']['ID']
     );
 
     $EID = '';
@@ -66,10 +47,34 @@
                     "update Employee set Super_ID = ".$_SESSION['obj']['ID']." 
                     where ID = ".$_POST['addEmployee']
                 );
+                sqlsrv_query($conn, 
+                    "update Employee set Department_ID = ".$_SESSION['obj']['Department_ID']." 
+                    where ID = ".$_POST['addEmployee']
+                );
             }
         }
     }
-    ?>
+?>
+
+<html>
+<header>
+    <style>
+        table {
+          width: 75%;
+        }
+
+        td {
+          border: 1px solid rgb(0, 0, 0);
+          text-align: left;
+        }
+
+        tr:nth-child(even) {
+          background-color: rgb(225, 225, 225);
+        }
+    </style>
+</header>
+
+<body>
     <center>
         <h1>Management</h1>
         <h2>View Employees</h2>

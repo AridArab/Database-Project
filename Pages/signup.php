@@ -1,5 +1,5 @@
 <?php
-require '../Logic/sqlconn.php';
+include '../Logic/sqlconn.php';
 
 $fName = $lName = $mName = $birthday = $city = $state = $zip_code =
     $street = $sex = $phone = $mail = $pass = $isMananger = '';
@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
         $lName = strtoupper($lName);
     }
     if (empty($_POST['mName'])) {
-        $mName = null;
+        $mName = "null";
     } else if (strlen($_POST['mName']) > 1) {
         $mNameErr = 'Only enter the initial';
     } else {
@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
             'mName',
             FILTER_SANITIZE_FULL_SPECIAL_CHARS
         );
-        $mName = strtoupper($mName);
+        $mName = "'".strtoupper($mName)."'";
     }
     if (empty($_POST['birthday'])) {
         $birthdayErr = 'Birthday is required';
@@ -198,7 +198,7 @@ if (isset($_POST['submit'])) {
         insert_query(
             "insert into Employee (First_Name, Last_Name, Middle_Initial, 
             Birthday, City, State, Zip_Code, Street_Address, Sex, Phone_Number, 
-            Email_Address, Password, Is_Manager) values ('$fName', '$lName', '$mName', 
+            Email_Address, Password, Is_Manager) values ('$fName', '$lName', $mName, 
             '$birthday', '$city', '$state', $zip_code, '$street', '$sex', $phone, 
             '$mail', '$password_hash', $isMananger)", $conn
         );
@@ -224,7 +224,7 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Page</title>
+    <title>Project Management</title>
 </header>
 
 <body>

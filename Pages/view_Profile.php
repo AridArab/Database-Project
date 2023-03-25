@@ -1,11 +1,7 @@
-<!DOCTYPE html>
+<?php include './Navbar.php' ?>
+
 <html>
 <header>
-    <link rel="stylesheet" href="./index.css">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Manager Home Page</title>
     <style>
         table {
           width: 75%;
@@ -23,7 +19,6 @@
 </header>
 
 <body>
-    <?php include './Navbar.php' ?>
     <center>
         <h1>Profile</h1>
         <table>
@@ -49,10 +44,10 @@
             <td>
                 <?php 
                 if ($_SESSION['obj']['Is_Manager'] = 1){
-                    echo "Manager";
+                  echo "Manager";
                 }
                 else{
-                    echo "Employee";
+                  echo "Employee";
                 }
                 ?>
             </td>
