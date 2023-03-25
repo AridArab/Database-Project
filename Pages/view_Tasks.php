@@ -24,7 +24,7 @@
             }
             else{
                 do{
-                    if($row['Employee_ID'] == $_SESSION['obj']['ID']){
+                    if($row['Employee_ID'] == $_SESSION['obj']['ID'] && $row['isActive'] == 1){
                         $assign_date = $row['Start_Date']->format('Y-m-d');
                         $deadline = $row['Deadline']->format('Y-m-d');
                         
@@ -41,6 +41,9 @@
                         else{
                             echo "<p>Incomplete</p>";
                         }
+                    }
+                    else if($row['isActive'] == 0){
+                        echo "<p>Task \"$row[Job_Title]\" belongs to inactive project (Name: $row[Name], ID: $row[Project_ID])</p>";
                     }
                 }
                 while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_BOTH));
