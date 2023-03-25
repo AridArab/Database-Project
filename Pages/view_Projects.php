@@ -1,6 +1,7 @@
 <?php
 include_once ".env.php";
 include './Navbar.php';
+include '../Logic/sqlconn.php';
 ?>
 
 <html>
@@ -29,6 +30,10 @@ include './Navbar.php';
 <body>
     <center>
         <h1>Projects</h1>
+        <h2>View Projects (<?php 
+        $conn = connect();
+        echo select_query("select count(*) as Projects from 
+        Project", $conn)['Projects'] ?>)</h2>
     </center>
     <?php
     $conn = sqlsrv_connect(serverName, connectionInfo);
@@ -42,12 +47,19 @@ include './Navbar.php';
     <table>
         <?php
         $query = "SELECT * FROM Project";
+        $activeQuery = "SELECT isActive FROM Project";
         $result = sqlsrv_query($conn, $query);
         if(!$result)
             {
                 exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
             }
+
+        if(!$activeQuery)
+            {
+                exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
+            }
         ?>
+
         <tr>
             <td>Progress</td>
             <td>ID</td>
@@ -63,18 +75,20 @@ include './Navbar.php';
         
         <?php
             while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
-                echo "<tr><td>$row[Progress]</td>
-                <td>$row[ID]</td>
-                <td>$row[Name]</td>
-                <td>$row[Total_Cost]</td>
-                <td>$row[Street_Address]</td>
-                <td>$row[City]</td>
-                <td>$row[State]</td>
-                <td>$row[Zip_Code]</td>
-                <td>$row[Department_ID]</td>
-                <td>$row[Budget]</td>
+                if($row['isActive'] == 1){
+                    echo "<tr><td>$row[Progress]</td>
+                    <td>$row[ID]</td>
+                    <td>$row[Name]</td>
+                    <td>$row[Total_Cost]</td>
+                    <td>$row[Street_Address]</td>
+                    <td>$row[City]</td>
+                    <td>$row[State]</td>
+                    <td>$row[Zip_Code]</td>
+                    <td>$row[Department_ID]</td>
+                    <td>$row[Budget]</td>
 
-                </tr>";
+                    </tr>";
+            }
         ?>
         
     </table>
@@ -103,13 +117,8 @@ include './Navbar.php';
                             <input type="text" id="deptID" name="deptID"><br>
                             <label for="budget">Budget:</label>
                             <input type="text" id="budget" name="budget"><br>
+                            
                             <input type="submit" value="Add Project">
-                        </form>
-                    <h3 class="top">Delete Project</h3>
-                        <form action="delete_Project.php" method ="POST">
-                            <label for="projectID">Enter ID:</label>
-                            <input type="text" id="projectID" name="projectID"><br>
-                            <input type="submit" value="Delete Project">
                         </form>
                     <h3 class="top">Update Project</h3>
                         <form action="update_Project.php" method ="POST">
@@ -121,6 +130,13 @@ include './Navbar.php';
                             <input type="text" id="update" name="update"><br>
 
                             <input type="submit" value="Update Project">
+                        </form>
+                    <h3 class="top">Delete Project</h3>
+                        <form action="delete_Project.php" method ="POST">
+                            <label for="projectID">Enter ID:</label>
+                            <input type="text" id="projectID" name="projectID"><br>
+
+                            <input type="submit" value="Delete Project">
                         </form>
                 </table>';
         }
