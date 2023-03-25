@@ -1,5 +1,5 @@
 <?php
-require '../Logic/sqlconn.php';
+include '../Logic/sqlconn.php';
 
 $fName = $lName = $mName = $birthday = $city = $state = $zip_code =
     $street = $sex = $phone = $mail = $pass = $isMananger = '';
@@ -224,7 +224,7 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Page</title>
+    <title>Project Management</title>
 </header>
 
 <body>
