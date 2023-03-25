@@ -77,7 +77,8 @@
 <body>
     <center>
         <h1>Management</h1>
-        <h2>View Employees</h2>
+        <h2>View Employees (<?php echo select_query("select count(*) as Employees from 
+        Employee where Super_ID = ".$_SESSION['obj']['ID'], $conn)['Employees'] ?>)</h2>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
         method="POST" class="mt-4 w-75">
             <div class="mb-3">

@@ -1,6 +1,7 @@
 <?php
 include_once ".env.php";
 include './Navbar.php';
+include '../Logic/sqlconn.php';
 ?>
 
 <html>
@@ -29,6 +30,10 @@ include './Navbar.php';
 <body>
     <center>
         <h1>Projects</h1>
+        <h2>View Projects (<?php 
+        $conn = connect();
+        echo select_query("select count(*) as Projects from 
+        Project", $conn)['Projects'] ?>)</h2>
     </center>
     <?php
     $conn = sqlsrv_connect(serverName, connectionInfo);
