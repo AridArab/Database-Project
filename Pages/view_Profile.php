@@ -27,7 +27,7 @@
             <td>
                 <?php 
                 echo $_SESSION['obj']['First_Name']." ".$_SESSION['obj']['Middle_Initial'].
-                ". ".$_SESSION['obj']['Last_Name'];
+                " ".$_SESSION['obj']['Last_Name'];
                 ?>
             </td>
           </tr>

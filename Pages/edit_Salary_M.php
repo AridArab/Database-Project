@@ -51,7 +51,7 @@
     <center>
         <h1>
             Edit Salary for <?php echo $_SESSION['salaryE']['First_Name']." ".
-            $_SESSION['salaryE']['Middle_Initial'].". ".$_SESSION['salaryE']['Last_Name']?>
+            $_SESSION['salaryE']['Middle_Initial']." ".$_SESSION['salaryE']['Last_Name']?>
         </h1>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
         method="POST" class="mt-4 w-75">

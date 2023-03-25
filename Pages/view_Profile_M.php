@@ -46,14 +46,14 @@
 <body>
     <center>
         <h1><?php echo $result['First_Name']." ".
-            $result['Middle_Initial'].". ".$result['Last_Name']?>'s Profile</h1>
+            $result['Middle_Initial']." ".$result['Last_Name']?>'s Profile</h1>
         <table>
           <tr>
             <td>Name</td>
             <td>
                 <?php 
                 echo $result['First_Name']." ".$result['Middle_Initial'].
-                ". ".$result['Last_Name'];
+                " ".$result['Last_Name'];
                 ?>
             </td>
           </tr>
