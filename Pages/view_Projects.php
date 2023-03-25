@@ -33,7 +33,7 @@ include '../Logic/sqlconn.php';
         <h2>View Projects (<?php 
         $conn = connect();
         echo select_query("select count(*) as Projects from 
-        Project", $conn)['Projects'] ?>)</h2>
+        Project where isActive = 1", $conn)['Projects'] ?>)</h2>
     </center>
     <?php
     $conn = sqlsrv_connect(serverName, connectionInfo);
