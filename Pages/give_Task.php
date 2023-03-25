@@ -31,7 +31,7 @@
     </header>
     <center>
     <?php echo "<h1>Give Task to $result[First_Name] $result[Last_Name]</h1> " ?>
-    <form action="add_Task.php" method ="POST">
+    <form action=<?php echo "add_Task.php?id=".$_GET['id']?> method ="POST">
         <label for="project_id">Project ID: </label>
         <input type="text" id="project_id" name="project_id" placeholder="Enter Project ID"><br>
         <label for="job_title">Task Name: </label>
