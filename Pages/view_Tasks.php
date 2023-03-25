@@ -24,7 +24,7 @@
             else{
                 do{
                     echo "<p>$row[0]</p>
-                            <p>$row[1]</p>";
+                          <p>$row[1]</p>";
                 }
                 while($row=sqlsrv_fetch_object($result, SQLSRV_FETCH_BOTH));
             }
