@@ -71,6 +71,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                             
                             <input type="submit" value="Add Project">
                         </form>
+
                     <h3 class="top">Update Project</h3>
                         <form action="update_Project.php" method ="POST">
                             <label for="projectID">Enter ID:</label>
@@ -82,6 +83,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
                             <input type="submit" value="Update Project">
                         </form>
+
                     <h3 class="top">Delete Project</h3>
                         <form action="delete_Project.php" method ="POST">
                             <label for="projectID">Enter ID:</label>
