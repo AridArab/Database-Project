@@ -1,8 +1,11 @@
 <?php
-include_once ".env.php";
 include './Navbar.php';
 include '../Logic/sqlconn.php';
+
+$serverName = "tcp:uhteam6-database-server.database.windows.net,1433";
+$connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Database" => "UMADATABASE_TEAM6", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
 ?>
+
 
 <html>
 <header>
@@ -36,7 +39,7 @@ include '../Logic/sqlconn.php';
         Project where isActive = 1", $conn)['Projects'] ?>)</h2>
     </center>
     <?php
-    $conn = sqlsrv_connect(serverName, connectionInfo);
+    $conn = sqlsrv_connect($serverName, $connectionInfo);
     if(!$conn)
         {
             exit("<p> Connection Error: " . sqlsrv_connect_error() . "</p>");
