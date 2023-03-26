@@ -1,10 +1,18 @@
+<<<<<<< HEAD
 <?php
 $serverName = "tcp:uhteam6-database-server.database.windows.net,1433";
 $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Database" => "UMADATABASE_TEAM6", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
 
 $conn = sqlsrv_connect($serverName, $connectionInfo);
+=======
+<?php 
+    include "./Navbar.php";
+>>>>>>> a9a7f9661f2c7a7d836f395ee77ca8c3ada25cd0
 
-    $conn = sqlsrv_connect(serverName, connectionInfo);
+    $serverName = "tcp:uhteam6-database-server.database.windows.net,1433";
+    $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Database" => "UMADATABASE_TEAM6", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
+
+    $conn = sqlsrv_connect($serverName, $connectionInfo);
     if($conn === false ) {
         die( print_r( sqlsrv_errors(), true));
     }
