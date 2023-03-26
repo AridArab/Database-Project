@@ -1,7 +1,9 @@
 <?php
-include_once ".env.php";
 include './Navbar.php';
 include '../Logic/sqlconn.php';
+
+$serverName = "tcp:uhteam6-database-server.database.windows.net,1433";
+$connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Database" => "UMADATABASE_TEAM6", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
 ?>
 
 <html>
@@ -36,7 +38,7 @@ include '../Logic/sqlconn.php';
         Project where isActive = 1", $conn)['Projects'] ?>)</h2>
     </center>
     <?php
-    $conn = sqlsrv_connect(serverName, connectionInfo);
+    $conn = sqlsrv_connect($serverName, $connectionInfo);
     if(!$conn)
         {
             exit("<p> Connection Error: " . sqlsrv_connect_error() . "</p>");
@@ -47,17 +49,12 @@ include '../Logic/sqlconn.php';
     <table>
         <?php
         $query = "SELECT * FROM Project";
-        $activeQuery = "SELECT isActive FROM Project";
         $result = sqlsrv_query($conn, $query);
         if(!$result)
             {
                 exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
             }
 
-        if(!$activeQuery)
-            {
-                exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
-            }
         ?>
 
         <tr>
@@ -92,9 +89,8 @@ include '../Logic/sqlconn.php';
         ?>
         
     </table>
-    <?php 
-        if($_SESSION['obj']['Is_Manager'] == 1) {
-            echo '<table>
+
+            <table>
                     <h3 class="top">Add Project</h3>
                         <form action="add_Project.php" method ="POST">
                             <label for="progress">Progress:</label>
@@ -120,6 +116,7 @@ include '../Logic/sqlconn.php';
                             
                             <input type="submit" value="Add Project">
                         </form>
+
                     <h3 class="top">Update Project</h3>
                         <form action="update_Project.php" method ="POST">
                             <label for="projectID">Enter ID:</label>
@@ -131,6 +128,7 @@ include '../Logic/sqlconn.php';
 
                             <input type="submit" value="Update Project">
                         </form>
+
                     <h3 class="top">Delete Project</h3>
                         <form action="delete_Project.php" method ="POST">
                             <label for="projectID">Enter ID:</label>
@@ -138,9 +136,29 @@ include '../Logic/sqlconn.php';
 
                             <input type="submit" value="Delete Project">
                         </form>
-                </table>';
-        }
-    ?>
+
+                    <h3 class="top">Search Project</h3>
+                        <form action="report_Projects.php" method ="POST">
+                            <select name="dropdown_Progress">
+                                <option value="Greater than">Greater than</option>
+                                <option value="Less than">Less than</option>
+                            </select>  
+                                <label for="progress">Progress:</label>
+                                <input type="text" id="progress" name="progress"><br>
+                            <select name="dropdown_Budget">
+                                <option value="Greater than">Greater than</option>
+                                <option value="Less than">Less than</option>
+                            </select>
+                                <label for="budget">Budget:</label>
+                                <input type="text" id="budget" name="budget"><br>
+
+                                <input type="submit" value="Search Project">
+                        </form>
+
+
+                </table>
+        
+ 
     </center>
 
 </body>
