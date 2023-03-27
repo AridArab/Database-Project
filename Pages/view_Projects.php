@@ -130,7 +130,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                             <input type="submit" value="Update Project">
                         </form>
 
-                    <h3 class="top">Delete Project</h3>
+                    <h3 class="top">Remove Project</h3>
                         <form action="delete_Project.php" method ="POST">
                             <label for="projectID">Enter ID:</label>
                             <input type="text" id="projectID" name="projectID"><br>
