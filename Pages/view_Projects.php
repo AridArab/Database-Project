@@ -33,10 +33,6 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 <body>
     <center>
         <h1>Projects</h1>
-        <h2>View Projects (<?php 
-        $conn = connect();
-        echo select_query("select count(*) as Projects from 
-        Project where isActive = 1", $conn)['Projects'] ?>)</h2>
     </center>
     <?php
     $conn = sqlsrv_connect($serverName, $connectionInfo);
@@ -47,51 +43,9 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
     
     ?>
     <center>
-    <table>
-        <?php
-        $query = "SELECT * FROM Project";
-        $result = sqlsrv_query($conn, $query);
-        if(!$result)
-            {
-                exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
-            }
-
-        ?>
-
-        <tr>
-            <td>Progress</td>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Total Cost</td>
-            <td>Street Address</td>
-            <td>City</td>
-            <td>State</td>
-            <td>Zip Code</td>
-            <td>Department ID</td>
-            <td>Budget</td>
-        </tr>
-        
-        <?php
-            while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
-                if($row['isActive'] == 1){
-                    echo "<tr><td>$row[Progress]</td>
-                    <td>$row[ID]</td>
-                    <td>$row[Name]</td>
-                    <td>$row[Total_Cost]</td>
-                    <td>$row[Street_Address]</td>
-                    <td>$row[City]</td>
-                    <td>$row[State]</td>
-                    <td>$row[Zip_Code]</td>
-                    <td>$row[Department_ID]</td>
-                    <td>$row[Budget]</td>
-
-                    </tr>";
-            }
-        ?>
-        
-    </table>
-
-            <table>
+    <?php 
+        if($_SESSION['obj']['Is_Manager'] == 1) {
+            echo '<table>
                     <h3 class="top">Add Project</h3>
                         <form action="add_Project.php" method ="POST">
                             <label for="progress">Progress:</label>
@@ -137,7 +91,6 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
                             <input type="submit" value="Delete Project">
                         </form>
-
                     <h3 class="top">Search Project</h3>
                         <form action="report_Projects.php" method ="POST">
                             <select name="dropdown_Progress">
@@ -155,11 +108,61 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
                                 <input type="submit" value="Search Project">
                         </form>
+                </table>';
+        }
+    ?>
+    <h2>View Projects (<?php 
+    $conn = connect();
+    echo select_query("select count(*) as Projects from 
+    Project where isActive = 1", $conn)['Projects'] ?>)</h2>
+    <table>
+        <?php
+        $query = "SELECT * FROM Project";
+        $activeQuery = "SELECT isActive FROM Project";
+        $result = sqlsrv_query($conn, $query);
+        if(!$result)
+            {
+                exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
+            }
 
+        if(!$activeQuery)
+            {
+                exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
+            }
+        ?>
 
-                </table>
+        <tr>
+            <td>Progress</td>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Total Cost</td>
+            <td>Street Address</td>
+            <td>City</td>
+            <td>State</td>
+            <td>Zip Code</td>
+            <td>Department ID</td>
+            <td>Budget</td>
+        </tr>
         
- 
+        <?php
+            while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
+                if($row['isActive'] == 1){
+                    echo "<tr><td>$row[Progress]</td>
+                    <td>$row[ID]</td>
+                    <td>$row[Name]</td>
+                    <td>$row[Total_Cost]</td>
+                    <td>$row[Street_Address]</td>
+                    <td>$row[City]</td>
+                    <td>$row[State]</td>
+                    <td>$row[Zip_Code]</td>
+                    <td>$row[Department_ID]</td>
+                    <td>$row[Budget]</td>
+
+                    </tr>";
+            }
+        ?>
+        
+    </table>
     </center>
 
 </body>

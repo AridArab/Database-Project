@@ -101,7 +101,7 @@
                 <td>ID</td>
                 <td>Name</td>
                 <td>Profile</td>
-                <td>Assign Task</td>
+                <td>Tasks</td>
             </tr>
             <?php
                 while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
@@ -110,7 +110,7 @@
                         <td>$row[ID]</td>
                         <td>$row[First_Name]"." "."$row[Middle_Initial]"." "."$row[Last_Name]</td>
                         <td><a href='./view_Profile_M.php?id=".$row['ID']."'>View Profile</a></td>
-                        <td><a href='./give_Task.php?id=".$row['ID']."'>Assign Task</a></td>
+                        <td><a href='./view_Tasks_M.php?id=".$row['ID']."'>View Tasks</a></td>
                     </tr>";
                 }
 

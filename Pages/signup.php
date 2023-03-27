@@ -181,7 +181,7 @@ if (isset($_POST['submit'])) {
     else {
         $pass = $_POST['pass'];
     }
-    if ($_POST["isManager"] = "Employee") {
+    if ($_POST["isManager"] == "Employee") {
         $isMananger = 0;
     } else {
         $isMananger = 1;
