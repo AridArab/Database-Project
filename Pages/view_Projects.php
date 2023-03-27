@@ -91,6 +91,23 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
                             <input type="submit" value="Delete Project">
                         </form>
+                    <h3 class="top">Search Project</h3>
+                        <form action="report_Projects.php" method ="POST">
+                            <select name="dropdown_Progress">
+                                <option value="Greater than">Greater than</option>
+                                <option value="Less than">Less than</option>
+                            </select>  
+                                <label for="progress">Progress:</label>
+                                <input type="text" id="progress" name="progress"><br>
+                            <select name="dropdown_Budget">
+                                <option value="Greater than">Greater than</option>
+                                <option value="Less than">Less than</option>
+                            </select>
+                                <label for="budget">Budget:</label>
+                                <input type="text" id="budget" name="budget"><br>
+
+                                <input type="submit" value="Search Project">
+                        </form>
                 </table>';
         }
     ?>
