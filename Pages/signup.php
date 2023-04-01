@@ -246,7 +246,8 @@ if (isset($_POST['submit'])) {
         <form action="
         <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
         " method="POST" class="mt-4 w-75">
-            <div class="mb-3">
+        <div style="width:50%; margin:auto;">
+            <div class="mb-3" style="float:left;">
                 <label for="fName" class="form-label">First Name:</label>
                 <input type="text" class="form-control 
             <?php echo $fNameErr ? 'is-invalid' : null ?>
@@ -255,7 +256,7 @@ if (isset($_POST['submit'])) {
                     <?php echo $fNameErr; ?>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="float:left;">
                 <label for="lName" class="form-label">Last Name:</label>
                 <input type="text" class="form-control 
             <?php echo $lNameErr ? 'is-invalid' : null ?>
@@ -264,7 +265,7 @@ if (isset($_POST['submit'])) {
                     <?php echo $lNameErr; ?>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="float:left;">
                 <label for="mName" class="form-label">Middle Initial:</label>
                 <input type="text" class="form-control 
             <?php echo $mNameErr ? 'is-invalid' : null ?>
@@ -273,7 +274,8 @@ if (isset($_POST['submit'])) {
                     <?php echo $mNameErr; ?>
                 </div>
             </div>
-            <div class="mb-3">
+            <div style="clear:both;">&nbsp;</div>
+            <div class="mb-3" style="float:left;">
                 <label for="birthday" class="form-label">Birthday:</label>
                 <input type="text" class="form-control 
             <?php echo $birthdayErr ? 'is-invalid' : null ?>
@@ -282,7 +284,7 @@ if (isset($_POST['submit'])) {
                     <?php echo $birthdayErr; ?>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="float:left;">
                 <label for="city" class="form-label">City:</label>
                 <input type="text" class="form-control 
             <?php echo $cityErr ? 'is-invalid' : null ?>
@@ -291,7 +293,7 @@ if (isset($_POST['submit'])) {
                     <?php echo $cityErr; ?>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="float:left;">
                 <label for="state" class="form-label">State:</label>
                 <input type="text" class="form-control 
             <?php echo $stateErr ? 'is-invalid' : null ?>
@@ -300,7 +302,8 @@ if (isset($_POST['submit'])) {
                     <?php echo $stateErr; ?>
                 </div>
             </div>
-            <div class="mb-3">
+            <div style="clear:both;">&nbsp;</div>
+            <div class="mb-3" style="float:left;">
                 <label for="zip_code" class="form-label">Zip Code:</label>
                 <input type="text" class="form-control 
             <?php echo $zip_codeErr ? 'is-invalid' : null ?>
@@ -309,7 +312,7 @@ if (isset($_POST['submit'])) {
                     <?php echo $zip_codeErr; ?>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="float:left;">
                 <label for="street" class="form-label">Street:</label>
                 <input type="text" class="form-control 
             <?php echo $streetErr ? 'is-invalid' : null ?>
@@ -318,7 +321,7 @@ if (isset($_POST['submit'])) {
                     <?php echo $streetErr; ?>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="float:left;">
                 <label for="sex" class="form-label">Sex:</label>
                 <input type="text" class="form-control 
             <?php echo $sexErr ? 'is-invalid' : null ?>
@@ -327,7 +330,8 @@ if (isset($_POST['submit'])) {
                     <?php echo $sexErr; ?>
                 </div>
             </div>
-            <div class="mb-3">
+            <div style="clear:both;">&nbsp;</div>
+            <div class="mb-3" style="float:left;">
                 <label for="phone" class="form-label">Phone Number:</label>
                 <input type="text" class="form-control 
             <?php echo $phoneErr ? 'is-invalid' : null ?>
@@ -336,7 +340,7 @@ if (isset($_POST['submit'])) {
                     <?php echo $phoneErr; ?>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="float:left;">
                 <label for="mail" class="form-label">Email:</label>
                 <input type="text" class="form-control 
             <?php echo $mailErr ? 'is-invalid' : null ?>
@@ -345,7 +349,7 @@ if (isset($_POST['submit'])) {
                     <?php echo $mailErr; ?>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="float:left;">
                 <label for="pass" class="form-label">Password:</label>
                 <input type="text" class="form-control 
             <?php echo $passErr ? 'is-invalid' : null ?>
@@ -354,6 +358,7 @@ if (isset($_POST['submit'])) {
                     <?php echo $passErr; ?>
                 </div>
             </div>
+            <div style="clear:both;">&nbsp;</div>
             <p style="margin-bottom: 1px">Job Status:</p>
             <input type="radio" id="employee" name="isManager" value="Employee" style="margin-left: 75px" checked />
             <label for="html" style="text-align: left">Employee</label><br>
@@ -363,6 +368,7 @@ if (isset($_POST['submit'])) {
             <div class="mb-3">
                 <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100">
             </div>
+        </div>
         </form>
     </center>
 </body>
