@@ -53,55 +53,45 @@ if (isset($_POST['submit'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <style>
-        div {
-            margin-bottom: 10px;
-        }
-
-        label {
-            display: inline-block;
-            width: 75px;
-            text-align: right;
-        }
-    </style>
 </header>
 
 <body>
     <center>
         <h1>Welcome to the Project Managment website!</h1>
-        <h2>Login</h2>
-        <p>Enter Login information</p>
-        <form action="
-        <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
-        " method="POST" class="mt-4 w-75">
-            <p style="color: rgb(255, 0, 0)">
-            <?php if ($unauth) {
-                echo "Invalid Login";
-            } ?>
-            </p>
-            <div class="mb-3">
-                <label for="id" class="form-label">ID:</label>
-                <input type="text" class="form-control 
-            <?php echo $idErr ? 'is-invalid' : null ?>
-            " id="id" name="id" placeholder="Enter your ID">
-                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
-                    <?php echo $idErr; ?>
+        <div class = "outerDiv">
+            <h2 style="font-size: 25px; margin: 2%">Login</h2>
+            <form action="
+            <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
+            " method="POST" class="mt-4 w-75">
+                <p style="color: rgb(255, 0, 0)">
+                <?php if ($unauth) {
+                    echo "Invalid Login";
+                } ?>
+                </p>
+                <div class="mb-3">
+                    <label for="id" class="form-label">User ID:</label>
+                    <input type="text" class="form-control 
+                <?php echo $idErr ? 'is-invalid' : null ?>
+                " id="id" name="id" placeholder="Enter your User ID">
+                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
+                        <?php echo $idErr; ?>
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label for="pass" class="form-label">Password:</label>
-                <input type="text" class="form-control 
-            <?php echo $passErr ? 'is-invalid' : null ?>
-            " id="pass" name="pass" placeholder="Enter your Password">
-                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
-                    <?php echo $passErr; ?>
+                <div class="mb-3">
+                    <label for="pass" class="form-label">Password:</label>
+                    <input type="text" class="form-control 
+                <?php echo $passErr ? 'is-invalid' : null ?>
+                " id="pass" name="pass" placeholder="Enter your Password">
+                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
+                        <?php echo $passErr; ?>
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100">
-            </div>
-        </form>
-        <p>No account? <a href="./pages/signup.php">Sign Up Here!</a></p>
+                <div style="margin-top: 2.5%;">
+                    <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100">
+                </div>
+            </form>
+            <p>No account? <a href="./pages/signup.php">Sign Up Here!</a></p>
+        </div>
     </center>
 </body>
 
