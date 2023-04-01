@@ -121,6 +121,16 @@
             </td>
           </tr>
         </table>
+        while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
+                    $date = $row['Date_Logged']->format('Y-m-d H:i:s');
+                    echo
+                    "<tr>
+                        <td>$row[Project_ID]</td>
+                        <td>$row[Message]</td>
+                        <td>$date</td>
+                    </tr>";
+                }
+                sqlsrv_close($conn);
     </center>
 </body>
 
