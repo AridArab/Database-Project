@@ -274,7 +274,8 @@ if (isset($_POST['submit'])) {
                     <?php echo $mNameErr; ?>
                 </div>
             </div>
-            <div style="clear:both;">&nbsp;</div>
+        </div>
+        <div style="width:50%; margin:auto;">
             <div class="mb-3" style="float:left;">
                 <label for="birthday" class="form-label">Birthday:</label>
                 <input type="text" class="form-control 
@@ -302,7 +303,8 @@ if (isset($_POST['submit'])) {
                     <?php echo $stateErr; ?>
                 </div>
             </div>
-            <div style="clear:both;">&nbsp;</div>
+        </div>
+        <div style="width:50%; margin:auto;">
             <div class="mb-3" style="float:left;">
                 <label for="zip_code" class="form-label">Zip Code:</label>
                 <input type="text" class="form-control 
@@ -330,7 +332,8 @@ if (isset($_POST['submit'])) {
                     <?php echo $sexErr; ?>
                 </div>
             </div>
-            <div style="clear:both;">&nbsp;</div>
+        </div>
+        <div style="width:50%; margin:auto;">
             <div class="mb-3" style="float:left;">
                 <label for="phone" class="form-label">Phone Number:</label>
                 <input type="text" class="form-control 
@@ -358,7 +361,8 @@ if (isset($_POST['submit'])) {
                     <?php echo $passErr; ?>
                 </div>
             </div>
-            <div style="clear:both;">&nbsp;</div>
+        </div>
+        <div style="width:25%; margin:auto;">
             <p style="margin-bottom: 1px">Job Status:</p>
             <input type="radio" id="employee" name="isManager" value="Employee" style="margin-left: 75px" checked />
             <label for="html" style="text-align: left">Employee</label><br>
