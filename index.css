@@ -36,6 +36,23 @@ img {
     height: 500px;
 }
 
+.outerDiv {
+    display: grid;
+    align-self: center;
+    text-align: center;
+    width: 30%;
+    margin: 10%;
+    
+    background-color: rgb(200, 200, 200);
+    border-color:rgba(100, 100, 100, 0.5);
+    border-style: solid;
+}
+
+label {
+    display: inline-block;
+    width: 75px;
+    text-align: right;
+}
 .profile{
     width: 17px;
     height: auto;
