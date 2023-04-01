@@ -120,6 +120,10 @@ if (isset($_POST['submit'])) {
                 width: 125px;
                 text-align: right;
             }
+
+            input {
+                width: 140px;
+            }
         </style>
     </header>
     <center>
@@ -176,7 +180,7 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
             <div class="mb-3">
-                <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100">
+                <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100" style="width: auto">
             </div>
         </form>
     </center>

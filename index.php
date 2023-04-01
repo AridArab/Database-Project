@@ -74,7 +74,7 @@ if (isset($_POST['submit'])) {
                     <label for="id" class="form-label">User ID:</label>
                     <input type="text" class="form-control 
                 <?php echo $idErr ? 'is-invalid' : null ?>
-                " id="id" name="id" placeholder="Enter your User ID">
+                " id="id" name="id" placeholder="Enter your User ID" style="width: 170px">
                     <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                         <?php echo $idErr; ?>
                     </div>
@@ -83,7 +83,7 @@ if (isset($_POST['submit'])) {
                     <label for="pass" class="form-label">Password:</label>
                     <input type="text" class="form-control 
                 <?php echo $passErr ? 'is-invalid' : null ?>
-                " id="pass" name="pass" placeholder="Enter your Password">
+                " id="pass" name="pass" placeholder="Enter your Password" style="width: 170px">
                     <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                         <?php echo $passErr; ?>
                     </div>

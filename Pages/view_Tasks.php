@@ -108,6 +108,9 @@ $conn = connect();
             width: 125px;
             text-align: right;
         }
+        input {
+            width: 140px;
+        }
     </style>
     <center>
     <h1>Tasks Assigned to You</h1>
@@ -119,8 +122,7 @@ $conn = connect();
                 class="form-label">Task ID:</label>
                 <input type="text" class="form-control 
                     <?php echo $tIDErr ? 'is-invalid' : null ?>
-                    " id="tID" name="tID" style="width: 101px" 
-                    placeholder="Enter Task ID">
+                    " id="tID" name="tID" placeholder="Enter Task ID">
                 <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $tIDErr; ?>
                 </div>
@@ -130,8 +132,7 @@ $conn = connect();
                 class="form-label">Add Progress:</label>
                 <input type="text" class="form-control 
                     <?php echo $progressErr ? 'is-invalid' : null ?>
-                    " id="progress" name="progress" style="width: 101px" 
-                    placeholder="Enter Progress">
+                    " id="progress" name="progress" placeholder="Enter Progress">
                 <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $progressErr; ?>
                 </div>
@@ -141,8 +142,7 @@ $conn = connect();
                 class="form-label">Add Hours:</label>
                 <input type="text" class="form-control 
                     <?php echo $hoursErr ? 'is-invalid' : null ?>
-                    " id="hours" name="hours" style="width: 101px" 
-                    placeholder="Enter Total Hours">
+                    " id="hours" name="hours" placeholder="Enter Total Hours">
                 <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $hoursErr; ?>
                 </div>
@@ -152,14 +152,13 @@ $conn = connect();
                 class="form-label">Set End Date:</label>
                 <input type="text" class="form-control 
                     <?php echo $endErr ? 'is-invalid' : null ?>
-                    " id="end" name="end" style="width: 101px" 
-                    placeholder="YYYY-MM-DD">
+                    " id="end" name="end" placeholder="YYYY-MM-DD">
                 <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $endErr; ?>
                 </div>
             </div>
             <p></p>
-            <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100">
+            <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100" style="width: auto">
         </form>
         <h2>View Tasks (<?php echo select_query("select count(*) as Tasks from 
         WORKS_ON where Employee_ID = ".$_SESSION['obj']['ID'], $conn)['Tasks'] ?>)</h2>
