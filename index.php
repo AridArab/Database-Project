@@ -49,6 +49,7 @@ if (isset($_POST['submit'])) {
 <html>
 <header>
     <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,9 +68,10 @@ if (isset($_POST['submit'])) {
 </header>
 
 <body>
-    <center>
-        <h1>Welcome to the Project Managment website!</h1>
-        <h2>Login</h2>
+    <center style="transform: translate(0, -12px)">
+        <h1 style="background-color:rgb(0, 0, 0); color: white"
+        >Welcome to the Project Managment website!</h1>
+        <h2 style="background-color:rgb(0, 0, 0); color: white; transform: translate(0, -12px)" >Login</h2>
         <p>Enter Login information</p>
         <form action="
         <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
@@ -103,6 +105,13 @@ if (isset($_POST['submit'])) {
         </form>
         <p>No account? <a href="./pages/signup.php">Sign Up Here!</a></p>
     </center>
+
+    <div class="container">
+        <div class="rectangle" style="left: 0%; top: 0%">
+        </div>
+        <div class="rectangle" style="left: 90%; top: 0%">
+        </div>
+    </div>
 </body>
 
 </html>
