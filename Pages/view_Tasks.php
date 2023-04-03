@@ -5,7 +5,7 @@ include './Navbar.php';
 $conn = connect();
 
     $result = sqlsrv_query($conn, 
-        "select * from WORKS_ON where Employee_ID = ".$_SESSION['obj']['ID']
+        "select W.*, P.Name from WORKS_ON AS W, Project AS P where W.Project_ID = P.ID AND W.Employee_ID = ".$_SESSION['obj']['ID']
     );
 
     $tID = $progress = $hours = $end = '';
@@ -98,7 +98,31 @@ $conn = connect();
         }
         td {
           border: 1px solid rgb(0, 0, 0);
-          text-align: left;
+          text-align: center;
+        }
+        h5{
+            font-size: 15px;
+            margin: 0;
+        }
+        p{
+            font-size: 12px;
+            margin: 0;
+        }
+        button{
+            background-color: lightgray;
+            width: 100%;
+            height: 100%;
+            padding: 5px;
+        }
+        .overdue{
+            background-color: rgb(255, 50, 50, 0.25);
+        }
+        .complete{
+            background-color: rgb(50, 255, 50, 0.25);
+        }
+        .taskName{
+            display: grid;
+            text-align: left;
         }
         tr:nth-child(even) {
           background-color: rgb(225, 225, 225);
@@ -160,40 +184,43 @@ $conn = connect();
             <p></p>
             <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100" style="width: auto">
         </form>
-        <h2>View Tasks (<?php echo select_query("select count(*) as Tasks from 
+        <h2>Pending Tasks (<?php echo select_query("select count(*) as Tasks from 
         WORKS_ON where Employee_ID = ".$_SESSION['obj']['ID'], $conn)['Tasks'] ?>)</h2>
         <table>
             <tr>
+                <td>Task</td>
                 <td>ID</td>
-                <td>Job Title</td>
-                <td>Description</td>
-                <td>Project ID</td>
-                <td>Deadline</td>
+                <td>For Project</td>
+                <td>Due Date</td>
                 <td>Progress</td>
-                <td>Total Hours</td>
-                <td>Start Date</td>
-                <td>End Date</td>
+                <td>Status</td>
             </tr>
             <?php
                 while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
-                    if($row['End_Date'] == null){
-                        $eDate = '';
+                    if($row['End_Date'] == null && $row['Deadline']->format('Y-m-d') > date('Y-m-d')){
+                        $display = 'Incomplete';
+                        $style = 'button';
+                    }
+                    else if($row['End_Date'] == null && $row['Deadline']->format('Y-m-d') < date('Y-m-d')){
+                        $display = 'Overdue';
+                        $style = 'overdue';
                     }
                     else{
-                        $eDate = $row['End_Date']->format('Y-m-d');
+                        $display = 'Complete';
+                        $style = 'complete';
                     }
 
                     echo
                     "<tr>
+                        <td class = 'taskName'>
+                            <h5>$row[Job_Title]</h5>
+                            <p>$row[Description]</p>
+                        </td>
                         <td>$row[ID]</td>
-                        <td>$row[Job_Title]</td>
-                        <td>$row[Description]</td>
-                        <td>$row[Project_ID]</td>
-                        <td>".$row['Deadline']->format('Y-m-d')."</td>
+                        <td>$row[Name]</td>
+                        <td>".$row['Deadline']->format('m-d-Y')."</td>
                         <td>$row[Progress]</td>
-                        <td>$row[Total_Hours]</td>
-                        <td>".$row['Start_Date']->format('Y-m-d')."</td>
-                        <td>$eDate</td>
+                        <td class=$style>$display</td>
                     </tr>";
                 }
 

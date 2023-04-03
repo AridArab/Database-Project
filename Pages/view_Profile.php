@@ -94,10 +94,10 @@
             </td>
           </tr>
           <tr>
-            <td>Birthday(YYYY-MM-DD)</td>
+            <td>Birthday (M/D/Y)</td>
             <td>
                 <?php 
-                echo ($_SESSION['obj']['Birthday']->format('Y-m-d'));
+                echo ($_SESSION['obj']['Birthday']->format('m-d-Y'));
                 ?>
             </td>
           </tr>
