@@ -101,11 +101,11 @@ $conn = connect();
           text-align: center;
         }
         h5{
-            font-size: 15px;
+            font-size: 16px;
             margin: 0;
         }
         p{
-            font-size: 12px;
+            font-size: 10px;
             margin: 0;
         }
         button{
@@ -121,6 +121,7 @@ $conn = connect();
             background-color: rgb(50, 255, 50, 0.25);
         }
         .taskName{
+            width: 175px;
             display: grid;
             text-align: left;
         }
@@ -188,7 +189,7 @@ $conn = connect();
         WORKS_ON where Employee_ID = ".$_SESSION['obj']['ID'], $conn)['Tasks'] ?>)</h2>
         <table>
             <tr>
-                <td>Task</td>
+                <td style = "width: 150px;">Task</td>
                 <td>ID</td>
                 <td>For Project</td>
                 <td>Due Date</td>
