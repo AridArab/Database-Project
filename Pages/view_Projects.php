@@ -48,26 +48,158 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
             echo '<table>
                     <h3 class="top">Add Project</h3>
                         <form action="add_Project.php" method ="POST">
-                            <label for="progress">Progress:</label>
-                            <input type="text" id="progress" name="progress"><br>
+                        <div class="form-group">
+                        <label for="progress">Progress:</label>
+                        <input type="text" id="progress" name="progress" onblur="validateProgress()"><br>
+                        <span id="progressError" style="color: red;"></span>
+                        </div>
+                        
+                        <script>
+                        function validateProgress() {
+                          const progressInput = document.getElementById("progress");
+                          const progressError = document.getElementById("progressError");
+                          const progressRegex = /^\d+$/; // Regex to validate positive integers
+                        
+                          if (!progressRegex.test(progressInput.value) || progressInput.value < 0 || progressInput.value > 100) {
+                            progressError.textContent = "Please enter a valid progress value between 0 and 100.";
+                            progressInput.focus();
+                          } else {
+                            progressError.textContent = "";
+                          }
+                        }
+                        </script>
+                        
                             <label for="projectID">ID:</label>
                             <input type="text" id="projectID" name="projectID"><br>
+
+                            <div class="form-group">
                             <label for="projectName">Name:</label>
-                            <input type="text" id="projectName" name="projectName"><br>
+                            <input type="text" id="projectName" name="projectName" onblur="validateProjectName()"><br>
+                            <span id="projectNameError" style="color: red;"></span>
+                            </div>
+
+                            <script>
+                            function validateProjectName() {
+                            const projectNameInput = document.getElementById("projectName");
+                            const projectNameError = document.getElementById("projectNameError");
+
+                            if (projectNameInput.value.length > 50) {
+                                projectNameError.textContent = "Please enter a project name with a maximum length of 50 characters.";
+                                projectNameInput.focus();
+                            } else {
+                                projectNameError.textContent = "";
+                            }
+                            }
+                            </script>
+
+                            <div class="form-group">
                             <label for="cost">Total Cost:</label>
-                            <input type="text" id="cost" name="cost"><br>
+                            <input type="text" id="cost" name="cost" onblur="validateCost()"><br>
+                            <span id="costError" style="color: red;"></span>
+                            </div>
+
+                            <script>
+                            function validateCost() {
+                            const costInput = document.getElementById("cost");
+                            const costError = document.getElementById("costError");
+                            const costRegex = /^\d+$/; // Regex to validate positive integers
+
+                            if (!costRegex.test(costInput.value)) {
+                                costError.textContent = "Please enter a valid numerical cost value.";
+                                costInput.focus();
+                            } else {
+                                costError.textContent = "";
+                            }
+                            }
+                            </script>
+
+                            <div class="form-group">
                             <label for="address">Street Address:</label>
-                            <input type="text" id="address" name="address"><br>
+                            <input type="text" id="address" name="address" onblur="validateAddress()"><br>
+                            <span id="addressError" style="color: red;"></span>
+                            </div>
+
+                            <script>
+                            function validateAddress() {
+                            const addressInput = document.getElementById("address");
+                            const addressError = document.getElementById("addressError");
+
+                            if (addressInput.value.length > 50) {
+                                addressError.textContent = "Please enter a street address with a maximum length of 50 characters.";
+                                addressInput.focus();
+                            } else {
+                                addressError.textContent = "";
+                            }
+                            }
+                            </script>
+
+                            <div class="form-group">
                             <label for="city">City:</label>
-                            <input type="text" id="city" name="city"><br>
+                            <input type="text" id="city" name="city" onblur="validateCity()"><br>
+                            <span id="cityError" style="color: red;"></span>
+                            </div>
+
+                            <script>
+                            function validateCity() {
+                            const cityInput = document.getElementById("city");
+                            const cityError = document.getElementById("cityError");
+
+                            if (cityInput.value.length > 50) {
+                                cityError.textContent = "Please enter a city name with a maximum length of 50 characters.";
+                                cityInput.focus();
+                            } else {
+                                cityError.textContent = "";
+                            }
+                            }
+                            </script>
+
                             <label for="state">State:</label>
                             <input type="text" id="state" name="state"><br>
+
+                            <div class="form-group">
                             <label for="zip">ZipCode:</label>
-                            <input type="text" id="zip" name="zip"><br>
+                            <input type="text" id="zip" name="zip" onblur="validateZipCode()"><br>
+                            <span id="zipError" style="color: red;"></span>
+                            </div>
+
+                            <script>
+                            function validateZipCode() {
+                            const zipCodeInput = document.getElementById("zip");
+                            const zipCodeError = document.getElementById("zipError");
+                            const zipCodeRegex = /^\d{5}$/; // Regex to validate 5 digits
+
+                            if (!zipCodeRegex.test(zipCodeInput.value)) {
+                                zipCodeError.textContent = "Please enter a valid 5-digit zipcode.";
+                                zipCodeInput.focus();
+                            } else {
+                                zipCodeError.textContent = "";
+                            }
+                            }
+                            </script>
+
                             <label for="deptID">Department ID:</label>
                             <input type="text" id="deptID" name="deptID"><br>
+
+                            <div class="form-group">
                             <label for="budget">Budget:</label>
-                            <input type="text" id="budget" name="budget"><br>
+                            <input type="text" id="budget" name="budget" onblur="validateBudget()"><br>
+                            <span id="budgetError" style="color: red;"></span>
+                            </div>
+                            
+                            <script>
+                            function validateBudget() {
+                              const budgetInput = document.getElementById("budget");
+                              const budgetError = document.getElementById("budgetError");
+                            
+                              if (isNaN(budgetInput.value)) {
+                                budgetError.textContent = "Please enter a valid numerical budget value.";
+                                budgetInput.focus();
+                              } else {
+                                budgetError.textContent = "";
+                              }
+                            }
+                            </script>
+                            
                             
                             <input type="submit" value="Add Project">
                         </form>
@@ -89,16 +221,28 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                             <label for="projectID">Enter ID:</label>
                             <input type="text" id="projectID" name="projectID"><br>
 
-                            <input type="submit" value="Delete Project">
+                            <input type="submit" value="Remove Project">
                         </form>
-                    <h3 class="top">Search Project</h3>
+                    <h3 class="top">Generate Report</h3>
                         <form action="report_Projects.php" method ="POST">
+   
+                            <label for="employees">Include Employees?</label>
+                            <input type="checkbox" id="employees" name="employees" value="true"><br>
+                        
                             <select name="dropdown_Progress">
                                 <option value="Greater than">Greater than</option>
                                 <option value="Less than">Less than</option>
                             </select>  
                                 <label for="progress">Progress:</label>
                                 <input type="text" id="progress" name="progress"><br>
+                                
+                            <select name="dropdown_TotalCost">
+                                <option value="Greater than">Greater than</option>
+                                <option value="Less than">Less than</option>
+                            </select>  
+                                <label for="totalCost">Total Cost:</label>
+                                <input type="text" id="totalCost" name="totalCost"><br>
+
                             <select name="dropdown_Budget">
                                 <option value="Greater than">Greater than</option>
                                 <option value="Less than">Less than</option>
@@ -106,7 +250,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                                 <label for="budget">Budget:</label>
                                 <input type="text" id="budget" name="budget"><br>
 
-                                <input type="submit" value="Search Project">
+                                <input type="submit" value="Generate Report">
                         </form>
                 </table>';
         }

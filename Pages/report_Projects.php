@@ -1,6 +1,6 @@
 <?php
 $serverName = "tcp:uhteam6-database-server.database.windows.net,1433";
-$connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Database" => "UMADATABASE_TEAM6", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
+$connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Database" => "UMADATABASE_TEAM6", "LoginTimeout" => 31, "Encrypt" => 1, "TrustServerCertificate" => 1);
 
 $conn = sqlsrv_connect($serverName, $connectionInfo);;
 if($conn === false ) {
@@ -8,33 +8,74 @@ if($conn === false ) {
 }
 
 
-if ($_POST['dropdown_Progress'] == 'Greater than' && $_POST['dropdown_Budget'] == 'Greater than') {
-
-    $sql = "SELECT * FROM Project 
-    WHERE progress >= ? and budget >= ?";
-  }
-  
-
-if ($_POST['dropdown_Progress'] == 'Greater than' &&  $_POST['dropdown_Budget'] == 'Less than')
+if(isset($_POST['employees'])) 
 {
-    $sql = "SELECT * FROM Project 
-    WHERE progress >= ? and budget <= ?";
-}
-
-if ($_POST['dropdown_Progress'] == 'Less than' &&  $_POST['dropdown_Budget'] == 'Greater than')
+  $includeEmployee = true;
+} 
+else 
 {
-    $sql = "SELECT * FROM Project 
-    WHERE progress <= ? and budget >= ?";
-}
-
-if ($_POST['dropdown_Progress'] == 'Less than' &&  $_POST['dropdown_Budget'] == 'Less than')
-{
-    $sql = "SELECT * FROM Project 
-    WHERE progress <= ? and budget <= ?";
+  $includeEmployee = false;
 }
 
 
-$params = array($_POST['progress'], $_POST['budget']);
+if ($_POST['dropdown_Progress'] == 'Greater than' && $_POST['dropdown_Budget'] == 'Greater than' && $_POST['dropdown_TotalCost'] == 'Greater than') 
+{
+    if($includeEmployee)
+    {
+      // $sql = "SELECT * FROM Project, Employee, WORKS_ON
+      // WHERE Department_ID = Project_ID and progress >= ? and budget >= ? and Total_Cost >= ? and isActive = 1";
+      echo 'Im here';
+    }
+    else
+    {
+      $sql = "SELECT * FROM Project 
+      WHERE progress >= ? and budget >= ? and Total_Cost >= ? and isActive = 1";
+    }
+}
+
+if ($_POST['dropdown_Progress'] == 'Greater than' &&  $_POST['dropdown_Budget'] == 'Greater than' && $_POST['dropdown_TotalCost'] == 'Less than')
+{
+    $sql = "SELECT * FROM Project 
+    WHERE progress >= ? and budget >= ? and Total_Cost <= ? and isActive = 1";
+}
+
+if ($_POST['dropdown_Progress'] == 'Greater than' &&  $_POST['dropdown_Budget'] == 'Less than' && $_POST['dropdown_TotalCost'] == 'Less than')
+{
+    $sql = "SELECT * FROM Project 
+    WHERE progress >= ? and budget <= ? and Total_Cost <= ? and isActive = 1";
+}
+
+if ($_POST['dropdown_Progress'] == 'Less than' &&  $_POST['dropdown_Budget'] == 'Less than' && $_POST['dropdown_TotalCost'] == 'Less than')
+{
+    $sql = "SELECT * FROM Project 
+    WHERE progress <= ? and budget <= ? and Total_Cost <= ? and isActive = 1";
+}
+
+if ($_POST['dropdown_Progress'] == 'Less than' &&  $_POST['dropdown_Budget'] == 'Less than' && $_POST['dropdown_TotalCost'] == 'Greater than')
+{
+    $sql = "SELECT * FROM Project 
+    WHERE progress <= ? and budget <= ? and Total_Cost >= ? and isActive = 1";
+}
+
+if ($_POST['dropdown_Progress'] == 'Greater than' &&  $_POST['dropdown_Budget'] == 'Less than' && $_POST['dropdown_TotalCost'] == 'Less than')
+{
+    $sql = "SELECT * FROM Project 
+    WHERE progress >= ? and budget <= ? and Total_Cost <= ? and isActive = 1";
+}
+
+if ($_POST['dropdown_Progress'] == 'Greater than' &&  $_POST['dropdown_Budget'] == 'Greater than' && $_POST['dropdown_TotalCost'] == 'Less than')
+{
+    $sql = "SELECT * FROM Project 
+    WHERE progress >= ? and budget >= ? and Total_Cost <= ? and isActive = 1";
+}
+
+if ($_POST['dropdown_Progress'] == 'Less than' &&  $_POST['dropdown_Budget'] == 'Greater than' && $_POST['dropdown_TotalCost'] == 'Greater than')
+{
+    $sql = "SELECT * FROM Project 
+    WHERE progress <= ? and budget >= ? and Total_Cost >= ? and isActive = 1";
+}
+
+$params = array($_POST['progress'], $_POST['budget'], $_POST['totalCost']);
 
 $stmt = sqlsrv_query($conn, $sql, $params);
 if ($stmt === false) {

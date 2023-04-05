@@ -7,6 +7,8 @@ if($conn === false ) {
      die( print_r( sqlsrv_errors(), true));
 }
 
+
+
 $sql = "INSERT INTO Project (Progress, ID, Name, Total_Cost, Street_Address, City, State, Zip_Code, Department_ID, Budget, isActive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $params = array($_POST['progress'], $_POST['projectID'], $_POST['projectName'], $_POST['cost'], 
 $_POST['address'], $_POST['city'], $_POST['state'], $_POST['zip'], $_POST['deptID'], $_POST['budget'], 1);
