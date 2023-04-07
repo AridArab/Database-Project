@@ -250,6 +250,13 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                                 <label for="budget">Budget:</label>
                                 <input type="text" id="budget" name="budget"><br>
 
+                                <label for="from">From:</label>
+                                <input type="text" id="from" name="from"><br>
+                                <label for="to">To:</label>
+                                <input type="text" id="to" name="to"><br>
+
+                                
+
                                 <input type="submit" value="Generate Report">
                         </form>
                 </table>';

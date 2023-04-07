@@ -7,7 +7,6 @@ if($conn === false ) {
      die( print_r( sqlsrv_errors(), true));
 }
 
-
 if(isset($_POST['employees'])) 
 {
   $includeEmployee = true;
@@ -18,88 +17,89 @@ else
 }
 
 
-if ($_POST['dropdown_Progress'] == 'Greater than' && $_POST['dropdown_Budget'] == 'Greater than' && $_POST['dropdown_TotalCost'] == 'Greater than') 
-{
-    if($includeEmployee)
+function generateQuery($progress, $budget, $totalCost, $includeEmployee)
+  {
+    if ($includeEmployee) 
     {
-      // $sql = "SELECT * FROM Project, Employee, WORKS_ON
-      // WHERE Department_ID = Project_ID and progress >= ? and budget >= ? and Total_Cost >= ? and isActive = 1";
-      echo 'Im here';
+      $sql = "SELECT E.First_Name, E.Last_Name, E.Salary, E.Department_ID, E.ID, W.Job_Title, W.Total_Hours, P.Name, P.ID FROM Employee as E, WORKS_ON as W, Project as P WHERE isActive = 1 ";
     }
     else
     {
-      $sql = "SELECT * FROM Project 
-      WHERE progress >= ? and budget >= ? and Total_Cost >= ? and isActive = 1";
+      $sql = "SELECT P.Name, P.ID, W.Job_Title, W.Total_Hours FROM Project as P, WORKS_ON as W WHERE isActive = 1 ";
     }
+
+  if ($progress === 'Greater than') 
+    {
+      $sql .= "AND P.progress >= ? ";
+    } 
+  else if ($progress === 'Less than') 
+    {
+      $sql .= "AND P.progress <= ? ";
+    }
+
+  if ($budget === 'Greater than') 
+    {
+      $sql .= "AND P.budget >= ? ";
+    } 
+  else if ($budget === 'Less than') 
+    {
+      $sql .= "AND P.budget <= ? ";
+    }
+
+  if ($totalCost === 'Greater than') 
+    {
+      $sql .= "AND P.Total_Cost >= ? ";
+    } 
+  else if ($totalCost === 'Less than') 
+    {
+      $sql .= "AND P.Total_Cost <= ? ";
+    }
+
+    $sql .= "AND W.Start_Date >= ? AND W.End_Date <= ? ";
+    return $sql;
 }
 
-if ($_POST['dropdown_Progress'] == 'Greater than' &&  $_POST['dropdown_Budget'] == 'Greater than' && $_POST['dropdown_TotalCost'] == 'Less than')
-{
-    $sql = "SELECT * FROM Project 
-    WHERE progress >= ? and budget >= ? and Total_Cost <= ? and isActive = 1";
-}
 
-if ($_POST['dropdown_Progress'] == 'Greater than' &&  $_POST['dropdown_Budget'] == 'Less than' && $_POST['dropdown_TotalCost'] == 'Less than')
-{
-    $sql = "SELECT * FROM Project 
-    WHERE progress >= ? and budget <= ? and Total_Cost <= ? and isActive = 1";
-}
+$sql = generateQuery($_POST['dropdown_Progress'], $_POST['dropdown_Budget'], $_POST['dropdown_TotalCost'], $includeEmployee);
 
-if ($_POST['dropdown_Progress'] == 'Less than' &&  $_POST['dropdown_Budget'] == 'Less than' && $_POST['dropdown_TotalCost'] == 'Less than')
-{
-    $sql = "SELECT * FROM Project 
-    WHERE progress <= ? and budget <= ? and Total_Cost <= ? and isActive = 1";
-}
 
-if ($_POST['dropdown_Progress'] == 'Less than' &&  $_POST['dropdown_Budget'] == 'Less than' && $_POST['dropdown_TotalCost'] == 'Greater than')
-{
-    $sql = "SELECT * FROM Project 
-    WHERE progress <= ? and budget <= ? and Total_Cost >= ? and isActive = 1";
-}
-
-if ($_POST['dropdown_Progress'] == 'Greater than' &&  $_POST['dropdown_Budget'] == 'Less than' && $_POST['dropdown_TotalCost'] == 'Less than')
-{
-    $sql = "SELECT * FROM Project 
-    WHERE progress >= ? and budget <= ? and Total_Cost <= ? and isActive = 1";
-}
-
-if ($_POST['dropdown_Progress'] == 'Greater than' &&  $_POST['dropdown_Budget'] == 'Greater than' && $_POST['dropdown_TotalCost'] == 'Less than')
-{
-    $sql = "SELECT * FROM Project 
-    WHERE progress >= ? and budget >= ? and Total_Cost <= ? and isActive = 1";
-}
-
-if ($_POST['dropdown_Progress'] == 'Less than' &&  $_POST['dropdown_Budget'] == 'Greater than' && $_POST['dropdown_TotalCost'] == 'Greater than')
-{
-    $sql = "SELECT * FROM Project 
-    WHERE progress <= ? and budget >= ? and Total_Cost >= ? and isActive = 1";
-}
-
-$params = array($_POST['progress'], $_POST['budget'], $_POST['totalCost']);
+$params = array($_POST['progress'], $_POST['budget'], $_POST['totalCost'], $_POST['from'], $_POST['to']);
 
 $stmt = sqlsrv_query($conn, $sql, $params);
-if ($stmt === false) {
+if ($stmt === false) 
+{
   die(print_r(sqlsrv_errors(), true));
 }
 
-echo "<table>";
-echo "<tr><th>Progress</th><th>ID</th><th>Name</th><th>Total Cost</th><th>City</th><th>State</th><th>Zip Code</th><th>Department ID</th><th>Budget</th></tr>";
+$metadata = sqlsrv_field_metadata($stmt);
+$num_cols = sqlsrv_num_fields($stmt);
 
-while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-  echo "<tr>";
-  echo "<td>" . $row['Progress'] . "</td>";
-  echo "<td>" . $row['ID'] . "</td>";
-  echo "<td>" . $row['Name'] . "</td>";
-  echo "<td>" . $row['Total_Cost'] . "</td>";
-  echo "<td>" . $row['City'] . "</td>";
-  echo "<td>" . $row['State'] . "</td>";
-  echo "<td>" . $row['Zip_Code'] . "</td>";
-  echo "<td>" . $row['Department_ID'] . "</td>";
-  echo "<td>" . $row['Budget'] . "</td>";
-  echo "</tr>";
+$column_names = array();
+for ($i = 0; $i < $num_cols; $i++) 
+{
+  $field = sqlsrv_get_field($stmt, $i);
+  $column_names[] = $metadata[$i]['Name'];
 }
 
+echo "<table>";
+echo "<tr>";
+foreach ($column_names as $column) 
+{
+  echo "<th>" . $column . "</th>";
+}
+echo "</tr>";
+
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) 
+{
+  echo "<tr>";
+  foreach ($column_names as $column) 
+  {
+    echo "<td>" . $row[$column] . "</td>";
+  }
+  echo "</tr>";
+}
 echo "</table>";
+
 
        
 sqlsrv_close($conn);
