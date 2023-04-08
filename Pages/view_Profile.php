@@ -21,6 +21,7 @@
 <body>
     <center>
         <h1>Your Profile</h1>
+        <p><a href='./edit_Salary.php'>Edit Profile</a></p>
         <table>
           <tr>
             <td>Name</td>
