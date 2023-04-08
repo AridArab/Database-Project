@@ -82,11 +82,11 @@
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
         method="POST" class="mt-4 w-75">
             <div class="mb-3">
-                <label for="addEmployee" style="display: block; margin-bottom: 10px"
+                <label for="addEmployee" style="display: block; text-align: center; margin-bottom: 10px"
                 class="form-label">Add an Employee:</label>
                 <input type="text" class="form-control 
                     <?php echo $EIDErr ? 'is-invalid' : null ?>
-                    " id="addEmployee" name="addEmployee" style="width: 110px" 
+                    " id="addEmployee" name="addEmployee" style="width: 151px" 
                     placeholder="Enter Employee ID">
                 <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $EIDErr; ?>

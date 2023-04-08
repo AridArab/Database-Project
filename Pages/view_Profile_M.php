@@ -120,10 +120,10 @@
             </td>
           </tr>
           <tr>
-            <td>Birthday(YYYY-MM-DD)</td>
+            <td>Birthday (M/D/Y)</td>
             <td>
                 <?php 
-                echo ($result['Birthday']->format('Y-m-d'));
+                echo ($result['Birthday']->format('m-d-Y'));
                 ?>
             </td>
           </tr>

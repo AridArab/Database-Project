@@ -49,6 +49,7 @@ if (isset($_POST['submit'])) {
 <html>
 <header>
     <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,10 +57,11 @@ if (isset($_POST['submit'])) {
 </header>
 
 <body>
-    <center>
-        <h1>Welcome to the Project Managment website!</h1>
+    <center style="transform: translate(0, -12px)">
+        <h1 style="background-color:rgb(0, 0, 0); color: white"
+        >Welcome to the Project Managment website!</h1>
         <div class = "outerDiv">
-            <h2 style="font-size: 25px; margin: 2%">Login</h2>
+            <h2 style="font-size: 25px; margin: 2%; transform: translate(0, -12px)" >Login</h2>
             <form action="
             <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
             " method="POST" class="mt-4 w-75">
@@ -72,7 +74,7 @@ if (isset($_POST['submit'])) {
                     <label for="id" class="form-label">User ID:</label>
                     <input type="text" class="form-control 
                 <?php echo $idErr ? 'is-invalid' : null ?>
-                " id="id" name="id" placeholder="Enter your User ID">
+                " id="id" name="id" placeholder="Enter your User ID" style="width: 170px">
                     <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                         <?php echo $idErr; ?>
                     </div>
@@ -81,7 +83,7 @@ if (isset($_POST['submit'])) {
                     <label for="pass" class="form-label">Password:</label>
                     <input type="text" class="form-control 
                 <?php echo $passErr ? 'is-invalid' : null ?>
-                " id="pass" name="pass" placeholder="Enter your Password">
+                " id="pass" name="pass" placeholder="Enter your Password" style="width: 170px">
                     <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                         <?php echo $passErr; ?>
                     </div>
@@ -93,6 +95,13 @@ if (isset($_POST['submit'])) {
             <p>No account? <a href="./pages/signup.php">Sign Up Here!</a></p>
         </div>
     </center>
+
+    <div class="container">
+        <div class="rectangle" style="left: 0%; top: 0%">
+        </div>
+        <div class="rectangle" style="left: 90%; top: 0%">
+        </div>
+    </div>
 </body>
 
 </html>

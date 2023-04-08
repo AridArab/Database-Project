@@ -1,64 +1,118 @@
 <?php
 $serverName = "tcp:uhteam6-database-server.database.windows.net,1433";
-$connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Database" => "UMADATABASE_TEAM6", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
+$connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Database" => "UMADATABASE_TEAM6", "LoginTimeout" => 31, "Encrypt" => 1, "TrustServerCertificate" => 1);
 
 $conn = sqlsrv_connect($serverName, $connectionInfo);;
 if($conn === false ) {
      die( print_r( sqlsrv_errors(), true));
 }
 
-
-if ($_POST['dropdown_Progress'] == 'Greater than' && $_POST['dropdown_Budget'] == 'Greater than') {
-
-    $sql = "SELECT * FROM Project 
-    WHERE progress >= ? and budget >= ?";
-  }
-  
-
-if ($_POST['dropdown_Progress'] == 'Greater than' &&  $_POST['dropdown_Budget'] == 'Less than')
+if(isset($_POST['employees'])) 
 {
-    $sql = "SELECT * FROM Project 
-    WHERE progress >= ? and budget <= ?";
-}
-
-if ($_POST['dropdown_Progress'] == 'Less than' &&  $_POST['dropdown_Budget'] == 'Greater than')
+  $includeEmployee = true;
+} 
+else 
 {
-    $sql = "SELECT * FROM Project 
-    WHERE progress <= ? and budget >= ?";
-}
-
-if ($_POST['dropdown_Progress'] == 'Less than' &&  $_POST['dropdown_Budget'] == 'Less than')
-{
-    $sql = "SELECT * FROM Project 
-    WHERE progress <= ? and budget <= ?";
+  $includeEmployee = false;
 }
 
 
-$params = array($_POST['progress'], $_POST['budget']);
+function generateQuery($progress, $budget, $totalCost, $includeEmployee)
+  {
+    if ($includeEmployee) 
+    {
+      $sql = "SELECT E.ID, E.First_Name, E.Last_Name, E.Salary, E.Department_ID, P.Name, P.ID, P.Progress, P.Total_Cost, P.Budget, P.City FROM Employee as E, Project as P WHERE P.isActive = 1 ";
+    }
+    else
+    {
+      $sql = "SELECT P.Name, P.ID, P.Progress, P.Total_Cost, P.Budget, P.City FROM Project as P WHERE P.isActive = 1 ";
+    }
+
+  if ($progress === 'Greater than') 
+    {
+      $sql .= "AND P.progress >= ? ";
+    } 
+  else if ($progress === 'Less than') 
+    {
+      $sql .= "AND P.progress <= ? ";
+    }
+
+  if ($budget === 'Greater than') 
+    {
+      $sql .= "AND P.budget >= ? ";
+    } 
+  else if ($budget === 'Less than') 
+    {
+      $sql .= "AND P.budget <= ? ";
+    }
+
+  if ($totalCost === 'Greater than') 
+    {
+      $sql .= "AND P.Total_Cost >= ? ";
+    } 
+  else if ($totalCost === 'Less than') 
+    {
+      $sql .= "AND P.Total_Cost <= ? ";
+    }
+
+    $sql .= "AND P.Start_Date >= ? AND P.Deadline <= ? ";
+    return $sql;
+}
+
+
+$sql = generateQuery($_POST['dropdown_Progress'], $_POST['dropdown_Budget'], $_POST['dropdown_TotalCost'], $includeEmployee);
+
+$params = array($_POST['progress'], $_POST['budget'], $_POST['totalCost'], $_POST['from'], $_POST['to']);
 
 $stmt = sqlsrv_query($conn, $sql, $params);
-if ($stmt === false) {
+if ($stmt === false) 
+{
   die(print_r(sqlsrv_errors(), true));
 }
 
-echo "<table>";
-echo "<tr><th>Progress</th><th>ID</th><th>Name</th><th>Total Cost</th><th>City</th><th>State</th><th>Zip Code</th><th>Department ID</th><th>Budget</th></tr>";
+$metadata = sqlsrv_field_metadata($stmt);
+$num_cols = sqlsrv_num_fields($stmt);
 
-while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-  echo "<tr>";
-  echo "<td>" . $row['Progress'] . "</td>";
-  echo "<td>" . $row['ID'] . "</td>";
-  echo "<td>" . $row['Name'] . "</td>";
-  echo "<td>" . $row['Total_Cost'] . "</td>";
-  echo "<td>" . $row['City'] . "</td>";
-  echo "<td>" . $row['State'] . "</td>";
-  echo "<td>" . $row['Zip_Code'] . "</td>";
-  echo "<td>" . $row['Department_ID'] . "</td>";
-  echo "<td>" . $row['Budget'] . "</td>";
-  echo "</tr>";
+$column_names = array();
+for ($i = 0; $i < $num_cols; $i++) 
+{
+  $field = sqlsrv_get_field($stmt, $i);
+  $column_names[] = $metadata[$i]['Name'];
 }
 
+echo "<table>";
+echo "<tr>";
+foreach ($column_names as $column) 
+{
+  echo "<th>" . $column . "</th>";
+}
+echo "</tr>";
+
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) 
+{
+  echo "<tr>";
+  foreach ($column_names as $column) 
+  {
+    if ($column == "Start_Date") 
+    { 
+      $startDate = $row['Start_Date']->format('Y-m-d');
+      echo "<td>" . $startDate . "</td>";
+    } 
+    elseif ($column == "Deadline") 
+    { 
+      $deadline = $row['Deadline']->format('Y-m-d');
+      echo "<td>" . $deadline . "</td>";
+    }
+    else 
+    {
+      echo "<td>" . $row[$column] . "</td>";
+    }
+  }
+  echo "</tr>";
+}
 echo "</table>";
+
+
 
        
 sqlsrv_close($conn);

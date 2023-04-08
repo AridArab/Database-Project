@@ -5,6 +5,7 @@ session_start();
 <html>
 <header>
     <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@ session_start();
 </header>
 
 <body>
+    <center>
     <ul>
         <li style="float:left"> <a href="./home.php">Home</a> </li>
         <?php
@@ -34,6 +36,14 @@ session_start();
         }
         ?>
     </ul>
+    </center>
+
+    <div class="container">
+        <div class="rectangle" style="left: 0%; top: 0%">
+        </div>
+        <div class="rectangle" style="left: 90%; top: 0%">
+        </div>
+    </div>
 </body>
 
 </html>

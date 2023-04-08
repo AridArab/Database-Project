@@ -220,7 +220,8 @@ if (isset($_POST['submit'])) {
 <!DOCTYPE html>
 <html>
 <header>
-    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -239,9 +240,9 @@ if (isset($_POST['submit'])) {
 </header>
 
 <body>
-    <center>
-        <h1>Signup!</h1>
-        <p>Please Enter Account Information</p>
+    <center style="transform: translate(0, -12px)">
+        <h1 style="background-color:rgb(0, 0, 0); color: white" >Signup!</h1>
+        <p style="background-color:rgb(0, 0, 0); color: white; transform: translate(0, -16px)" >Please Enter Account Information</p>
         <p>Already have an account? <a href="../">Login!</a></p>
         <form action="
         <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
@@ -375,6 +376,13 @@ if (isset($_POST['submit'])) {
         </div>
         </form>
     </center>
+
+    <div class="container">
+        <div class="rectangle" style="left: 0%; top: 0%">
+        </div>
+        <div class="rectangle" style="left: 90%; top: 0%">
+        </div>
+    </div>
 </body>
 
 </html>

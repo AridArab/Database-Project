@@ -58,7 +58,7 @@
             <div class="mb-3">
                 <input type="text" class="form-control 
                     <?php echo $salaryErr ? 'is-invalid' : null ?>
-                    " id="editSalary" name="editSalary" style="width: 69px" 
+                    " id="editSalary" name="editSalary" style="width: 95px" 
                     placeholder="New Salary">
                 <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $salaryErr; ?>
