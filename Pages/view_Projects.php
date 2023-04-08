@@ -49,8 +49,9 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                     <h3 class="top">Add Project</h3>
                         <form action="add_Project.php" method ="POST">
                         <div class="form-group">
+
                         <label for="progress">Progress:</label>
-                        <input type="text" id="progress" name="progress" onblur="validateProgress()"><br>
+                        <input type="text" id="progress" name="progress" onblur="validateProgress()" required><br>
                         <span id="progressError" style="color: red;"></span>
                         </div>
                         
@@ -69,12 +70,29 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                         }
                         </script>
                         
-                            <label for="projectID">ID:</label>
-                            <input type="text" id="projectID" name="projectID"><br>
+                        <label for="projectID">ID:</label>
+                        <input type="text" id="projectID" name="projectID" onblur="validateID()" required><br>
+                        <span id="IDError" style="color: red;"></span>
+                        </div>
+
+                        <script>
+                            function validateID() {
+                            const projectID = document.getElementById("projectID");
+                            const IDError = document.getElementById("IDError");
+                            const costRegex = /^\d+$/; // Regex to validate positive integers
+
+                            if (!costRegex.test(projectID.value)) {
+                                IDError.textContent = "Please enter a valid numerical ID value.";
+                                projectID.focus();
+                            } else {
+                                IDError.textContent = "";
+                            }
+                            }
+                            </script>
 
                             <div class="form-group">
                             <label for="projectName">Name:</label>
-                            <input type="text" id="projectName" name="projectName" onblur="validateProjectName()"><br>
+                            <input type="text" id="projectName" name="projectName" onblur="validateProjectName()"required><br>
                             <span id="projectNameError" style="color: red;"></span>
                             </div>
 
@@ -94,7 +112,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
                             <div class="form-group">
                             <label for="cost">Total Cost:</label>
-                            <input type="text" id="cost" name="cost" onblur="validateCost()"><br>
+                            <input type="text" id="cost" name="cost" onblur="validateCost()"required><br>
                             <span id="costError" style="color: red;"></span>
                             </div>
 
@@ -115,7 +133,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
                             <div class="form-group">
                             <label for="address">Street Address:</label>
-                            <input type="text" id="address" name="address" onblur="validateAddress()"><br>
+                            <input type="text" id="address" name="address" onblur="validateAddress()"required><br>
                             <span id="addressError" style="color: red;"></span>
                             </div>
 
@@ -135,7 +153,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
                             <div class="form-group">
                             <label for="city">City:</label>
-                            <input type="text" id="city" name="city" onblur="validateCity()"><br>
+                            <input type="text" id="city" name="city" onblur="validateCity()"required><br>
                             <span id="cityError" style="color: red;"></span>
                             </div>
 
@@ -158,7 +176,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
                             <div class="form-group">
                             <label for="zip">ZipCode:</label>
-                            <input type="text" id="zip" name="zip" onblur="validateZipCode()"><br>
+                            <input type="text" id="zip" name="zip" onblur="validateZipCode()"required><br>
                             <span id="zipError" style="color: red;"></span>
                             </div>
 
@@ -178,11 +196,28 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                             </script>
 
                             <label for="deptID">Department ID:</label>
-                            <input type="text" id="deptID" name="deptID"><br>
+                            <input type="text" id="deptID" name="deptID" onblur="validatedeptID()" required><br>
+                            <span id="deptidError" style="color: red;"></span>
+                            </div>
+    
+                            <script>
+                                function validatedeptID() {
+                                const deptID = document.getElementById("deptID");
+                                const deptidError = document.getElementById("deptidError");
+                                const costRegex = /^\d+$/; // Regex to validate positive integers
+    
+                                if (!costRegex.test(deptID.value)) {
+                                    deptidError.textContent = "Please enter a valid numerical Dept ID value.";
+                                    deptID.focus();
+                                } else {
+                                    deptidError.textContent = "";
+                                }
+                                }
+                                </script>
 
                             <div class="form-group">
                             <label for="budget">Budget:</label>
-                            <input type="text" id="budget" name="budget" onblur="validateBudget()"><br>
+                            <input type="text" id="budget" name="budget" onblur="validateBudget()"required><br>
                             <span id="budgetError" style="color: red;"></span>
                             </div>
                             
@@ -190,21 +225,24 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                             function validateBudget() {
                               const budgetInput = document.getElementById("budget");
                               const budgetError = document.getElementById("budgetError");
-                            
-                              if (isNaN(budgetInput.value)) {
+                              const budgetRegex = /^\d+$/; // Regex to validate positive integers
+
+                              if (!budgetRegex.test(budgetInput.value)) {
                                 budgetError.textContent = "Please enter a valid numerical budget value.";
                                 budgetInput.focus();
                               } else {
                                 budgetError.textContent = "";
                               }
-                            }
-                            </script>
+                              }
+                              </script>
+
+                        
 
                             <label for="startdate">Start Date:</label>
-                            <input type="text" id="startdate" name="startdate"><br>
+                            <input type="text" id="startdate" name="startdate" pattern="\d{4}-\d{2}-\d{2}" title="Please enter a date in the format yyyy-mm-dd" placeholder="yyyy-mm-dd"><br>
 
                             <label for="deadline">Deadline:</label>
-                            <input type="text" id="deadline" name="deadline"><br>
+                            <input type="text" id="deadline" name="deadline" pattern="\d{4}-\d{2}-\d{2}" title="Please enter a date in the format yyyy-mm-dd" placeholder="yyyy-mm-dd"><br>
                             
                             
                             <input type="submit" value="Add Project">
@@ -213,11 +251,27 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                     <h3 class="top">Update Project</h3>
                         <form action="update_Project.php" method ="POST">
                             <label for="projectID">Enter ID:</label>
-                            <input type="text" id="projectID" name="projectID"><br>
+                            <input type="text" id="projectID" name="projectID"required><br>
+
+
+                            <div style="margin-left: -70px;">
                             <label for="column">Select Category:</label>
-                            <input type="text" id="column" name="column"><br>
+                            <select name="dropdown_Select">
+                                <option value="Progress">Progress</option>
+                                <option value="Name">Name</option>
+                                <option value="Total_Cost">Total Cost</option>
+                                <option value="Street_Address">Street Address</option>
+                                <option value="City">City</option>
+                                <option value="State">State</option>
+                                <option value="Zip Code">Zip Code</option>
+                                <option value="Department_ID">Department ID</option>
+                                <option value="Budget">Budget</option>
+                            </select><br>
+                        </div>
+                                
+
                             <label for="update">Enter new value:</label>
-                            <input type="text" id="update" name="update"><br>
+                            <input type="text" id="update" name="update"required><br>
 
                             <input type="submit" value="Update Project">
                         </form>
@@ -225,11 +279,11 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                     <h3 class="top">Remove Project</h3>
                         <form action="delete_Project.php" method ="POST">
                             <label for="projectID">Enter ID:</label>
-                            <input type="text" id="projectID" name="projectID"><br>
+                            <input type="text" id="projectID" name="projectID"required><br>
 
                             <input type="submit" value="Remove Project">
                         </form>
-                    <h3 class="top">Generate Report</h3>
+                    <h3 class="top">Generate Projects Report</h3>
                         <form action="report_Projects.php" method ="POST">
    
                             <label for="employees">Include Employees?</label>
@@ -257,9 +311,11 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                                 <input type="text" id="budget" name="budget"><br>
 
                                 <label for="from">From:</label>
-                                <input type="text" id="from" name="from" pattern="\d{4}-\d{2}-\d{2}" title="Please enter a date in the format yyyy-mm-dd"><br>
+                                <input type="text" id="from" name="from" pattern="\d{4}-\d{2}-\d{2}" title="Please enter a date in the format yyyy-mm-dd" placeholder="yyyy-mm-dd"><br>
+                                
                                 <label for="to">To:</label>
-                                <input type="text" id="to" name="to" pattern="\d{4}-\d{2}-\d{2}" title="Please enter a date in the format yyyy-mm-dd"><br>
+                                <input type="text" id="to" name="to" pattern="\d{4}-\d{2}-\d{2}" title="Please enter a date in the format yyyy-mm-dd" placeholder="yyyy-mm-dd"><br>
+                                
                                 
 
                                 
