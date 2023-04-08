@@ -7,7 +7,7 @@ if($conn === false ) {
      die( print_r( sqlsrv_errors(), true));
 }
 
-$column = ($_POST['column']);
+$column = ($_POST['dropdown_Select']);
 
 
 if($column == 'Progress')
