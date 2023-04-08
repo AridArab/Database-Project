@@ -199,6 +199,12 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                               }
                             }
                             </script>
+
+                            <label for="startdate">Start Date:</label>
+                            <input type="text" id="startdate" name="startdate"><br>
+
+                            <label for="deadline">Deadline:</label>
+                            <input type="text" id="deadline" name="deadline"><br>
                             
                             
                             <input type="submit" value="Add Project">
@@ -251,9 +257,10 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                                 <input type="text" id="budget" name="budget"><br>
 
                                 <label for="from">From:</label>
-                                <input type="text" id="from" name="from"><br>
+                                <input type="text" id="from" name="from" pattern="\d{4}-\d{2}-\d{2}" title="Please enter a date in the format yyyy-mm-dd"><br>
                                 <label for="to">To:</label>
-                                <input type="text" id="to" name="to"><br>
+                                <input type="text" id="to" name="to" pattern="\d{4}-\d{2}-\d{2}" title="Please enter a date in the format yyyy-mm-dd"><br>
+                                
 
                                 
 
