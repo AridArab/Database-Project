@@ -10,43 +10,20 @@
     $conn = connect();
 
     $result = sqlsrv_query($conn, 
-        "select * from Logs"
+        "SELECT * FROM Logs WHERE isActive = 1"
     );
 
-    $EID = '';
-    $EIDErr = '';
 
-    if (isset($_POST['submit'])) {
-        if (empty($_POST['addEmployee'])) {
-            $EIDErr = 'Please enter employee ID';
-        }
-        else if (!is_numeric($_POST['addEmployee'])){
-            $EIDErr = 'ID needs to be a number';
-        }  
-        else {
-            $EID = filter_input(
-                INPUT_POST,
-                'addEmployee',
-                FILTER_SANITIZE_NUMBER_INT
-            );
-        }
-        if ($EIDErr == ''){
-            if(select_query("select ID from Employee where 
-            ID = ".$_POST['addEmployee'], $conn)['ID'] == null){
-                $EIDErr = 'Not a valid ID';
-            }
-            else{
-                sqlsrv_query($conn, 
-                    "update Employee set Super_ID = ".$_SESSION['obj']['ID']." 
-                    where ID = ".$_POST['addEmployee']
-                );
-                sqlsrv_query($conn, 
-                    "update Employee set Department_ID = ".$_SESSION['obj']['Department_ID']." 
-                    where ID = ".$_POST['addEmployee']
-                );
-            }
+    if (isset($_POST['deleteItem']) and is_numeric($_POST['deleteItem'])) {
+        $ID = array($_POST['deleteItem']);
+        $sql = "UPDATE Logs SET isActive = 0 WHERE LogID = ?";
+        $stmt = sqlsrv_query($conn, $sql, $ID);
+        if( $stmt === false ) {
+            die( print_r( sqlsrv_errors(), true ) );
         }
     }
+
+
 ?>
 
 <html>
@@ -70,25 +47,28 @@
 <body>
     <center>
         <h1>Logs</h1>
-        <table>
-            <tr>
-                <td>ID</td>
-                <td>Name</td>
-                <td>Date</td>
-            </tr>
-            <?php
-                while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
-                    $date = $row['Date_Logged']->format('Y-m-d H:i:s');
-                    echo
-                    "<tr>
-                        <td>$row[Project_ID]</td>
-                        <td>$row[Message]</td>
-                        <td>$date</td>
-                    </tr>";
-                }
-                sqlsrv_close($conn);
-            ?>
-        </table>
+        <form action="" method="post">
+            <table>
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Date</td>
+                </tr>
+                <?php
+                    while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
+                        $date = $row['Date_Logged']->format('Y-m-d H:i:s');
+                        echo
+                        "<tr>
+                            <td>$row[Project_ID]</td>
+                            <td>$row[Message]</td>
+                            <td>$date</td>
+                            <td><button type=submit name=deleteItem value=$row[LogID]>Delete</button></td>
+                        </tr>";
+                    }
+                    sqlsrv_close($conn);
+                ?>
+            </table>
+        </form>
     </center>
 </body>
 
