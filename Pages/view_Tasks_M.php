@@ -13,19 +13,84 @@
 
     $conn = connect();
 
-    $result = sqlsrv_query($conn, "select * from WORKS_ON where Employee_ID = ".$id);
+    $result = sqlsrv_query($conn, 
+        "select W.*, P.Name from WORKS_ON AS W, Project AS P where W.Project_ID = P.ID AND W.Employee_ID = ".$id
+    );
+
+    //Setting some globals
+    $overdueTasks = array();
+    $incompleteTasks = array();
+    $completedTasks = array();
+
+    while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
+        if($row['End_Date'] == null && $row['Deadline']->format('Y-m-d') > date('Y-m-d')){
+            array_push($incompleteTasks, $row);
+        }
+        else if($row['End_Date'] == null && $row['Deadline']->format('Y-m-d') < date('Y-m-d')){
+            array_push($overdueTasks, $row);
+        }
+        else{
+            array_push($completedTasks, $row);
+        }
+    }
+    $col = array_column($overdueTasks, "Progress");
+    array_multisort($col, SORT_ASC, $overdueTasks);
+    $col = array_column($incompleteTasks, "Progress");
+    array_multisort($col, SORT_ASC, $incompleteTasks);
+    $col = array_column($completedTasks, "Progress");
+    array_multisort($col, SORT_ASC, $completedTasks);
 
     $employee = select_query("select * from Employee where ID = ".$id, $conn);
+
+    sqlsrv_close($conn);
 ?>
 
 <html>
+    <script type="text/javascript">
+        function showHide(idName){
+            var temp = document.getElementById(idName);
+            if(temp.style.display === "none")
+                temp.style.display = "block";
+            else
+                temp.style.display = "none";
+        }
+    </script>
     <style>
         table {
           width: 75%;
         }
         td {
           border: 1px solid rgb(0, 0, 0);
-          text-align: left;
+          text-align: center;
+        }
+        h5{
+            font-size: 16px;
+            margin: 0;
+        }
+        p{
+            font-size: 10px;
+            margin: 0;
+        }
+        .showButton{
+            margin-top: 20px;
+            margin-bottom: 7px;
+        }
+        .overdue{
+            background-color: rgb(255, 50, 50, 0.25);
+        }
+        .overdue:nth-child(even){
+            background-color: rgb(200, 50, 50, 0.50);
+        }
+        .complete{
+            background-color: rgb(50, 255, 50, 0.25);
+        }
+        .complete:nth-child(even){
+            background-color: rgb(50, 200, 50, 0.50);
+        }
+        .taskName{
+            width: 250px;
+            display: grid;
+            text-align: left;
         }
         tr:nth-child(even) {
           background-color: rgb(225, 225, 225);
@@ -35,52 +100,97 @@
             width: 125px;
             text-align: right;
         }
+        input {
+            width: 140px;
+        }
     </style>
     <center>
     <h1>Tasks assigned to <?php echo $employee['First_Name']." ".
             $employee['Middle_Initial']." ".$employee['Last_Name']?></h1>
-        <h2>Give employee a task</h2>
         <?php $_SESSION['taskE'] = $employee; ?>
-        <p><a href='./give_Task.php'>Add Task</a></p>
-        <h2>View Tasks (<?php echo select_query("select count(*) as Tasks from 
-        WORKS_ON where Employee_ID = ".$employee['ID'], $conn)['Tasks'] ?>)</h2>
+        
+        <h2>Incomplete Tasks (<?php echo (count($overdueTasks) + count($incompleteTasks));?>)</h2>
         <table>
             <tr>
+                <td style = "width: 150px;">Task</td>
                 <td>ID</td>
-                <td>Job Title</td>
-                <td>Description</td>
-                <td>Project ID</td>
+                <td>Project</td>
+                <td>Date Assigned</td>
                 <td>Deadline</td>
                 <td>Progress</td>
-                <td>Total_Hours</td>
-                <td>Start Date</td>
-                <td>End Date</td>
+                <td>Hours Spent</td>
             </tr>
             <?php
-                while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
-                    if($row['End_Date'] == null){
-                        $eDate = '';
-                    }
-                    else{
-                        $eDate = $row['End_Date']->format('Y-m-d');
-                    }
-
+                while($task=array_pop($overdueTasks)){
                     echo
-                    "<tr>
-                        <td>$row[ID]</td>
-                        <td>$row[Job_Title]</td>
-                        <td>$row[Description]</td>
-                        <td>$row[Project_ID]</td>
-                        <td>".$row['Deadline']->format('Y-m-d')."</td>
-                        <td>$row[Progress]</td>
-                        <td>$row[Total_Hours]</td>
-                        <td>".$row['Start_Date']->format('Y-m-d')."</td>
-                        <td>$eDate</td>
+                    "<tr class='overdue'>
+                        <td class = 'taskName'>
+                            <h5>$task[Job_Title]</h5>
+                            <p>$task[Description]</p>
+                        </td>
+                        <td>$task[ID]</td>
+                        <td>$task[Name]</td>
+                        <td>".$task['Start_Date']->format('m-d-Y')."</td>
+                        <td>".$task['Deadline']->format('m-d-Y')."</td>
+                        <td>$task[Progress]</td>
+                        <td>$task[Total_Hours]</td>
                     </tr>";
                 }
-
-                sqlsrv_close($conn);
+                while($task=array_pop($incompleteTasks)){
+                    echo
+                    "<tr>
+                        <td class = 'taskName'>
+                            <h5>$task[Job_Title]</h5>
+                            <p>$task[Description]</p>
+                        </td>
+                        <td>$task[ID]</td>
+                        <td>$task[Name]</td>
+                        <td>".$task['Start_Date']->format('m-d-Y')."</td>
+                        <td>".$task['Deadline']->format('m-d-Y')."</td>
+                        <td>$task[Progress]</td>
+                        <td>$task[Total_Hours]</td>
+                    </tr>";
+                }
             ?>
         </table>
+        <div>
+            <button id = "see" onClick="showHide('complete'); showHide('see'); showHide('hide')" class="showButton">See Completed Tasks</button>
+            <button id = "hide" onClick="showHide('complete'); showHide('see'); showHide('hide')" style="display:none" class="showButton">Hide Completed Tasks</button>
+            <div id = 'complete' style="display:none">
+                <h2>Completed Tasks (<?php echo (count($completedTasks)); ?>)</h2>
+                <table>
+                    <tr>
+                        <td style = "width: 150px;">Task</td>
+                        <td>ID</td>
+                        <td>Project</td>
+                        <td>Date Assigned</td>
+                        <td>Deadline</td>
+                        <td>Progress</td>
+                        <td>Hours Spent</td>
+                    </tr>
+                    <?php
+                        while($task = array_pop($completedTasks)){
+                            echo
+                            "<tr class='complete'>
+                                <td class = 'taskName'>
+                                    <h5>$task[Job_Title]</h5>
+                                    <p>$task[Description]</p>
+                                </td>
+                                <td>$task[ID]</td>
+                                <td>$task[Name]</td>
+                                <td>".$task['Start_Date']->format('m-d-Y')."</td>
+                                <td>".$task['Deadline']->format('m-d-Y')."</td>
+                                <td>$task[Progress]</td>
+                                <td>$task[Total_Hours]</td>
+                            </tr>";
+                        }
+                    ?>
+                </table>
+            </div>
+        </div>
+
+        <div style='margin:20px;'>
+            <a href='./give_Task.php'>Add Task</a>
+        </div>
     </center>
 </html>
