@@ -21,7 +21,7 @@
 <body>
     <center>
         <h1>Your Profile</h1>
-        <p><a href='./edit_Salary.php'>Edit Profile</a></p>
+        <p><a href='./edit_Profile.php'>Edit Profile</a></p>
         <table>
           <tr>
             <td>Name</td>
@@ -115,9 +115,6 @@
             <td>
                 <?php 
                 echo $_SESSION['obj']['Salary'];
-                if($_SESSION['obj']['Is_Manager'] == 1){
-                  echo " <a href='./edit_Salary.php'>Edit Salary</a>";
-                }
                 ?>
             </td>
           </tr>
