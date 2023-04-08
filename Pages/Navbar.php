@@ -25,6 +25,7 @@ session_start();
             else{
                 echo '<li style="float:left"> <a href="./view_Tasks.php">See Tasks</a> </li>';
             }
+            echo '<li style="float:left"> <a href="./view_Messages.php">Messages</a> </li>';
             echo '<li style="float:left"> <a href="./view_Projects.php">Projects</a> </li>';
             echo '<li> <a href="./view_Profile.php">See Profile</a> </li>';
             echo '<li> <a href="../Logic/logout.php">Logout</a> </li>';
