@@ -21,6 +21,9 @@
         if( $stmt === false ) {
             die( print_r( sqlsrv_errors(), true ) );
         }
+        else {
+            header("Refresh:0");
+        }
     }
 
 
