@@ -1,7 +1,31 @@
 <?php
 $serverName = "tcp:uhteam6-database-server.database.windows.net,1433";
 $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Database" => "UMADATABASE_TEAM6", "LoginTimeout" => 31, "Encrypt" => 1, "TrustServerCertificate" => 1);
+?>
+<html>
+<header>
+    <style>
+        label {
+            margin-bottom: 10px;
+            padding-right: 5px;
+            display: inline-block;
+            width: 125px;
+            text-align: right;
+        }
+        table {
+            width: 75%;
+        }
+        td {
+            border: 1px solid rgb(0, 0, 0);
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: rgb(225, 225, 225);
+        }
+    </style>
+</header>
 
+<?php
 $conn = sqlsrv_connect($serverName, $connectionInfo);;
 if($conn === false ) {
      die( print_r( sqlsrv_errors(), true));
@@ -116,7 +140,7 @@ echo "</table>";
 
        
 sqlsrv_close($conn);
-// header('Location: view_Projects.php');
+// header('Location: display_Projects.php');
 
 
 exit();

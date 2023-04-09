@@ -259,12 +259,12 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                             <select name="dropdown_Select">
                                 <option value="Progress">Progress</option>
                                 <option value="Name">Name</option>
-                                <option value="Total_Cost">Total Cost</option>
-                                <option value="Street_Address">Street Address</option>
+                                <option value="Total Cost">Total Cost</option>
+                                <option value="Street Address">Street Address</option>
                                 <option value="City">City</option>
                                 <option value="State">State</option>
                                 <option value="Zip Code">Zip Code</option>
-                                <option value="Department_ID">Department ID</option>
+                                <option value="Department ID">Department ID</option>
                                 <option value="Budget">Budget</option>
                             </select><br>
                         </div>
