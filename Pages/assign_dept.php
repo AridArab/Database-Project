@@ -27,7 +27,7 @@
         if ($AssignDeptErr == ''){
             $conn = connect();
 
-            $check = select_query("select ID, Manager_ID from Department where 
+            $check = select_query("select * from Department where 
             ID = ".$_POST['assignDept'], $conn);
 
             if($check['ID'] == null){
@@ -37,10 +37,6 @@
                 $AssignDeptErr = 'Department already managed';
             }
             else{
-                sqlsrv_query($conn, 
-                    "update Employee set Super_ID = ".$_SESSION['obj']['ID']." 
-                    where Department_ID = ".$_POST['assignDept']
-                );
                 sqlsrv_query($conn, 
                     "update Department set Manager_ID = ".$_SESSION['obj']['ID']." 
                     where ID = ".$_POST['assignDept']

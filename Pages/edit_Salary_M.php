@@ -5,8 +5,9 @@
     $conn = connect();
 
     if ( 
-        select_query("select Super_ID from Employee where ID = 
-        ".$_SESSION['salaryE']['ID'], $conn)['Super_ID'] != $_SESSION['obj']['ID']) {
+        select_query("select * from Employee where ID = 
+        ".$_SESSION['salaryE']['ID'], $conn)['Department_ID'] != $_SESSION['obj']['Department_ID']
+        ) {
         header('Location: ./home.php');
         exit();
     }

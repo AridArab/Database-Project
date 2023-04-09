@@ -17,7 +17,7 @@
 
     $result = select_query("select * from Employee where ID = ".$id, $conn);
 
-    if ($result['Super_ID'] != $_SESSION['obj']['ID']) {
+    if ($result['Department_ID'] != $_SESSION['obj']['Department_ID']) {
       header('Location: ./home.php');
       exit();
     }
@@ -83,14 +83,6 @@
             <td>
                 <?php 
                 echo $result['Department_ID'];
-                ?>
-            </td>
-          </tr>
-          <tr>
-            <td>Supervisor</td>
-            <td>
-                <?php 
-                echo $result['Super_ID'];
                 ?>
             </td>
           </tr>

@@ -27,8 +27,8 @@ function select_query($input, $conn) {
     return $obj;
 }
 
-function insert_query($input, $conn) {
-    $stmt = sqlsrv_query($conn, $input);
-    sqlsrv_free_stmt($stmt);
-}
+// function insert_query($input, $conn) {
+//     $stmt = sqlsrv_query($conn, $input);
+//     sqlsrv_free_stmt($stmt);
+// }
 ?>

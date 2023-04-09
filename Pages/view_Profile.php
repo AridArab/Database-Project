@@ -62,14 +62,6 @@
             </td>
           </tr>
           <tr>
-            <td>Supervisor</td>
-            <td>
-                <?php 
-                echo $_SESSION['obj']['Super_ID'];
-                ?>
-            </td>
-          </tr>
-          <tr>
             <td>Email</td>
             <td>
                 <?php 

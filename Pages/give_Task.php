@@ -89,14 +89,14 @@ if (isset($_POST['submit'])) {
         );
     }
     if ($pIDErr == '' && $jobErr == '' && $descErr == '' && $deadlineErr == '' && $startErr == '') {
-        if(select_query("select ID from Project where ID = $pID", $conn)['ID'] == null){
+        if(select_query("select * from Project where ID = $pID", $conn)['ID'] == null){
             $pIDErr = 'Not a valid project';
         }
         else{
-            insert_query(
-                "insert into WORKS_ON (Job_Title, Start_Date, Description, Employee_ID, 
+            sqlsrv_query(
+                $conn, "insert into WORKS_ON (Job_Title, Start_Date, Description, Employee_ID, 
                 Project_ID, Deadline) values ('$job', '$start', $desc, ".$_SESSION['taskE']['ID'].", 
-                $pID, '$deadline')", $conn
+                $pID, '$deadline')"
             );
 
             sqlsrv_close($conn);

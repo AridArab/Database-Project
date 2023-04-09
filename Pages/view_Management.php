@@ -8,7 +8,7 @@
         exit();
     }
     $conn = connect();
-    if($_SESSION['obj']['Is_Manager'] == 1 && select_query("select Department_ID from Employee where 
+    if($_SESSION['obj']['Is_Manager'] == 1 && select_query("select * from Employee where 
     ID = ".$_SESSION['obj']['ID'], $conn)['Department_ID'] == null){
         header('Location: ./assign_dept.php');
         sqlsrv_close($conn);
@@ -16,8 +16,7 @@
     }
 
     $result = sqlsrv_query($conn, 
-        "select ID, First_Name, Middle_Initial, Last_Name 
-        from Employee where Super_ID = ".$_SESSION['obj']['ID']
+        "select * from Employee where Department_ID = ".$_SESSION['obj']['Department_ID']
     );
 
     $EID = '';
@@ -38,15 +37,11 @@
             );
         }
         if ($EIDErr == ''){
-            if(select_query("select ID from Employee where 
-            ID = ".$_POST['addEmployee'], $conn)['ID'] == null){
+            $temp = select_query("select * from Employee where ID = ".$_POST['addEmployee'], $conn);
+            if($temp['ID'] == null || $temp['Is_Manager'] == 1){
                 $EIDErr = 'Not a valid ID';
             }
             else{
-                sqlsrv_query($conn, 
-                    "update Employee set Super_ID = ".$_SESSION['obj']['ID']." 
-                    where ID = ".$_POST['addEmployee']
-                );
                 sqlsrv_query($conn, 
                     "update Employee set Department_ID = ".$_SESSION['obj']['Department_ID']." 
                     where ID = ".$_POST['addEmployee']
@@ -78,7 +73,7 @@
     <center>
         <h1>Management</h1>
         <h2>View Employees (<?php echo select_query("select count(*) as Employees from 
-        Employee where Super_ID = ".$_SESSION['obj']['ID'], $conn)['Employees'] ?>)</h2>
+        Employee where Department_ID = ".$_SESSION['obj']['Department_ID'], $conn)['Employees'] ?>)</h2>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
         method="POST" class="mt-4 w-75">
             <div class="mb-3">

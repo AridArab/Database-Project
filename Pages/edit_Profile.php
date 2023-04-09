@@ -207,7 +207,7 @@ if (isset($_POST['submit'])) {
     if ($inputErr == '') {
         $conn = connect();
 
-        insert_query("update Employee set ".$_POST['column']." = $input where ID = ".$_SESSION['obj']['ID'], $conn);
+        sqlsrv_query($conn, "update Employee set ".$_POST['column']." = $input where ID = ".$_SESSION['obj']['ID']);
 
         $obj = select_query("select * from Employee where ID = ".$_SESSION['obj']['ID'], $conn);
 
