@@ -170,7 +170,7 @@ if (isset($_POST['submit'])) {
                 FILTER_SANITIZE_EMAIL
             );
             
-            $input = "'".strtoupper($input)."'";
+            $input = "'".strtolower($input)."'";
         }
     }
     else if ($_POST["column"] == 'Password') {
