@@ -58,10 +58,10 @@ if (isset($_POST['submit'])) {
 
 <body>
     <center style="transform: translate(0, -12px)">
-        <h1 style="background-color:rgb(0, 0, 0); color: white"
+        <h1 style="background-color:rgb(0, 0, 0); color: white; width: 80%;"
         >Welcome to the Project Managment website!</h1>
         <div class = "outerDiv">
-            <h2 style="font-size: 25px; margin: 2%" >Login</h2>
+            <h2 style="font-size: 25px; margin: 2%; width: 80%;" >Login</h2>
             <form action="
             <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
             " method="POST" class="mt-4 w-75">

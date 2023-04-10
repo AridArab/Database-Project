@@ -239,8 +239,8 @@ if (isset($_POST['submit'])) {
 
 <body>
     <center style="transform: translate(0, -12px)">
-        <h1 style="background-color:rgb(0, 0, 0); color: white" >Signup!</h1>
-        <p style="background-color:rgb(0, 0, 0); color: white; transform: translate(0, -16px)" 
+        <h1 style="background-color:rgb(0, 0, 0); color: white; width: 80%;" >Signup!</h1>
+        <p style="background-color:rgb(0, 0, 0); color: white; transform: translate(0, -16px); width: 80%;" 
         >Please Enter Account Information</p>
         <p>Already have an account? <a href="../">Login!</a></p>
         <form action="
@@ -390,7 +390,7 @@ if (isset($_POST['submit'])) {
     <div class="container">
         <div class="rectangle" style="left: 0%; top: 0%">
         </div>
-        <div class="rectangle" style="left: 95%; top: 0%">
+        <div class="rectangle" style="left: 90%; top: 0%">
         </div>
     </div>
 </body>

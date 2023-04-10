@@ -16,8 +16,8 @@ $id = $_SESSION['id'];
 
 <body>
     <center style="transform: translate(0, -12px)">
-        <h1 style="background-color:rgb(0, 0, 0); color: white" >Successful Signup!</h1>
-        <h1 style="background-color:rgb(0, 0, 0); color: yellow; transform: translate(0, -12px)" >Your ID is
+        <h1 style="background-color:rgb(0, 0, 0); color: white; width: 80%;" >Successful Signup!</h1>
+        <h1 style="background-color:rgb(0, 0, 0); color: yellow; transform: translate(0, -12px) width: 80%;" >Your ID is
             <?php echo $id ?>
         </h1>
         <h1><a href="../"> Login!</a></h1>
