@@ -235,16 +235,17 @@
         }
 
         tr:nth-child(even) {
-          background-color: rgb(225, 225, 225);
+            background-color: rgba(225, 225, 225, 0.75);
         }
         
         .vpb {
             display: grid;
             width: 450px;
-            
-            background-color: rgb(225, 225, 225);
-            border-color:rgba(0, 0, 0, 0.5);
+                    
+            background-color: rgba(225, 225, 225, 0.5);
+            border-color:rgb(0, 0, 0);
             border-style: solid;
+            border-radius: 10px;
         }
     </style>
 </header>

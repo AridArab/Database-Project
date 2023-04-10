@@ -63,7 +63,7 @@
         }
 
         tr:nth-child(even) {
-          background-color: rgb(225, 225, 225);
+            background-color: rgba(225, 225, 225, 0.75);
         }
     </style>
 </header>

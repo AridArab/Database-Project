@@ -21,18 +21,17 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
             }
             
             tr:nth-child(even) {
-                background-color: rgb(225, 225, 225);
+                background-color: rgba(225, 225, 225, 0.75);
             }
             
             form {
                 width: 450px;
-                background-color: rgb(225, 225, 225);
-                border-color: rgba(0, 0, 0, 0.5);
+                background-color: rgba(225, 225, 225, 0.75);
+                border-color: rgb(0, 0, 0);
                 border-style: solid;
-                border-radius: 4px;
+                border-radius: 10px;
                 padding: 20px;
                 margin-bottom: 20px;
-                box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
             }
 
 

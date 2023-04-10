@@ -93,7 +93,7 @@
             text-align: left;
         }
         tr:nth-child(even) {
-          background-color: rgb(225, 225, 225);
+          background-color: rgb(225, 225, 225,0.75);
         }
         label {
             display: inline-block;

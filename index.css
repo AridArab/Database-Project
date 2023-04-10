@@ -36,7 +36,7 @@ body {
     width:10%; 
     height: 1000%; 
     position: absolute;
-    background-color:lightskyblue;
+    background-color:rgb(225, 225, 225);
     border-left: 5px solid rgb(0, 0, 0);
     border-right: 5px solid rgb(0, 0, 0);
     overflow: hidden;
@@ -82,9 +82,10 @@ img {
     width: 30%;
     margin: 10%;
     
-    background-color: rgb(225, 225, 225);
-    border-color:rgba(0, 0, 0, 0.5);
+    background-color: rgba(225, 225, 225, 0.75);
+    border-color:rgb(0, 0, 0);
     border-style: solid;
+    border-radius: 10px;
 }
 
 label {

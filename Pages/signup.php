@@ -5,7 +5,7 @@ $fName = $lName = $mName = $birthday = $city = $state = $zip_code =
     $street = $sex = $phone = $mail = $pass = $isMananger = '';
 
 $fNameErr = $lNameErr = $mNameErr = $birthdayErr = $cityErr = $stateErr = $zip_codeErr =
-    $streetErr = $sexErr = $phoneErr = $mailErr = $passErr = '';
+    $streetErr = $phoneErr = $mailErr = $passErr = $repassErr = '';
 
 if (isset($_POST['submit'])) {
     if (empty($_POST['fName'])) {
@@ -125,20 +125,6 @@ if (isset($_POST['submit'])) {
         );
         $street = strtoupper($street);
     }
-    if (empty($_POST['sex'])) {
-        $sexErr = 'Sex is required';
-    } 
-    else if (strlen($_POST['sex']) > 50){
-        $sexErr = 'Sex is too long';
-    }   
-    else {
-        $sex = filter_input(
-            INPUT_POST,
-            'sex',
-            FILTER_SANITIZE_FULL_SPECIAL_CHARS
-        );
-        $sex = strtoupper($sex);
-    }
     if (empty($_POST['phone'])) {
         $phoneErr = 'Phone is required';
     } 
@@ -181,15 +167,27 @@ if (isset($_POST['submit'])) {
     else {
         $pass = $_POST['pass'];
     }
+    if ($_POST['repass'] != $_POST['pass']) {
+        $repassErr = 'Passwords do not match';
+    } 
     if ($_POST["isManager"] == "Employee") {
         $isMananger = 0;
     } else {
         $isMananger = 1;
     }
+    if ($_POST["sex"] == "MALE") {
+        $sex = "MALE";
+    }
+    else if($_POST["sex"] == "FEMALE"){
+        $sex = "FEMALE";
+    }
+    else{
+        $sex = "OTHER";
+    }
     if (
         $fNameErr == '' && $lNameErr == '' && $birthdayErr == '' && $cityErr == '' &&
-        $stateErr == '' && $zip_codeErr == '' && $streetErr == '' && $sexErr == '' &&
-        $phoneErr == '' && $mailErr == '' && $passErr == ''
+        $stateErr == '' && $zip_codeErr == '' && $streetErr == '' &&
+        $phoneErr == '' && $mailErr == '' && $passErr ==  '' && $repassErr == ''
     ) {
 
         $conn = connect();
@@ -242,7 +240,8 @@ if (isset($_POST['submit'])) {
 <body>
     <center style="transform: translate(0, -12px)">
         <h1 style="background-color:rgb(0, 0, 0); color: white" >Signup!</h1>
-        <p style="background-color:rgb(0, 0, 0); color: white; transform: translate(0, -16px)" >Please Enter Account Information</p>
+        <p style="background-color:rgb(0, 0, 0); color: white; transform: translate(0, -16px)" 
+        >Please Enter Account Information</p>
         <p>Already have an account? <a href="../">Login!</a></p>
         <form action="
         <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
@@ -325,17 +324,6 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
             <div class="mb-3" style="float:left;">
-                <label for="sex" class="form-label">Sex:</label>
-                <input type="text" class="form-control 
-            <?php echo $sexErr ? 'is-invalid' : null ?>
-            " id="sex" name="sex" placeholder="Enter your Sex">
-                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
-                    <?php echo $sexErr; ?>
-                </div>
-            </div>
-        </div>
-        <div style="width:50%; margin:auto;">
-            <div class="mb-3" style="float:left;">
                 <label for="phone" class="form-label">Phone Number:</label>
                 <input type="text" class="form-control 
             <?php echo $phoneErr ? 'is-invalid' : null ?>
@@ -344,6 +332,8 @@ if (isset($_POST['submit'])) {
                     <?php echo $phoneErr; ?>
                 </div>
             </div>
+        </div>
+        <div style="width:50%; margin:auto;">
             <div class="mb-3" style="float:left;">
                 <label for="mail" class="form-label">Email:</label>
                 <input type="text" class="form-control 
@@ -362,17 +352,37 @@ if (isset($_POST['submit'])) {
                     <?php echo $passErr; ?>
                 </div>
             </div>
+            <div class="mb-3" style="float:left;">
+                <label for="repass" class="form-label">Confirm:</label>
+                <input type="text" class="form-control 
+            <?php echo $repassErr ? 'is-invalid' : null ?>
+            " id="repass" name="repass" placeholder="Re-enter your Password">
+                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
+                    <?php echo $repassErr; ?>
+                </div>
+            </div>
         </div>
-        <div style="width:25%; margin:auto;">
+        <div style="width:500px;">
+        <div style="width:250px; float:left;">
             <p style="margin-bottom: 1px">Job Status:</p>
             <input type="radio" id="employee" name="isManager" value="Employee" style="margin-left: 75px" checked />
             <label for="html" style="text-align: left">Employee</label><br>
             <input type="radio" id="manager" name="isManager" value="Manager" style="margin-left: 75px">
             <label for="css" style="text-align: left">Manager</label><br>
-            <p></p>
-            <div class="mb-3">
-                <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100">
-            </div>
+        </div>
+        <div style="width:250px; float:left;">
+            <p style="margin-bottom: 1px">Sex:</p>
+            <input type="radio" id="male" name="sex" value="MALE" style="margin-left: 75px" checked />
+            <label for="html" style="text-align: left">Male</label><br>
+            <input type="radio" id="female" name="sex" value="FEMALE" style="margin-left: 75px">
+            <label for="css" style="text-align: left">Female</label><br>
+            <input type="radio" id="other" name="sex" value="OTHER" style="margin-left: 75px">
+            <label for="css" style="text-align: left">Other</label><br>
+        </div>
+        </div>
+        <p></p>
+        <div style="clear:both;">
+            <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100">
         </div>
         </form>
     </center>
