@@ -63,7 +63,7 @@
     </script>
     <style>
         table {
-          width: 75%;
+          width: 50%;
         }
 
         td {
@@ -79,7 +79,7 @@
             display: grid;
             width: 200px;
                     
-            background-color: rgba(225, 225, 225, 0.5);
+            background-color: rgba(225, 225, 225, 0.75);
             border-color:rgb(0, 0, 0);
             border-style: solid;
             border-radius: 10px;

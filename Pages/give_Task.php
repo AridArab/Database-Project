@@ -124,6 +124,17 @@ if (isset($_POST['submit'])) {
             input {
                 width: 140px;
             }
+        
+            .vgt {
+                display: grid;
+                width: 300px;
+                padding: 10px;
+                        
+                background-color: rgba(225, 225, 225, 0.75);
+                border-color:rgb(0, 0, 0);
+                border-style: solid;
+                border-radius: 10px;
+            }
         </style>
     </header>
     <center>
@@ -131,9 +142,10 @@ if (isset($_POST['submit'])) {
         Give Task to <?php echo $_SESSION['taskE']['First_Name']." ".
         $_SESSION['taskE']['Middle_Initial']." ".$_SESSION['taskE']['Last_Name']?>
     </h1>
+    <div class="vgt">
     <form action="
         <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
-        " method="POST" class="mt-4 w-75">
+        " method="POST" class="mt-4 w-75" style="position:relative; left: -5%">
             <div class="mb-3">
                 <label for="pID" class="form-label">Project ID:</label>
                 <input type="text" class="form-control 
@@ -179,9 +191,10 @@ if (isset($_POST['submit'])) {
                     <?php echo $startErr; ?>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="position:relative; left: 5%">
                 <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100" style="width: auto">
             </div>
         </form>
+        </div>
     </center>
 </html>
