@@ -260,11 +260,10 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                         </form>
                     </td>
                     <td>
-                        <h3 class="top">Update Project</h3>
-                        <form action="update_Project.php" method ="POST">
-                        <label for="projectID">Enter ID:</label>
-                            <input type="text" id="projectID" name="projectID"required><br>
-
+                    <h3 class="top">Update Project</h3>
+                        <form action="update_Project.php" method="POST" onsubmit="return validateUpdateForm()">
+                            <label for="projectID">Enter ID:</label>
+                            <input type="text" id="projectID" name="projectID" required><br>
 
                             <label for="column">Select Category:</label>
                             <select name="dropdown_Select">
@@ -278,25 +277,123 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                                 <option value="Department ID">Department ID</option>
                                 <option value="Budget">Budget</option>
                             </select><br>
-                        </div>
-                                
 
                             <label for="update">Enter new value:</label>
-                            <input type="text" id="update" name="update"required><br>
+                            <input type="text" id="update" name="update" required><br>
                             <input type="submit" value="Update Project">
                         </form>
+
+                        <script>
+                        function validateUpdateForm() {
+                            var category = document.getElementsByName("dropdown_Select")[0].value;
+                            var value = document.getElementById("update").value;
+
+                            if (category === "Zip Code") {
+                                if (!/^\d{5}$/.test(value)) {
+                                    alert("Zip Code must be a 5-digit number");
+                                    return false;
+                                }
+                            } else if (category === "Progress") {
+                                if (isNaN(value) || value < 0 || value > 100) {
+                                    alert("Progress must be a number between 0 and 100");
+                                    return false;
+                                }
+                            } else if (category === "Total Cost") {
+                                if (isNaN(value)) {
+                                    alert("Total Cost must be a numerical value");
+                                    return false;
+                                }
+                            } else if (category === "Department ID") {
+                                if (isNaN(value)) {
+                                    alert("Department ID must be a numerical value");
+                                    return false;
+                                }
+                            } else if (category === "Budget") {
+                                if (isNaN(value)) {
+                                    alert("Budget must be a numerical value");
+                                    return false;
+                                }
+                            }
+
+                            return true;
+                        }
+                        </script>
+
                     </td>
                     <td>
                         <h3 class="top">Remove Project</h3>
-                        <form action="delete_Project.php" method ="POST">
-                        <label for="update">Enter ID:</label>
+                        <form action="delete_Project.php" method ="POST" onsubmit="return validateRemoveForm()">
+                        <label for="projectID">Enter ID:</label>
                         <input type="text" id="projectID" name="projectID"required><br>
 
                             <input type="submit" value="Remove Project">
                         </form>
+                        <script>
+                        function validateRemoveForm() {
+                            var value = document.getElementById("projectID").value;
+                            if (isNaN(value)) {
+                                alert("ID must be a numerical value");
+                                return false;
+                            }
+
+                            return true;
+                        }
+                        </script>
                     </td>
                 </tr>
+
+
+    <table>
+        <?php
+        $query = "SELECT * FROM Project";
+        $activeQuery = "SELECT isActive FROM Project";
+        $result = sqlsrv_query($conn, $query);
+        if(!$result)
+            {
+                exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
+            }
+
+        if(!$activeQuery)
+            {
+                exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
+            }
+        ?>
+
+        <tr>
+            <td>Progress</td>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Total Cost</td>
+            <td>Street Address</td>
+            <td>City</td>
+            <td>State</td>
+            <td>Zip Code</td>
+            <td>Department ID</td>
+            <td>Budget</td>
+        </tr>
+        
+        <?php
+            while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
+                if($row['isActive'] == 1){
+                    echo "<tr><td>$row[Progress]</td>
+                    <td>$row[ID]</td>
+                    <td>$row[Name]</td>
+                    <td>$row[Total_Cost]</td>
+                    <td>$row[Street_Address]</td>
+                    <td>$row[City]</td>
+                    <td>$row[State]</td>
+                    <td>$row[Zip_Code]</td>
+                    <td>$row[Department_ID]</td>
+                    <td>$row[Budget]</td>
+
+                    </tr>";
+            }
+        ?>
+        
             </table>
         </center>
     </body>
 </html>
+
+
+

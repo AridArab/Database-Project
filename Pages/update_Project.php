@@ -48,6 +48,6 @@ if( $stmt === false ) {
 }
 
 sqlsrv_close($conn);
-header('Location: view_Projects.php');
+header('Location: edit_Project.php');
 
 exit();
