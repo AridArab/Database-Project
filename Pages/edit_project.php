@@ -2,51 +2,45 @@
 include './Navbar.php';
 include '../Logic/sqlconn.php';
 
-
 $serverName = "tcp:uhteam6-database-server.database.windows.net,1433";
 $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Database" => "UMADATABASE_TEAM6", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
 ?>
 
-
 <html>
-<header>
-    <style>
-        label {
-            margin-bottom: 10px;
-            padding-right: 5px;
-            display: inline-block;
-            width: 125px;
-            text-align: right;
-        }
-        table {
-            width: 75%;
-        }
-        td {
-            border: 1px solid rgb(0, 0, 0);
-            text-align: left;
-        }
-        tr:nth-child(even) {
-            background-color: rgb(225, 225, 225);
-        }
-    </style>
-</header>
+    <header>
+        <style>
+            label {
+                margin-bottom: 10px;
+                padding-right: 5px;
+                display: inline-block;
+                width: 125px;
+                text-align: right;
+            }
+            table {
+                width: 75%;
+            }
+            
+            tr:nth-child(even) {
+                background-color: rgb(225, 225, 225);
+            }
+        </style>
+    </header>
 
-<body>
-    <center>
-        <h1>Edit Projects</h1>
-    </center>
-<?php
-    $conn = sqlsrv_connect($serverName, $connectionInfo);
-    if(!$conn)
-        {
+    <body>
+        <center>
+            <h1>Edit Projects</h1>
+        </center>
+        <?php
+        $conn = sqlsrv_connect($serverName, $connectionInfo);
+        if(!$conn) {
             exit("<p> Connection Error: " . sqlsrv_connect_error() . "</p>");
         }
-    
-    ?>
-    <center>
-        
-                <table>
-                    <h3 class="top">Add Project</h3>
+        ?>
+        <center>
+            <table>
+                <tr>
+                    <td>
+                        <h3 class="top">Add Project</h3>
                         <form action="add_Project.php" method ="POST">
                         <div class="form-group">
 
@@ -54,22 +48,22 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                         <input type="text" id="progress" name="progress" onblur="validateProgress()" required><br>
                         <span id="progressError" style="color: red;"></span>
                         </div>
-                        
+
                         <script>
                         function validateProgress() {
-                          const progressInput = document.getElementById("progress");
-                          const progressError = document.getElementById("progressError");
-                          const progressRegex = /^\d+$/; // Regex to validate positive integers
-                        
-                          if (!progressRegex.test(progressInput.value) || progressInput.value < 0 || progressInput.value > 100) {
+                        const progressInput = document.getElementById("progress");
+                        const progressError = document.getElementById("progressError");
+                        const progressRegex = /^\d+$/; // Regex to validate positive integers
+
+                        if (!progressRegex.test(progressInput.value) || progressInput.value < 0 || progressInput.value > 100) {
                             progressError.textContent = "Please enter a valid progress value between 0 and 100.";
                             progressInput.focus();
-                          } else {
+                        } else {
                             progressError.textContent = "";
-                          }
+                        }
                         }
                         </script>
-                        
+
                         <label for="projectID">ID:</label>
                         <input type="text" id="projectID" name="projectID" onblur="validateID()" required><br>
                         <span id="IDError" style="color: red;"></span>
@@ -199,13 +193,13 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                             <input type="text" id="deptID" name="deptID" onblur="validatedeptID()" required><br>
                             <span id="deptidError" style="color: red;"></span>
                             </div>
-    
+
                             <script>
                                 function validatedeptID() {
                                 const deptID = document.getElementById("deptID");
                                 const deptidError = document.getElementById("deptidError");
                                 const costRegex = /^\d+$/; // Regex to validate positive integers
-    
+
                                 if (!costRegex.test(deptID.value)) {
                                     deptidError.textContent = "Please enter a valid numerical Dept ID value.";
                                     deptID.focus();
@@ -223,38 +217,36 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                             
                             <script>
                             function validateBudget() {
-                              const budgetInput = document.getElementById("budget");
-                              const budgetError = document.getElementById("budgetError");
-                              const budgetRegex = /^\d+$/; // Regex to validate positive integers
+                            const budgetInput = document.getElementById("budget");
+                            const budgetError = document.getElementById("budgetError");
+                            const budgetRegex = /^\d+$/; // Regex to validate positive integers
 
-                              if (!budgetRegex.test(budgetInput.value)) {
+                            if (!budgetRegex.test(budgetInput.value)) {
                                 budgetError.textContent = "Please enter a valid numerical budget value.";
                                 budgetInput.focus();
-                              } else {
+                            } else {
                                 budgetError.textContent = "";
-                              }
-                              }
-                              </script>
+                            }
+                            }
+                            </script>
 
-                        
+
 
                             <label for="startdate">Start Date:</label>
                             <input type="text" id="startdate" name="startdate" pattern="\d{4}-\d{2}-\d{2}" title="Please enter a date in the format yyyy-mm-dd" placeholder="yyyy-mm-dd"><br>
 
                             <label for="deadline">Deadline:</label>
                             <input type="text" id="deadline" name="deadline" pattern="\d{4}-\d{2}-\d{2}" title="Please enter a date in the format yyyy-mm-dd" placeholder="yyyy-mm-dd"><br>
-                            
-                            
                             <input type="submit" value="Add Project">
                         </form>
-
-                    <h3 class="top">Update Project</h3>
+                    </td>
+                    <td>
+                        <h3 class="top">Update Project</h3>
                         <form action="update_Project.php" method ="POST">
-                            <label for="projectID">Enter ID:</label>
+                        <label for="projectID">Enter ID:</label>
                             <input type="text" id="projectID" name="projectID"required><br>
 
 
-                            <div style="margin-left: -70px;">
                             <label for="column">Select Category:</label>
                             <select name="dropdown_Select">
                                 <option value="Progress">Progress</option>
@@ -272,22 +264,20 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
                             <label for="update">Enter new value:</label>
                             <input type="text" id="update" name="update"required><br>
-
                             <input type="submit" value="Update Project">
                         </form>
-
-                    <h3 class="top">Remove Project</h3>
+                    </td>
+                    <td>
+                        <h3 class="top">Remove Project</h3>
                         <form action="delete_Project.php" method ="POST">
-                            <label for="projectID">Enter ID:</label>
-                            <input type="text" id="projectID" name="projectID"required><br>
+                        <label for="update">Enter ID:</label>
+                        <input type="text" id="projectID" name="projectID"required><br>
 
                             <input type="submit" value="Remove Project">
                         </form>
-                    </table>
-                    </center>
-
-
-
-
-
-
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </body>
+</html>
