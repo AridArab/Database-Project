@@ -22,6 +22,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
         tr:nth-child(even) {
             background-color: rgb(225, 225, 225);
         }
+        
     </style>
 </header>
 

@@ -8,7 +8,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
 <html>
     <header>
-        <style>
+    <style>
             label {
                 margin-bottom: 10px;
                 padding-right: 5px;
@@ -23,6 +23,26 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
             tr:nth-child(even) {
                 background-color: rgb(225, 225, 225);
             }
+            
+            form {
+                width: 450px;
+                background-color: rgb(225, 225, 225);
+                border-color: rgba(0, 0, 0, 0.5);
+                border-style: solid;
+                border-radius: 4px;
+                padding: 20px;
+                margin-bottom: 20px;
+                box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+            }
+
+
+            form h3 {
+                margin-top: 0;
+                margin-bottom: 20px;
+                font-size: 24px;
+            }
+
+
         </style>
     </header>
 
