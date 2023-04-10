@@ -52,6 +52,15 @@
 
 <html>
 <header>
+    <script type="text/javascript">
+        function showHide(idName){
+            var temp = document.getElementById(idName);
+            if(temp.style.display === "none")
+                temp.style.display = "block";
+            else
+                temp.style.display = "none";
+        }
+    </script>
     <style>
         table {
           width: 75%;
@@ -65,28 +74,43 @@
         tr:nth-child(even) {
             background-color: rgba(225, 225, 225, 0.75);
         }
+        
+        .vae {
+            display: grid;
+            width: 200px;
+                    
+            background-color: rgba(225, 225, 225, 0.5);
+            border-color:rgb(0, 0, 0);
+            border-style: solid;
+            border-radius: 10px;
+        }
     </style>
 </header>
 
 <body>
     <center>
         <h1>Management</h1>
+        <button id = "see" onClick="showHide('add'); showHide('see'); showHide('hide')" 
+        class="showButton">Add Employee</button>
+        <button id = "hide" onClick="showHide('add'); showHide('see'); showHide('hide')" 
+        style="display:none" class="showButton">Hide Add Employee</button>
+        <p></p>
+        <div id="add" class="vae" style="padding:10px; display:none">
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
         method="POST" class="mt-4 w-75">
             <div class="mb-3">
-                <label for="addEmployee" style="display: block; width:auto; text-align: center; margin-bottom: 10px"
-                class="form-label">Add an Employee:</label>
                 <input type="text" class="form-control 
                     <?php echo $EIDErr ? 'is-invalid' : null ?>
                     " id="addEmployee" name="addEmployee" style="width: 151px" 
                     placeholder="Enter Employee ID">
-                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
-                    <?php echo $EIDErr; ?>
-                </div>
             </div>
             <p></p>
             <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100">
         </form>
+        </div>
+        <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
+            <?php echo $EIDErr; ?>
+        </div>
         <p></p>
         <h2>View Employees (<?php echo select_query("select count(*) as Employees from 
         Employee where Department_ID = ".$_SESSION['obj']['Department_ID']." 
