@@ -29,7 +29,7 @@
 <header>
     <style>
         table {
-          width: 75%;
+          width: 50%;
         }
 
         td {

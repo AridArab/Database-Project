@@ -250,7 +250,6 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                             </script>
 
 
-
                             <label for="startdate">Start Date:</label>
                             <input type="text" id="startdate" name="startdate" pattern="\d{4}-\d{2}-\d{2}" title="Please enter a date in the format yyyy-mm-dd" placeholder="yyyy-mm-dd"><br>
 
@@ -260,6 +259,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                         </form>
                     </td>
                     <td>
+
                     <h3 class="top">Update Project</h3>
                         <form action="update_Project.php" method="POST" onsubmit="return validateUpdateForm()">
                             <label for="projectID">Enter ID:</label>
@@ -342,67 +342,62 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                     </td>
                 </tr>
 
-
-    <table>
-        <?php
-        $activeQuery = "SELECT isActive FROM Project";
-        if (isset($_POST['searchID'])) {
+            <table>
+    <?php
+        // check if a search ID was submitted
+    if(isset($_POST['searchID']) && $_POST['searchID'] != '') {
             $searchID = $_POST['searchID'];
-            // Query to select only the row with the specified ID
-            $query = "SELECT * FROM Project WHERE ID = '$searchID'";
-          } else {
-            // Query to select all rows
-            $query = "SELECT * FROM Project";
-          }
-          
-          // Execute the query
-          $result = sqlsrv_query($conn, $query);
-          if (!$result) {
-            exit("<p>Query Error: " . sqlsrv_error($conn) . "</p>");
-          }
-          ?>
-          
-          <h3 class="top">Search Project</h3>
-          <form action="edit_Project.php" method="POST">
-            <label for="searchID">Search ID:</label>
-            <input type="text" id="searchID" name="searchID" required>
-            <input type="submit" value="Search">
-            <button type="button" onclick="window.location.href='edit_Project.php'">Show All Projects</button>
-          </form>
-          
-          <table>
-            <tr>
-              <td>Progress</td>
-              <td>ID</td>
-              <td>Name</td>
-              <td>Total Cost</td>
-              <td>Street Address</td>
-              <td>City</td>
-              <td>State</td>
-              <td>Zip Code</td>
-              <td>Department ID</td>
-              <td>Budget</td>
-            </tr>
-            <?php
-            while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-              echo "<tr>
-                      <td>{$row['Progress']}</td>
-                      <td>{$row['ID']}</td>
-                      <td>{$row['Name']}</td>
-                      <td>{$row['Total_Cost']}</td>
-                      <td>{$row['Street_Address']}</td>
-                      <td>{$row['City']}</td>
-                      <td>{$row['State']}</td>
-                      <td>{$row['Zip_Code']}</td>
-                      <td>{$row['Department_ID']}</td>
-                      <td>{$row['Budget']}</td>
-                    </tr>";
+            $query = "SELECT * FROM Project WHERE ID = '$searchID' AND isActive = 1";
+        } else {
+            $query = "SELECT * FROM Project WHERE isActive = 1";
+        }
+
+        // execute the query
+        $result = sqlsrv_query($conn, $query);
+        if(!$result) {
+            exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
+        }
+    ?>
+
+    <!-- display search form -->
+    <h3 class="top">Search Project</h3>
+    <form action="edit_Project.php" method="POST">
+        <label for="searchID">Search ID:</label>
+        <input type="text" id="searchID" name="searchID" required>
+        <input type="submit" value="Search">
+        <button type="button" onclick="window.location.href='edit_Project.php'">Show All Projects</button>
+        </form>
+
+    <!-- display table -->
+    <table>
+        <tr>
+            <td>Progress</td>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Total Cost</td>
+            <td>Street Address</td>
+            <td>City</td>
+            <td>State</td>
+            <td>Zip Code</td>
+            <td>Department ID</td>
+            <td>Budget</td>
+        </tr>
+        <?php
+            while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                echo "<tr><td>$row[Progress]</td>
+                <td>$row[ID]</td>
+                <td>$row[Name]</td>
+                <td>$row[Total_Cost]</td>
+                <td>$row[Street_Address]</td>
+                <td>$row[City]</td>
+                <td>$row[State]</td>
+                <td>$row[Zip_Code]</td>
+                <td>$row[Department_ID]</td>
+                <td>$row[Budget]</td></tr>";
             }
-            ?>
-          </table>
-        </center>
-    </body>
-</html>
+        ?>
+    </table>
 
-
-
+            </center>
+        </body>
+    </html>

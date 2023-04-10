@@ -108,7 +108,9 @@
     <h1>Tasks assigned to <?php echo $employee['First_Name']." ".
             $employee['Middle_Initial']." ".$employee['Last_Name']?></h1>
         <?php $_SESSION['taskE'] = $employee; ?>
-        
+        <div style='margin:20px;'>
+            <a href='./give_Task.php'>Assign Task</a>
+        </div>
         <h2>Incomplete Tasks (<?php echo (count($overdueTasks) + count($incompleteTasks));?>)</h2>
         <table>
             <tr>
@@ -187,10 +189,6 @@
                     ?>
                 </table>
             </div>
-        </div>
-
-        <div style='margin:20px;'>
-            <a href='./give_Task.php'>Add Task</a>
         </div>
     </center>
 </html>

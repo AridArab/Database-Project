@@ -45,6 +45,17 @@
 <html>
 <header>
     <style>
+        
+        .vas {
+            display: grid;
+            width: 200px;
+            padding: 10px;
+                    
+            background-color: rgba(225, 225, 225, 0.75);
+            border-color:rgb(0, 0, 0);
+            border-style: solid;
+            border-radius: 10px;
+        }
     </style>
 </header>
 
@@ -54,6 +65,7 @@
             Edit Salary for <?php echo $_SESSION['salaryE']['First_Name']." ".
             $_SESSION['salaryE']['Middle_Initial']." ".$_SESSION['salaryE']['Last_Name']?>
         </h1>
+        <div class="vas">
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
         method="POST" class="mt-4 w-75">
             <div class="mb-3">
@@ -68,6 +80,7 @@
             <p></p>
             <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100">
         </form>
+    </div>
     </center>
 </body>
 
