@@ -61,7 +61,7 @@ if (isset($_POST['submit'])) {
         <h1 style="background-color:rgb(0, 0, 0); color: white"
         >Welcome to the Project Managment website!</h1>
         <div class = "outerDiv">
-            <h2 style="font-size: 25px; margin: 2%; transform: translate(0, -12px)" >Login</h2>
+            <h2 style="font-size: 25px; margin: 2%" >Login</h2>
             <form action="
             <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
             " method="POST" class="mt-4 w-75">
@@ -79,6 +79,7 @@ if (isset($_POST['submit'])) {
                         <?php echo $idErr; ?>
                     </div>
                 </div>
+                <p></p>
                 <div class="mb-3">
                     <label for="pass" class="form-label">Password:</label>
                     <input type="text" class="form-control 
