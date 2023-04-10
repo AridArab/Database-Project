@@ -250,7 +250,6 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                             </script>
 
 
-
                             <label for="startdate">Start Date:</label>
                             <input type="text" id="startdate" name="startdate" pattern="\d{4}-\d{2}-\d{2}" title="Please enter a date in the format yyyy-mm-dd" placeholder="yyyy-mm-dd"><br>
 
@@ -260,15 +259,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                         </form>
                     </td>
                     <td>
-                    <h3 class="top">Search Project</h3>
-                        <form action="update_Project.php" method="POST">
-                            <label for="searchID">Search ID:</label>
-                            <input type="text" id="searchID" name="searchID" required>
-   
-                            </select><br>
 
-                            <input type="submit" value="Update Project">
-                        </form>
                     <h3 class="top">Update Project</h3>
                         <form action="update_Project.php" method="POST" onsubmit="return validateUpdateForm()">
                             <label for="projectID">Enter ID:</label>
