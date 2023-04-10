@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
     if ($idErr == '' && $passErr == '') {
         $conn = connect();
 
-        $obj = select_query("select * from Employee where ID = $id", $conn);
+        $obj = select_query("select * from Employee where ID = $id", $conn)[0];
 
         if (password_verify($_POST['pass'], $obj['Password'])) { //Credential check logic
             session_start(); //Starts session

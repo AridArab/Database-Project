@@ -28,7 +28,7 @@
             $conn = connect();
 
             $check = select_query("select * from Department where 
-            ID = ".$_POST['assignDept'], $conn);
+            ID = ".$_POST['assignDept'], $conn)[0];
 
             if($check['ID'] == null){
                 $AssignDeptErr = 'Department does not exist';

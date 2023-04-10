@@ -15,7 +15,7 @@
 
     $conn = connect();
 
-    $result = select_query("select * from Employee where ID = ".$id, $conn);
+    $result = select_query("select * from Employee where ID = ".$id, $conn)[0];
 
     if ($result['Department_ID'] != $_SESSION['obj']['Department_ID']) {
       header('Location: ./home.php');

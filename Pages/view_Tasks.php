@@ -85,7 +85,7 @@ $conn = connect();
         }
         if ($tIDErr == '' && $progressErr == '' && $hoursErr == '' && $endErr == ''){
             if(select_query("select * from WORKS_ON where 
-                ID = ".$tID, $conn)['ID'] == null){
+                ID = ".$tID, $conn)[0]['ID'] == null){
                 $tIDErr = 'Not a valid ID';
             }
             else{

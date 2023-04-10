@@ -40,7 +40,7 @@
     $col = array_column($completedTasks, "Progress");
     array_multisort($col, SORT_ASC, $completedTasks);
 
-    $employee = select_query("select * from Employee where ID = ".$id, $conn);
+    $employee = select_query("select * from Employee where ID = ".$id, $conn)[0];
 
     sqlsrv_close($conn);
 ?>

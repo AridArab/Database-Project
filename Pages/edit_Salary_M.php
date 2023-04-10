@@ -6,7 +6,7 @@
 
     if ( 
         select_query("select * from Employee where ID = 
-        ".$_SESSION['salaryE']['ID'], $conn)['Department_ID'] != $_SESSION['obj']['Department_ID']
+        ".$_SESSION['salaryE']['ID'], $conn)[0]['Department_ID'] != $_SESSION['obj']['Department_ID']
         ) {
         header('Location: ./home.php');
         exit();

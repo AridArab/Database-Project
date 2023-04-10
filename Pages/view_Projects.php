@@ -90,7 +90,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
     <h2>All Projects (<?php 
     $conn = connect();
     echo select_query("select count(*) as Projects from 
-    Project where isActive = 1", $conn)['Projects'] ?>)</h2>
+    Project where isActive = 1", $conn)[0]['Projects'] ?>)</h2>
     <table>
         <?php
         $query = "SELECT * FROM Project";

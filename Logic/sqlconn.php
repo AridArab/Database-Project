@@ -22,7 +22,8 @@ function connect() {
 
 function select_query($input, $conn) {
     $stmt = sqlsrv_query($conn, $input);
-    $obj = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_BOTH);
+    $obj = array();
+    while($obj[] = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_BOTH)){}
     sqlsrv_free_stmt($stmt);
     return $obj;
 }

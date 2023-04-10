@@ -204,7 +204,7 @@ if (isset($_POST['submit'])) {
             '$mail', '$password_hash', $isMananger)"
         );
 
-        $obj = select_query("select top 1 * from Employee order by ID desc", $conn);
+        $obj = select_query("select * from Employee order by ID desc", $conn)[0];
 
         sqlsrv_close($conn);
 

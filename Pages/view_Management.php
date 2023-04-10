@@ -9,14 +9,13 @@
     }
     $conn = connect();
     if($_SESSION['obj']['Is_Manager'] == 1 && select_query("select * from Employee where 
-    ID = ".$_SESSION['obj']['ID'], $conn)['Department_ID'] == null){
+    ID = ".$_SESSION['obj']['ID'], $conn)[0]['Department_ID'] == null){
         header('Location: ./assign_dept.php');
         sqlsrv_close($conn);
         exit();
     }
 
-    $result = sqlsrv_query($conn, 
-        "select * from Employee where Department_ID = ".$_SESSION['obj']['Department_ID']
+    $result = select_query("select * from Employee where Department_ID = ".$_SESSION['obj']['Department_ID'], $conn
     );
 
     $EID = '';
@@ -37,7 +36,7 @@
             );
         }
         if ($EIDErr == ''){
-            $temp = select_query("select * from Employee where ID = ".$_POST['addEmployee'], $conn);
+            $temp = select_query("select * from Employee where ID = ".$_POST['addEmployee'], $conn)[0];
             if($temp['ID'] == null || $temp['Is_Manager'] == 1){
                 $EIDErr = 'Not a valid ID';
             }
@@ -72,12 +71,10 @@
 <body>
     <center>
         <h1>Management</h1>
-        <h2>View Employees (<?php echo select_query("select count(*) as Employees from 
-        Employee where Department_ID = ".$_SESSION['obj']['Department_ID'], $conn)['Employees'] ?>)</h2>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
         method="POST" class="mt-4 w-75">
             <div class="mb-3">
-                <label for="addEmployee" style="display: block; text-align: center; margin-bottom: 10px"
+                <label for="addEmployee" style="display: block; width:auto; text-align: center; margin-bottom: 10px"
                 class="form-label">Add an Employee:</label>
                 <input type="text" class="form-control 
                     <?php echo $EIDErr ? 'is-invalid' : null ?>
@@ -91,6 +88,10 @@
             <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100">
         </form>
         <p></p>
+        <h2>View Employees (<?php echo select_query("select count(*) as Employees from 
+        Employee where Department_ID = ".$_SESSION['obj']['Department_ID']." 
+        and not ID = ".$_SESSION['obj']['ID'], $conn)[0]['Employees'] ?>)
+        </h2>
         <table>
             <tr>
                 <td>ID</td>
@@ -99,8 +100,8 @@
                 <td>Tasks</td>
             </tr>
             <?php
-                while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
-                    if($row['ID'] != $_SESSION['obj']['ID']){
+                foreach($result as $row){
+                    if($row['ID'] != $_SESSION['obj']['ID'] && $row['ID'] != null){
                         echo
                         "<tr>
                             <td>$row[ID]</td>

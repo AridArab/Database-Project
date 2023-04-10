@@ -89,7 +89,7 @@ if (isset($_POST['submit'])) {
         );
     }
     if ($pIDErr == '' && $jobErr == '' && $descErr == '' && $deadlineErr == '' && $startErr == '') {
-        if(select_query("select * from Project where ID = $pID", $conn)['ID'] == null){
+        if(select_query("select * from Project where ID = $pID", $conn)[0]['ID'] == null){
             $pIDErr = 'Not a valid project';
         }
         else{
