@@ -26,7 +26,7 @@ $id = $_SESSION['id'];
     <div class="container">
         <div class="rectangle" style="left: 0%; top: 0%">
         </div>
-        <div class="rectangle" style="left: 90%; top: 0%">
+        <div class="rectangle" style="left: 90%; top: 0%; transform: scaleX(-1)">
         </div>
     </div>
 </body>
