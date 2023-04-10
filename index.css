@@ -36,7 +36,7 @@ body {
     width:10%; 
     height: 1000%; 
     position: absolute;
-    background-color:rgb(150, 150, 150);
+    background-color:lightskyblue;
     border-left: 5px solid rgb(0, 0, 0);
     border-right: 5px solid rgb(0, 0, 0);
     overflow: hidden;
@@ -67,7 +67,7 @@ li a{
 }
 
 li a:hover{
-    background-color: rgb(0, 145, 255);
+    background-color: lightskyblue;
     color: white;
 }
 
