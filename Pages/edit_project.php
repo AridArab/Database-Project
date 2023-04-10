@@ -345,52 +345,61 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
     <table>
         <?php
-        $query = "SELECT * FROM Project";
         $activeQuery = "SELECT isActive FROM Project";
-        $result = sqlsrv_query($conn, $query);
-        if(!$result)
-            {
-                exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
-            }
-
-        if(!$activeQuery)
-            {
-                exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
-            }
-        ?>
-
-        <tr>
-            <td>Progress</td>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Total Cost</td>
-            <td>Street Address</td>
-            <td>City</td>
-            <td>State</td>
-            <td>Zip Code</td>
-            <td>Department ID</td>
-            <td>Budget</td>
-        </tr>
-        
-        <?php
-            while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
-                if($row['isActive'] == 1){
-                    echo "<tr><td>$row[Progress]</td>
-                    <td>$row[ID]</td>
-                    <td>$row[Name]</td>
-                    <td>$row[Total_Cost]</td>
-                    <td>$row[Street_Address]</td>
-                    <td>$row[City]</td>
-                    <td>$row[State]</td>
-                    <td>$row[Zip_Code]</td>
-                    <td>$row[Department_ID]</td>
-                    <td>$row[Budget]</td>
-
+        if (isset($_POST['searchID'])) {
+            $searchID = $_POST['searchID'];
+            // Query to select only the row with the specified ID
+            $query = "SELECT * FROM Project WHERE ID = '$searchID'";
+          } else {
+            // Query to select all rows
+            $query = "SELECT * FROM Project";
+          }
+          
+          // Execute the query
+          $result = sqlsrv_query($conn, $query);
+          if (!$result) {
+            exit("<p>Query Error: " . sqlsrv_error($conn) . "</p>");
+          }
+          ?>
+          
+          <h3 class="top">Search Project</h3>
+          <form action="edit_Project.php" method="POST">
+            <label for="searchID">Search ID:</label>
+            <input type="text" id="searchID" name="searchID" required>
+            <input type="submit" value="Search">
+            <button type="button" onclick="window.location.href='edit_Project.php'">Show All Projects</button>
+          </form>
+          
+          <table>
+            <tr>
+              <td>Progress</td>
+              <td>ID</td>
+              <td>Name</td>
+              <td>Total Cost</td>
+              <td>Street Address</td>
+              <td>City</td>
+              <td>State</td>
+              <td>Zip Code</td>
+              <td>Department ID</td>
+              <td>Budget</td>
+            </tr>
+            <?php
+            while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+              echo "<tr>
+                      <td>{$row['Progress']}</td>
+                      <td>{$row['ID']}</td>
+                      <td>{$row['Name']}</td>
+                      <td>{$row['Total_Cost']}</td>
+                      <td>{$row['Street_Address']}</td>
+                      <td>{$row['City']}</td>
+                      <td>{$row['State']}</td>
+                      <td>{$row['Zip_Code']}</td>
+                      <td>{$row['Department_ID']}</td>
+                      <td>{$row['Budget']}</td>
                     </tr>";
             }
-        ?>
-        
-            </table>
+            ?>
+          </table>
         </center>
     </body>
 </html>
