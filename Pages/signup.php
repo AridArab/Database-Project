@@ -345,7 +345,7 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="mb-3" style="float:left;">
                 <label for="pass" class="form-label">Password:</label>
-                <input type="text" class="form-control 
+                <input type="password" class="form-control 
             <?php echo $passErr ? 'is-invalid' : null ?>
             " id="pass" name="pass" placeholder="Enter your Password">
                 <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
@@ -354,7 +354,7 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="mb-3" style="float:left;">
                 <label for="repass" class="form-label">Confirm:</label>
-                <input type="text" class="form-control 
+                <input type="password" class="form-control 
             <?php echo $repassErr ? 'is-invalid' : null ?>
             " id="repass" name="repass" placeholder="Re-enter your Password">
                 <div class="invalid-feedback" style="color: rgb(255, 0, 0)">

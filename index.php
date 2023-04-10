@@ -61,7 +61,7 @@ if (isset($_POST['submit'])) {
         <h1 style="background-color:rgb(0, 0, 0); color: white; width: 80%;"
         >Welcome to the Project Managment website!</h1>
         <div class = "outerDiv">
-            <h2 style="font-size: 25px; margin: 2%; width: 80%;" >Login</h2>
+            <h2 style="font-size: 25px; position: relative; left: 10%; width: 80%;" >Login</h2>
             <form action="
             <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
             " method="POST" class="mt-4 w-75">
@@ -82,7 +82,7 @@ if (isset($_POST['submit'])) {
                 <p></p>
                 <div class="mb-3">
                     <label for="pass" class="form-label">Password:</label>
-                    <input type="text" class="form-control 
+                    <input type="password" class="form-control 
                 <?php echo $passErr ? 'is-invalid' : null ?>
                 " id="pass" name="pass" placeholder="Enter your Password" style="width: 170px">
                     <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
