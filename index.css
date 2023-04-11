@@ -60,11 +60,13 @@ li  {
 }
 
 li a{
-    font-size: large;
+    font-size: 15px;
     display: block;
     color: rgb(255, 255, 255);
     text-align: center;
-    padding: 20px;
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     text-decoration: none;
 }
 
