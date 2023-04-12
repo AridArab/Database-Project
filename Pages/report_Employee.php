@@ -26,8 +26,11 @@
     error_reporting(E_ERROR | E_PARSE);
     include './navbar.php';
     include '../Logic/sqlconn.php';
+
+    $serverName = "tcp:uhteam6-database-server.database.windows.net,1433";
+    $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Database" => "UMADATABASE_TEAM6", "LoginTimeout" => 31, "Encrypt" => 1, "TrustServerCertificate" => 1);
     
-    $conn = connect();
+    $conn = sqlsrv_connect($serverName, $connectionInfo);
 
     $stmt = "";
 
@@ -37,8 +40,6 @@
     else{
         $stmt = "SELECT * FROM Employee LEFT JOIN Department ON Department.ID = Department_ID";
     }
-
-    select_query($stmt, $conn);
 
     echo "
         <center>
@@ -50,15 +51,13 @@
                 <td>Department</td>
             </tr>";
 
-    $result = select_query($stmt, $conn);
-
-    foreach($result as $row){
+    while($result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_BOTH)){
         echo
             "<tr>
-                <td>".$row['ID']."</td>
-                <td>".$row['First_Name']." ".$row['Middle_Initial']." ".$row['Last_Name']."</td>
-                <td>".$row['Department_ID']."</td>
-                <td>".$row['Dept_Name']."</td>
+                <td>".$result['ID']."</td>
+                <td>".$result['First_Name']." ".$result['Middle_Initial']." ".$result['Last_Name']."</td>
+                <td>".$result['Department_ID']."</td>
+                <td>".$result['Dept_Name']."</td>
             </tr>";
     }
 
