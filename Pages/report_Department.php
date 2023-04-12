@@ -51,6 +51,7 @@
 
     echo "
         <center>
+        <a href='./home.php'>Home</a>
             <table>
             <tr>
                 <td>Department ID</td>
