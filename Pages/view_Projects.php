@@ -81,10 +81,15 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
             </div>
             <div class = "grb" id="project" style="display:none">
                         <form action="report_Projects.php" method ="POST">
-   
-                            <label for="employees">Include Employees?</label>
-                            <input type="checkbox" id="employees" name="employees" value="true"><br>
                         
+                        <?php
+                            if (isset($_SESSION['obj'])) { 
+                                if ($_SESSION['obj']['Is_Manager'] == 1) {
+                                    echo '<label for="employees">Include Employees?</label>';
+                                    echo '<input type="checkbox" id="employees" name="employees" value="true"><br>';
+                                }
+                            }
+                        ?>
                             <select name="dropdown_Progress">
                                 <option value="Greater than">Greater than</option>
                                 <option value="Less than">Less than</option>
@@ -139,6 +144,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                 exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
             }
         ?>
+        
 
         <tr>
             <td>Progress</td>

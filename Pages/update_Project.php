@@ -13,11 +13,9 @@ if($column == 'Progress')
 {
     if($_POST['update'] == '100'){
         $sql = "UPDATE Project SET Progress = ?, isActive = 0 WHERE ID = ?";
-        // echo 'here';
     }
     else{
         $sql = "UPDATE Project SET Progress = ? WHERE ID = ?";
-        // echo 'sup';
     }
 }
 
