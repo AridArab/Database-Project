@@ -25,8 +25,8 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
     }
 
     form {
-        width: 100%; /* Set the form width to 100% */
-        max-width: 600px; /* Set a maximum width for the form */
+        width: 100%; 
+        max-width: 600px; 
         background-color: rgba(225, 225, 225, 0.75);
         border-color: rgb(0, 0, 0);
         border-style: solid;
@@ -41,15 +41,14 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
         font-size: 24px;
     }
 
-    /* Use a media query to adjust the form style for smaller screens */
     @media (max-width: 768px) {
         form {
-            padding: 10px; /* Reduce the padding */
-            font-size: 14px; /* Reduce the font size */
+            padding: 10px; 
+            font-size: 14px; 
         }
         label {
-            width: 100%; /* Set the label width to 100% */
-            text-align: left; /* Left-align the label text */
+            width: 100%; 
+            text-align: left; 
         }
     }
 </style>
