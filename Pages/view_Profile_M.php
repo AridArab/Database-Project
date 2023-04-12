@@ -47,6 +47,9 @@
     <center>
         <h1><?php echo $result['First_Name']." ".
             $result['Middle_Initial']." ".$result['Last_Name']?>'s Profile</h1>
+            <a href='./edit_Salary_M.php'>Edit Salary</a>
+            <p></p>
+            <?php $_SESSION['salaryE'] = $result; ?>
         <table>
           <tr>
             <td>Name</td>
@@ -131,8 +134,7 @@
             <td>Salary</td>
             <td>
                 <?php 
-                    echo $result['Salary']." <a href='./edit_Salary_M.php'>Edit Salary</a>"; 
-                    $_SESSION['salaryE'] = $result;
+                    echo $result['Salary'];
                 ?>
             </td>
           </tr>

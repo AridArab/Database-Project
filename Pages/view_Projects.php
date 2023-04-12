@@ -27,6 +27,16 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
         tr:nth-child(even) {
             background-color: rgba(225, 225, 225, 0.75);
         }
+        .grb {
+            display: grid;
+            width: 700px;
+            padding: 10px;
+                    
+            background-color: rgba(225, 225, 225, 0.75);
+            border-color:rgb(0, 0, 0);
+            border-style: solid;
+            border-radius: 10px;
+        }
     </style>
 </header>
 
@@ -42,11 +52,34 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
         }
     
     ?>
-    <center>
-    
-                <table>
-
-                    <h3 class="top">Generate Projects Report</h3>
+    <center> 
+    <script type="text/javascript">
+        function hide(i){
+            var temp = document.getElementById(i);
+            temp.style.display = "none";
+        }
+        function showHide(i){
+            var temp = document.getElementById(i);
+            if(temp.style.display === "none")
+                temp.style.display = "block";
+            else
+                temp.style.display = "none";
+        }
+    </script>
+    <h3 class="top">Generate Projects Report</h3>
+    Select Report Type:
+    <select id="report" onchange="hide('department');hide('employee');hide('project');showHide(value)">
+        <option value="" disabled selected>Select</option>
+        <option value="department">Departments</option>
+        <option value="employee">Employees</option>
+        <option value="project">Projects</option>
+    </select>
+    <p></p>
+            <div class = "grb" id="department" style="display:none">
+            </div>
+            <div class = "grb" id="employee" style="display:none">
+            </div>
+            <div class = "grb" id="project" style="display:none">
                         <form action="report_Projects.php" method ="POST">
    
                             <label for="employees">Include Employees?</label>
@@ -85,7 +118,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
                                 <input type="submit" value="Generate Report">
                         </form>
-                </table>
+            </div>
     
     <h2>All Projects (<?php 
     $conn = connect();
