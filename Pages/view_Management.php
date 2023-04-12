@@ -49,6 +49,9 @@
                     "update Employee set Department_ID = ".$_SESSION['obj']['Department_ID']." 
                     where ID = ".$_POST['addEmployee']
                 );
+                echo '<script type="text/javascript">';
+                echo "window.location.href='./view_Management.php'";
+                echo '</script>';
             }
         }
     }
