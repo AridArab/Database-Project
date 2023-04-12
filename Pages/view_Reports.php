@@ -78,7 +78,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
             <div class = "grb" id="department" style="display:none">
                 <form action="report_Department.php" method ="POST">
                     <label for="ddept">Department:</label>
-                    <input type="input" id="ddept" name="ddept">
+                    <input type="text" id="ddept" name="ddept">
                     <p></p>
                     <input type="submit" value="Generate Report">
                 </form>
@@ -86,7 +86,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
             <div class = "grb" id="employee" style="display:none">
                 <form action="report_Employee.php" method ="POST">
                     <label for="edept">Department:</label>
-                    <input type="input" id="edept" name="edept">
+                    <input type="text" id="edept" name="edept">
                     <p></p>
                     <input type="submit" value="Generate Report">
                 </form>

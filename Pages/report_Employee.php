@@ -35,10 +35,10 @@
     $stmt = "";
 
     if($_POST['edept'] != ''){
-        $stmt = "SELECT * FROM Employee, Department WHERE Department_ID = ".$_POST['edept']." AND Department.ID = ".$_POST['edept'];
+        $stmt = "SELECT Employee.ID AS EID, * FROM Employee, Department WHERE Department_ID = ".$_POST['edept']." AND Department.ID = ".$_POST['edept'];
     }
     else{
-        $stmt = "SELECT * FROM Employee LEFT JOIN Department ON Department.ID = Department_ID";
+        $stmt = "SELECT Employee.ID AS EID, * FROM Employee LEFT JOIN Department ON Department.ID = Department_ID";
     }
 
     $sql = sqlsrv_query($conn, $stmt);
@@ -56,7 +56,7 @@
     while($result = sqlsrv_fetch_array($sql, SQLSRV_FETCH_ASSOC)){
         echo
             "<tr>
-                <td>".$result['ID']."</td>
+                <td>".$result['EID']."</td>
                 <td>".$result['First_Name']." ".$result['Middle_Initial']." ".$result['Last_Name']."</td>
                 <td>".$result['Department_ID']."</td>
                 <td>".$result['Dept_Name']."</td>
