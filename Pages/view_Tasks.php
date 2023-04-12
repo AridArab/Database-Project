@@ -184,6 +184,7 @@ $conn = connect();
                 <td>Assignment Date</td>
                 <td>Due Date</td>
                 <td>Progress</td>
+                <td>Hours Logged</td>
             </tr>
             <?php
                 sqlsrv_close($conn);
@@ -199,6 +200,7 @@ $conn = connect();
                         <td>".$task['Start_Date']->format('m-d-Y')."</td>
                         <td>!! ".$task['Deadline']->format('m-d-Y')." !!</td>
                         <td>$task[Progress]</td>
+                        <td>$task[Total_Hours]</td>
                     </tr>";
                 }
                 while($task = array_pop($incompleteTasks)){
@@ -213,6 +215,7 @@ $conn = connect();
                         <td>".$task['Start_Date']->format('m-d-Y')."</td>
                         <td>".$task['Deadline']->format('m-d-Y')."</td>
                         <td>$task[Progress]</td>
+                        <td>$task[Total_Hours]</td>
                     </tr>";
                 }
             ?>
@@ -230,6 +233,7 @@ $conn = connect();
                         <td>Assignment Date</td>
                         <td>Due Date</td>
                         <td>Progress</td>
+                        <td>Hours Logged</td>
                     </tr>
                     <?php
                         while($task = array_pop($completedTasks)){
@@ -244,6 +248,7 @@ $conn = connect();
                                 <td>".$task['Start_Date']->format('m-d-Y')."</td>
                                 <td>".$task['Deadline']->format('m-d-Y')."</td>
                                 <td>$task[Progress]</td>
+                                <td>$task[Total_Hours]</td>
                             </tr>";
                         }
                     ?>

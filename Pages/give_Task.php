@@ -3,12 +3,13 @@
     include '../Logic/sqlconn.php';
     include "./Navbar.php";
     
-    $pID = $job = $desc = $deadline = $start = '';
-    $pIDErr = $jobErr = $descErr = $deadlineErr = $startErr = '';
+    $pID = $job = $desc = $deadline = '';
+    $pIDErr = $jobErr = $descErr = $deadlineErr = '';
 
     $conn = connect();
 
 if (isset($_POST['submit'])) {
+    //Checks post
     if (empty($_POST['pID'])) {
         $pIDErr = 'Project ID is required';
     }
@@ -69,43 +70,27 @@ if (isset($_POST['submit'])) {
             FILTER_SANITIZE_NUMBER_INT
         );
     }
-    if (empty($_POST['start'])) {
-        $startErr = 'Start date is required';
-    }
-    else if (!is_numeric(substr($_POST['start'], 0, 4)) || substr($_POST['start'], 4, 1) != '-' ||
-    !is_numeric(substr($_POST['start'], 5, 2)) || substr($_POST['start'], 7, 1) != '-' ||
-    !is_numeric(substr($_POST['start'], 8, 2))) {
-        $startErr = 'Start date needs to be in YYYY-MM-DD';
-    }
-    else if (!checkdate((int)substr($_POST['start'], 5, 7), (int)substr($_POST['start'], 8, 10), 
-    (int)substr($_POST['start'], 0, 4))){
-        $startErr = 'Start date needs to be a real date';
-    }
-    else {
-        $start = filter_input(
-            INPUT_POST,
-            'start',
-            FILTER_SANITIZE_NUMBER_INT
-        );
-    }
-    if ($pIDErr == '' && $jobErr == '' && $descErr == '' && $deadlineErr == '' && $startErr == '') {
+    if ($pIDErr == '' && $jobErr == '' && $descErr == '' && $deadlineErr == '') {
         if(select_query("select * from Project where ID = $pID", $conn)[0]['ID'] == null){
             $pIDErr = 'Not a valid project';
         }
         else{
-            sqlsrv_query(
-                $conn, "insert into WORKS_ON (Job_Title, Start_Date, Description, Employee_ID, 
-                Project_ID, Deadline) values ('$job', '$start', $desc, ".$_SESSION['taskE']['ID'].", 
-                $pID, '$deadline')"
-            );
+            //Code to query adding tasks to an employee
+            $sql = "INSERT INTO WORKS_ON (Job_Title, Start_Date, End_Date, Total_Hours, Employee_ID, Project_ID, Description, Progress, Deadline) VALUES (?,?,?,?,?,?,?,?,?)";
 
+            $curr_Date = date("Y/m/d");
+            $params = array($job, $curr_Date, null, 0, $_SESSION['taskE']['ID'], $pID, $desc, 0, $deadline);
+
+            $stmt = sqlsrv_query($conn, $sql, $params);
+            if( $stmt === false ) {
+                die( print_r( sqlsrv_errors(), true));
+            }
             sqlsrv_close($conn);
-
             header("Location: ./view_Tasks_M.php?id=".$_SESSION['taskE']['ID']);
         }
     }
 }
-
+    
 ?>
 
 <html>
@@ -180,15 +165,6 @@ if (isset($_POST['submit'])) {
             " id="deadline" name="deadline" placeholder="YYYY-MM-DD">
                 <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
                     <?php echo $deadlineErr; ?>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="start" class="form-label">Start Date:</label>
-                <input type="text" class="form-control 
-            <?php echo $startErr ? 'is-invalid' : null ?>
-            " id="start" name="start" placeholder="Enter start date">
-                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
-                    <?php echo $startErr; ?>
                 </div>
             </div>
             <div class="mb-3" style="position:relative; left: 5%">

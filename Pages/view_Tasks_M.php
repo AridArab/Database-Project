@@ -120,7 +120,7 @@
                 <td>Date Assigned</td>
                 <td>Deadline</td>
                 <td>Progress</td>
-                <td>Hours Spent</td>
+                <td>Hours Logged</td>
             </tr>
             <?php
                 while($task=array_pop($overdueTasks)){
