@@ -53,7 +53,7 @@
         <form action="" method="post">
             <table>
                 <tr>
-                    <td>ID</td>
+                    <td>Project ID</td>
                     <td>Name</td>
                     <td>Date</td>
                 </tr>

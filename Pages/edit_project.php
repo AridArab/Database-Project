@@ -9,40 +9,51 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 <html>
     <header>
     <style>
-            label {
-                margin-bottom: 10px;
-                padding-right: 5px;
-                display: inline-block;
-                width: 125px;
-                text-align: right;
-            }
-            table {
-                width: 75%;
-            }
-            
-            tr:nth-child(even) {
-                background-color: rgba(225, 225, 225, 0.75);
-            }
-            
-            form {
-                width: 450px;
-                background-color: rgba(225, 225, 225, 0.75);
-                border-color: rgb(0, 0, 0);
-                border-style: solid;
-                border-radius: 10px;
-                padding: 20px;
-                margin-bottom: 20px;
-            }
+    label {
+        margin-bottom: 10px;
+        padding-right: 5px;
+        display: inline-block;
+        width: 125px;
+        text-align: right;
+    }
+    table {
+        width: 75%;
+    }
 
+    tr:nth-child(even) {
+        background-color: rgba(225, 225, 225, 0.75);
+    }
 
-            form h3 {
-                margin-top: 0;
-                margin-bottom: 20px;
-                font-size: 24px;
-            }
+    form {
+        width: 100%; /* Set the form width to 100% */
+        max-width: 600px; /* Set a maximum width for the form */
+        background-color: rgba(225, 225, 225, 0.75);
+        border-color: rgb(0, 0, 0);
+        border-style: solid;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
 
+    form h3 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
 
-        </style>
+    /* Use a media query to adjust the form style for smaller screens */
+    @media (max-width: 768px) {
+        form {
+            padding: 10px; /* Reduce the padding */
+            font-size: 14px; /* Reduce the font size */
+        }
+        label {
+            width: 100%; /* Set the label width to 100% */
+            text-align: left; /* Left-align the label text */
+        }
+    }
+</style>
+
     </header>
 
     <body>
@@ -263,7 +274,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                     <h3 class="top">Update Project</h3>
                         <form action="update_Project.php" method="POST" onsubmit="return validateUpdateForm()">
                             <label for="projectID">Enter ID:</label>
-                            <input type="text" id="projectID" name="projectID" required><br>
+                            <input type="text" id="projectID" name="projectID" required pattern="\d+"><br>
 
                             <label for="column">Select Category:</label>
                             <select name="dropdown_Select">
@@ -321,24 +332,14 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
                     </td>
                     <td>
-                        <h3 class="top">Remove Project</h3>
-                        <form action="delete_Project.php" method ="POST" onsubmit="return validateRemoveForm()">
+                    <h3 class="top">Remove Project</h3>
+                    <form action="delete_Project.php" method ="POST">
                         <label for="projectID">Enter ID:</label>
-                        <input type="text" id="projectID" name="projectID"required><br>
+                        <input type="text" id="projectID" name="projectID" required pattern="\d+"><br>
+                        <input type="submit" value="Remove Project">
+                        <div id="error-message"></div>
+                    </form>
 
-                            <input type="submit" value="Remove Project">
-                        </form>
-                        <script>
-                        function validateRemoveForm() {
-                            var value = document.getElementById("projectID").value;
-                            if (isNaN(value)) {
-                                alert("ID must be a numerical value");
-                                return false;
-                            }
-
-                            return true;
-                        }
-                        </script>
                     </td>
                 </tr>
 
