@@ -27,7 +27,7 @@
     // include './navbar.php';
     include '../Logic/sqlconn.php';
 
-    if(!isset($_POST['submit'])){
+    if(!isset($_POST['ddept'])){
         echo '<script type="text/javascript">';
         echo "window.location.href='../'";
         echo '</script>';
