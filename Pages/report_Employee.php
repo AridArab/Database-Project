@@ -27,6 +27,12 @@
     // include './navbar.php';
     include '../Logic/sqlconn.php';
 
+    if(!isset($_POST['submit'])){
+        echo '<script type="text/javascript">';
+        echo "window.location.href='../'";
+        echo '</script>';
+    }
+
     $serverName = "tcp:uhteam6-database-server.database.windows.net,1433";
     $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Database" => "UMADATABASE_TEAM6", "LoginTimeout" => 31, "Encrypt" => 1, "TrustServerCertificate" => 1);
     

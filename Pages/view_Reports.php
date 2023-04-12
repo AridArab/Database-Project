@@ -4,13 +4,6 @@ include '../Logic/sqlconn.php';
 
 $serverName = "tcp:uhteam6-database-server.database.windows.net,1433";
 $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Database" => "UMADATABASE_TEAM6", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
-
-if (isset($_POST['submit'])) {
-
-    echo '<script type="text/javascript">';
-    echo "window.location.href='./report_Employee.php'";
-    echo '</script>';
-}
 ?>
 
 
@@ -91,7 +84,7 @@ if (isset($_POST['submit'])) {
                 </form>
             </div>
             <div class = "grb" id="employee" style="display:none">
-                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method ="POST">
+                <form action="report_Employee.php" method ="POST">
                     <label for="edept">Department:</label>
                     <input type="text" id="edept" name="edept">
                     <p></p>
