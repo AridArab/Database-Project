@@ -210,7 +210,7 @@ if (isset($_POST['submit'])) {
         $_SESSION['id'] = $obj['ID'];
 
         echo '<script type="text/javascript">';
-        echo "window.location.href='./signupsuccess.php'";
+        echo "window.location.href='./signup_Success.php'";
         echo '</script>';
     }
 }

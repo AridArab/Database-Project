@@ -1,5 +1,5 @@
 <?php 
-    include './Navbar.php';
+    include './navbar.php';
     include '../Logic/sqlconn.php';
 
     if (isset($_GET["id"])) {

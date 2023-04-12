@@ -1,5 +1,5 @@
 <?php
-include './Navbar.php';
+include './navbar.php';
 include '../Logic/sqlconn.php';
 
 $serverName = "tcp:uhteam6-database-server.database.windows.net,1433";
@@ -76,14 +76,20 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
     </select>
     <p></p>
             <div class = "grb" id="department" style="display:none">
+                <form action="report_Department.php" method ="POST">
+                    <label for="ddept">Department:</label>
+                    <input type="input" id="ddept" name="ddept">
+                    <p></p>
+                    <input type="submit" value="Generate Report">
+                </form>
             </div>
             <div class = "grb" id="employee" style="display:none">
-                        <form action="report_Employee.php" method ="POST">
-                            <label for="edept">Department:</label>
-                            <input type="input" id="edept" name="edept">
-                            <p></p>
-                            <input type="submit" value="Generate Report">
-                        </form>
+                <form action="report_Employee.php" method ="POST">
+                    <label for="edept">Department:</label>
+                    <input type="input" id="edept" name="edept">
+                    <p></p>
+                    <input type="submit" value="Generate Report">
+                </form>
             </div>
             <div class = "grb" id="project" style="display:none">
                         <form action="report_Projects.php" method ="POST">
@@ -131,28 +137,31 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                         </form>
             </div>
     
-    <h2>All Projects (<?php 
-    $conn = connect();
-    echo select_query("select count(*) as Projects from 
-    Project where isActive = 1", $conn)[0]['Projects'] ?>)</h2>
-    <table>
+    <!-- <h2>All Projects ( -->
+    <?php 
+    // $conn = connect();
+    // echo select_query("select count(*) as Projects from 
+    // Project where isActive = 1", $conn)[0]['Projects'] 
+    ?>
+    <!-- )</h2>
+    <table> -->
         <?php
-        $query = "SELECT * FROM Project";
-        $activeQuery = "SELECT isActive FROM Project";
-        $result = sqlsrv_query($conn, $query);
-        if(!$result)
-            {
-                exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
-            }
+        // $query = "SELECT * FROM Project";
+        // $activeQuery = "SELECT isActive FROM Project";
+        // $result = sqlsrv_query($conn, $query);
+        // if(!$result)
+        //     {
+        //         exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
+        //     }
 
-        if(!$activeQuery)
-            {
-                exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
-            }
+        // if(!$activeQuery)
+        //     {
+        //         exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
+        //     }
         ?>
         
 
-        <tr>
+        <!-- <tr>
             <td>Progress</td>
             <td>ID</td>
             <td>Name</td>
@@ -163,27 +172,28 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
             <td>Zip Code</td>
             <td>Department ID</td>
             <td>Budget</td>
-        </tr>
+        </tr> -->
         
         <?php
-            while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
-                if($row['isActive'] == 1){
-                    echo "<tr><td>$row[Progress]</td>
-                    <td>$row[ID]</td>
-                    <td>$row[Name]</td>
-                    <td>$row[Total_Cost]</td>
-                    <td>$row[Street_Address]</td>
-                    <td>$row[City]</td>
-                    <td>$row[State]</td>
-                    <td>$row[Zip_Code]</td>
-                    <td>$row[Department_ID]</td>
-                    <td>$row[Budget]</td>
+            // while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC))
+            //     if($row['isActive'] == 1){
+            //         echo "<tr><td>$row[Progress]</td>
+            //         <td>$row[ID]</td>
+            //         <td>$row[Name]</td>
+            //         <td>$row[Total_Cost]</td>
+            //         <td>$row[Street_Address]</td>
+            //         <td>$row[City]</td>
+            //         <td>$row[State]</td>
+            //         <td>$row[Zip_Code]</td>
+            //         <td>$row[Department_ID]</td>
+            //         <td>$row[Budget]</td>
 
-                    </tr>";
-            }
+            //         </tr>";
+            // }
         ?>
         
-    </table>
+    <!-- </table> -->
+    
     </center>
 
 </body>

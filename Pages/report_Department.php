@@ -35,26 +35,29 @@
     }
 
     $conn = connect();
-
+    
     $stmt = "";
 
-    if($_POST['edept'] != ''){
-        $stmt = "SELECT * FROM Employee, Department WHERE Department_ID = ".$_POST['edept']." AND Department.ID = ".$_POST['edept'];
+    if($_POST['ddept'] != ''){
+        $stmt = "SELECT Department.ID, Department.Dept_Name, SUM(Budget) AS Budget, 
+        SUM(Total_Cost) AS Expenses FROM Project INNER JOIN Department ON Department.ID = ".$_POST['ddept']."
+        GROUP BY Department.ID, Department.Dept_Name";
     }
     else{
-        $stmt = "SELECT * FROM Employee LEFT JOIN Department ON Department.ID = Department_ID";
+        $stmt = "SELECT Department.ID, Department.Dept_Name, SUM(Budget) AS Budget, 
+        SUM(Total_Cost) AS Expenses FROM Project INNER JOIN Department ON Department.ID = Department_ID 
+        GROUP BY Department.ID, Department.Dept_Name";
     }
-
     select_query($stmt, $conn);
 
     echo "
         <center>
             <table>
             <tr>
-                <td>ID</td>
-                <td>Name</td>
                 <td>Department ID</td>
                 <td>Department</td>
+                <td>Budget</td>
+                <td>Expenses</td>
             </tr>";
 
     $result = select_query($stmt, $conn);
@@ -63,9 +66,9 @@
         echo
             "<tr>
                 <td>".$row['ID']."</td>
-                <td>".$row['First_Name']." ".$row['Middle_Initial']." ".$row['Last_Name']."</td>
-                <td>".$row['Department_ID']."</td>
-                <td>".$row['Dept_Name']."</td>
+                <td>".$row['Dept_Name']." ".$row['Middle_Initial']." ".$row['Last_Name']."</td>
+                <td>".$row['Budget']."</td>
+                <td>".$row['Expenses']."</td>
             </tr>";
     }
 

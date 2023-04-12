@@ -1,6 +1,6 @@
 <?php 
     error_reporting(E_ERROR | E_PARSE);
-    include './Navbar.php';
+    include './navbar.php';
     include '../Logic/sqlconn.php';
 
     if($_SESSION['obj']['Is_Manager'] == 0){

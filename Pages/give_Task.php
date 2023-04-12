@@ -1,7 +1,7 @@
 <?php 
     error_reporting(E_ERROR | E_PARSE);
     include '../Logic/sqlconn.php';
-    include "./Navbar.php";
+    include "./navbar.php";
     
     $pID = $job = $desc = $deadline = '';
     $pIDErr = $jobErr = $descErr = $deadlineErr = '';

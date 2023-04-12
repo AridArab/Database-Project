@@ -1,6 +1,6 @@
 <?php 
     error_reporting(E_ERROR | E_PARSE);
-    include './Navbar.php';
+    include './navbar.php';
     include '../Logic/sqlconn.php';
 
     if($_SESSION['obj']['Is_Manager'] == 0){
@@ -13,7 +13,7 @@
     if($_SESSION['obj']['Is_Manager'] == 1 && select_query("select * from Employee where 
     ID = ".$_SESSION['obj']['ID'], $conn)[0]['Department_ID'] == null){
         echo '<script type="text/javascript">';
-        echo "window.location.href='./assign_dept.php'";
+        echo "window.location.href='./assign_Dept.php'";
         echo '</script>';
         sqlsrv_close($conn);
         exit();

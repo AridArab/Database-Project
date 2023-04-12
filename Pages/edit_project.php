@@ -1,5 +1,5 @@
 <?php
-include './Navbar.php';
+include './navbar.php';
 include '../Logic/sqlconn.php';
 
 $serverName = "tcp:uhteam6-database-server.database.windows.net,1433";
@@ -66,7 +66,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
     <body>
         <center>
-            <h1>Edit Projects</h1>
+            <h1>Projects</h1>
         </center>
         <?php
         $conn = sqlsrv_connect($serverName, $connectionInfo);
@@ -76,9 +76,9 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
         ?>
             <center>
             <button id = "see" onClick="showHide('edit'); showHide('see'); showHide('hide')" 
-            class="showButton">Edit Project</button>
+            class="showButton">Edit Projects</button>
             <button id = "hide" onClick="showHide('edit'); showHide('see'); showHide('hide')" 
-            style="display:none" class="showButton">Hide Edit Project</button>
+            style="display:none" class="showButton">Hide Edits Project</button>
             <div id="edit" style="display:none">
             <table>
                 <tr>
@@ -374,7 +374,12 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
             exit("<p> Query Error: " . sqlsrv_error($conn) . "</p>");
         }
     ?>
-
+    <p></p>
+    <button id = "seep" onClick="showHide('searchp'); showHide('seep'); showHide('hidep')" 
+    class="showButton">Search Projects</button>
+    <button id = "hidep" onClick="showHide('searchp'); showHide('seep'); showHide('hidep')" 
+    style="display:none" class="showButton">Hide Search Projects</button>
+    <div id="searchp" style="display:none">
     <h3 class="top">Search Project</h3>
     <form action="edit_Project.php" method="POST">
         <label for="searchID">Search ID:</label>
@@ -382,7 +387,8 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
         <input type="submit" value="Search">
         <button type="button" onclick="window.location.href='edit_Project.php'">Show All Projects</button>
         </form>
-
+    </div>
+    <p></p>
     <table>
         <tr>
             <td>Progress</td>

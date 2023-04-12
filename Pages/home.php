@@ -1,4 +1,4 @@
-<?php include './Navbar.php' ?>
+<?php include './navbar.php' ?>
 
 <html>
 

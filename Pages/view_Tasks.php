@@ -1,6 +1,6 @@
 <?php
 include '../Logic/sqlconn.php';
-include './Navbar.php';
+include './navbar.php';
 
 $conn = connect();
 
