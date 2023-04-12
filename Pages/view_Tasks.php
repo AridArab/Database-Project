@@ -89,17 +89,36 @@ $conn = connect();
                 $tIDErr = 'Not a valid ID';
             }
             else{
+                
                 if ($progress != '' && $progressErr == ''){
-                    sqlsrv_query($conn, 
+                    $res = sqlsrv_query($conn, 'select Progress from WORKS_ON where ID = '.$tID);
+                    if(sqlsrv_fetch_array($res, SQLSRV_FETCH_ASSOC)['Progress'] == null){
+                        sqlsrv_query($conn, 
                         "update WORKS_ON set Progress = ".$progress." 
                         where ID = ".$tID
-                    );
+                        );
+                    }
+                    else{
+                        sqlsrv_query($conn, 
+                        "update WORKS_ON set Progress = Progress + ".$progress." 
+                        where ID = ".$tID
+                        );
+                    }          
                 }
                 if ($hours != '' && $hoursErr == ''){
-                    sqlsrv_query($conn, 
+                    $res = sqlsrv_query($conn, 'select Total_Hours from WORKS_ON where ID = '.$tID);
+                    if(sqlsrv_fetch_array($res, SQLSRV_FETCH_ASSOC)['Total_Hours'] == null){
+                        sqlsrv_query($conn, 
                         "update WORKS_ON set Total_Hours = ".$hours." 
                         where ID = ".$tID
-                    );
+                        );
+                    }
+                    else{
+                        sqlsrv_query($conn, 
+                        "update WORKS_ON set Total_Hours = Total_Hours + ".$hours." 
+                        where ID = ".$tID
+                        );
+                    }
                 }
                 if ($end != '' && $endErr == ''){
                     sqlsrv_query($conn, 
@@ -108,7 +127,7 @@ $conn = connect();
                     );
                 }
             }
-            header('Location: ./view_Tasks.php');
+            header("Refresh:0");
         }
     }
 
