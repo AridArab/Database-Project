@@ -9,9 +9,17 @@ if($conn === false ) {
 
 $column = ($_POST['dropdown_Select']);
 
-
 if($column == 'Progress')
-    $sql = "UPDATE Project SET Progress = ? WHERE ID = ?";
+{
+    if($_POST['update'] == '100'){
+        $sql = "UPDATE Project SET Progress = ?, isActive = 0 WHERE ID = ?";
+        // echo 'here';
+    }
+    else{
+        $sql = "UPDATE Project SET Progress = ? WHERE ID = ?";
+        // echo 'sup';
+    }
+}
 
 if($column == 'Name')
     $sql = "UPDATE Project SET Name = ? WHERE ID = ?";
