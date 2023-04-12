@@ -8,6 +8,9 @@ if($conn === false ) {
 }
 
 $column = ($_POST['dropdown_Select']);
+$projectID = $_POST['projectID'];
+$updateValue = $_POST['update'];
+
 
 if($column == 'Progress')
 {
@@ -46,12 +49,29 @@ if($column == 'Budget')
 
 $params = array($_POST['update'], $_POST['projectID']);
 
+$idExists = false;
+$checkIdQuery = "SELECT ID FROM Project WHERE ID = ?";
+$params = array($projectID);
+$checkIdStmt = sqlsrv_query($conn, $checkIdQuery, $params);
+if ($checkIdStmt !== false) {
+    if (sqlsrv_has_rows($checkIdStmt)) {
+        $idExists = true;
+    }
+    sqlsrv_free_stmt($checkIdStmt);
+}
 
+if (!$idExists) {
+    echo "<p>The project ID entered does not exist .</p>";
+} else {
+    $params = array($updateValue, $projectID);
+}
 
 $stmt = sqlsrv_query($conn, $sql, $params);
 if( $stmt === false ) {
      die( print_r( sqlsrv_errors(), true));
 }
+
+
 
 sqlsrv_close($conn);
 echo '<script type="text/javascript">';

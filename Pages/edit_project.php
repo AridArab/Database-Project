@@ -305,6 +305,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
                             <label for="update">Enter new value:</label>
                             <input type="text" id="update" name="update" required><br>
+                            <div id="errorMessage"></div>
                             <input type="submit" value="Update Project">
                         </form>
 
