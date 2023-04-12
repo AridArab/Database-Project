@@ -107,13 +107,13 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                         }
                         </script>
 
-                        <div>
+                        <!-- <div>
                         <label for="projectID">ID:</label>
                         <input type="text" id="projectID" name="projectID" onblur="validateID()" required><br>
                         <span id="IDError" style="color: red;"></span>
-                        </div>
+                        </div> -->
 
-                        <script>
+                        <!-- <script>
                             function validateID() {
                             const projectID = document.getElementById("projectID");
                             const IDError = document.getElementById("IDError");
@@ -122,11 +122,12 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                             if (!costRegex.test(projectID.value)) {
                                 IDError.textContent = "Please enter a valid numerical ID value.";
                                 projectID.focus();
+                            else if ()
                             } else {
                                 IDError.textContent = "";
                             }
                             }
-                            </script>
+                            </script> -->
 
                             <div class="form-group">
                             <label for="projectName">Name:</label>
