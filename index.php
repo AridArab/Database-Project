@@ -34,7 +34,9 @@ if (isset($_POST['submit'])) {
         if (password_verify($_POST['pass'], $obj['Password'])) { //Credential check logic
             session_start(); //Starts session
             $_SESSION['obj'] = $obj;
-            header('Location: ./Pages/home.php');
+            echo '<script type="text/javascript">';
+            echo "window.location.href='../Pages/home.php'";
+            echo '</script>';
         } 
         else {
 

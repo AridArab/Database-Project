@@ -8,7 +8,9 @@
         select_query("select * from Employee where ID = 
         ".$_SESSION['salaryE']['ID'], $conn)[0]['Department_ID'] != $_SESSION['obj']['Department_ID']
         ) {
-        header('Location: ./home.php');
+        echo '<script type="text/javascript">';
+        echo "window.location.href='./home.php'";
+        echo '</script>';
         exit();
     }
 
@@ -35,7 +37,9 @@
                 where ID = ".$_SESSION['salaryE']['ID']
             );
             
-            header("Location: ./view_Profile_M.php?id=".$_SESSION['salaryE']['ID']);
+            echo '<script type="text/javascript">';
+            echo "window.location.href='./view_Profile_M.php?id=".$_SESSION['salaryE']['ID']."'";
+            echo '</script>';
 
             sqlsrv_close($conn);
         }

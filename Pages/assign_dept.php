@@ -3,7 +3,9 @@
     include './navbar.php';
     include '../Logic/sqlconn.php';
     if($_SESSION['obj']['Is_Manager'] == 0){
-        header('Location: ./home.php');
+        echo '<script type="text/javascript">';
+        echo "window.location.href='./home.php'";
+        echo '</script>';
         exit();
     }
 
@@ -47,7 +49,9 @@
                 );
                 $_SESSION['obj']['Department_ID'] = (int)$_POST['assignDept'];
                 
-                header('Location: ./view_Management.php');
+                echo '<script type="text/javascript">';
+                echo "window.location.href='./view_Management.php'";
+                echo '</script>';
             }
             sqlsrv_close($conn);
         }
