@@ -29,6 +29,7 @@
             margin-bottom: 10px;
             width: 65%;
             background-color: rgba(225, 225, 225, 0.75);
+            border-radius: 25px;
         }
     </style>
 </header>
@@ -38,13 +39,11 @@
         <h1>Messages</h1>
         <p><?php
         while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
-            $sentid = $row['SenderID'];
-            $sender = select_query( 
-            "SELECT * FROM Employee WHERE ID = ".$sentid, $conn)[0];
+            $date = $row['Date_Sent']->format('Y-m-d');
             echo
             "<div class='message'>
             $row[Message]<br>
-            From: $sender[First_Name]
+            Date Recieved: $date
             </div>";
         }
         ?></p>

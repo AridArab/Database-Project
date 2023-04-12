@@ -89,17 +89,36 @@ $conn = connect();
                 $tIDErr = 'Not a valid ID';
             }
             else{
+                
                 if ($progress != '' && $progressErr == ''){
-                    sqlsrv_query($conn, 
+                    $res = sqlsrv_query($conn, 'select Progress from WORKS_ON where ID = '.$tID);
+                    if(sqlsrv_fetch_array($res, SQLSRV_FETCH_ASSOC)['Progress'] == null){
+                        sqlsrv_query($conn, 
                         "update WORKS_ON set Progress = ".$progress." 
                         where ID = ".$tID
-                    );
+                        );
+                    }
+                    else{
+                        sqlsrv_query($conn, 
+                        "update WORKS_ON set Progress = Progress + ".$progress." 
+                        where ID = ".$tID
+                        );
+                    }          
                 }
                 if ($hours != '' && $hoursErr == ''){
-                    sqlsrv_query($conn, 
+                    $res = sqlsrv_query($conn, 'select Total_Hours from WORKS_ON where ID = '.$tID);
+                    if(sqlsrv_fetch_array($res, SQLSRV_FETCH_ASSOC)['Total_Hours'] == null){
+                        sqlsrv_query($conn, 
                         "update WORKS_ON set Total_Hours = ".$hours." 
                         where ID = ".$tID
-                    );
+                        );
+                    }
+                    else{
+                        sqlsrv_query($conn, 
+                        "update WORKS_ON set Total_Hours = Total_Hours + ".$hours." 
+                        where ID = ".$tID
+                        );
+                    }
                 }
                 if ($end != '' && $endErr == ''){
                     sqlsrv_query($conn, 
@@ -108,7 +127,7 @@ $conn = connect();
                     );
                 }
             }
-            header('Location: ./view_Tasks.php');
+            header("Refresh:0");
         }
     }
 
@@ -184,6 +203,7 @@ $conn = connect();
                 <td>Assignment Date</td>
                 <td>Due Date</td>
                 <td>Progress</td>
+                <td>Hours Logged</td>
             </tr>
             <?php
                 sqlsrv_close($conn);
@@ -199,6 +219,7 @@ $conn = connect();
                         <td>".$task['Start_Date']->format('m-d-Y')."</td>
                         <td>!! ".$task['Deadline']->format('m-d-Y')." !!</td>
                         <td>$task[Progress]</td>
+                        <td>$task[Total_Hours]</td>
                     </tr>";
                 }
                 while($task = array_pop($incompleteTasks)){
@@ -213,6 +234,7 @@ $conn = connect();
                         <td>".$task['Start_Date']->format('m-d-Y')."</td>
                         <td>".$task['Deadline']->format('m-d-Y')."</td>
                         <td>$task[Progress]</td>
+                        <td>$task[Total_Hours]</td>
                     </tr>";
                 }
             ?>
@@ -230,6 +252,7 @@ $conn = connect();
                         <td>Assignment Date</td>
                         <td>Due Date</td>
                         <td>Progress</td>
+                        <td>Hours Logged</td>
                     </tr>
                     <?php
                         while($task = array_pop($completedTasks)){
@@ -244,6 +267,7 @@ $conn = connect();
                                 <td>".$task['Start_Date']->format('m-d-Y')."</td>
                                 <td>".$task['Deadline']->format('m-d-Y')."</td>
                                 <td>$task[Progress]</td>
+                                <td>$task[Total_Hours]</td>
                             </tr>";
                         }
                     ?>
