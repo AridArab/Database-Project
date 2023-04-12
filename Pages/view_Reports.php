@@ -80,7 +80,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                     <label for="ddept">Department:</label>
                     <input type="text" id="ddept" name="ddept">
                     <p></p>
-                    <input type="submit" value="Generate Report">
+                    <input type="submit" id="submit" value="Generate Report">
                 </form>
             </div>
             <div class = "grb" id="employee" style="display:none">
@@ -88,7 +88,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                     <label for="edept">Department:</label>
                     <input type="text" id="edept" name="edept">
                     <p></p>
-                    <input type="submit" value="Generate Report">
+                    <input type="submit" id="submit" value="Generate Report">
                 </form>
             </div>
             <div class = "grb" id="project" style="display:none">
