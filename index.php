@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
             session_start(); //Starts session
             $_SESSION['obj'] = $obj;
             echo '<script type="text/javascript">';
-            echo "window.location.href='../Pages/home.php'";
+            echo "window.location.href='./Pages/home.php'";
             echo '</script>';
         } 
         else {
