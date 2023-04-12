@@ -42,7 +42,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
 <body>
     <center>
-        <h1>View Projects</h1>
+        <h1>View Reports</h1>
     </center>
     <?php
     $conn = sqlsrv_connect($serverName, $connectionInfo);
@@ -66,18 +66,24 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                 temp.style.display = "none";
         }
     </script>
-    <h3 class="top">Generate Projects Report</h3>
+    <h3 class="top">Generate Report</h3>
     Select Report Type:
     <select id="report" onchange="hide('department');hide('employee');hide('project');showHide(value)">
         <option value="" disabled selected>Select</option>
         <option value="department">Departments</option>
-        <option value="employee">Employees</option>
+        <?php if($_SESSION['obj']['Is_Manager'] == 1){echo '<option value="employee">Employees</option>';}?>
         <option value="project">Projects</option>
     </select>
     <p></p>
             <div class = "grb" id="department" style="display:none">
             </div>
             <div class = "grb" id="employee" style="display:none">
+                        <form action="report_Employee.php" method ="POST">
+                            <label for="edept">Department:</label>
+                            <input type="input" id="edept" name="edept">
+                            <p></p>
+                            <input type="submit" value="Generate Report">
+                        </form>
             </div>
             <div class = "grb" id="project" style="display:none">
                         <form action="report_Projects.php" method ="POST">

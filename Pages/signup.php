@@ -197,9 +197,9 @@ if (isset($_POST['submit'])) {
         sqlsrv_query(
             $conn, "insert into Employee (First_Name, Last_Name, Middle_Initial, 
             Birthday, City, State, Zip_Code, Street_Address, Sex, Phone_Number, 
-            Email_Address, Password, Is_Manager) values ('$fName', '$lName', $mName, 
+            Email_Address, Password, Is_Manager, Salary) values ('$fName', '$lName', $mName, 
             '$birthday', '$city', '$state', $zip_code, '$street', '$sex', $phone, 
-            '$mail', '$password_hash', $isMananger)"
+            '$mail', '$password_hash', $isMananger, 10000)"
         );
 
         $obj = select_query("select * from Employee order by ID desc", $conn)[0];
@@ -209,7 +209,9 @@ if (isset($_POST['submit'])) {
         session_start();
         $_SESSION['id'] = $obj['ID'];
 
-        header('Location: ./signupsuccess.php');
+        echo '<script type="text/javascript">';
+        echo "window.location.href='./signupsuccess.php'";
+        echo '</script>';
     }
 }
 

@@ -192,8 +192,68 @@ $conn = connect();
         input {
             width: 140px;
         }
+        .vt {
+            display: grid;
+            width: 300px;
+            padding: 10px;
+                    
+            background-color: rgba(225, 225, 225, 0.75);
+            border-color:rgb(0, 0, 0);
+            border-style: solid;
+            border-radius: 10px;
+        }
     </style>
     <center>
+        <div>
+            <button onClick="showHide('progress_edit')" class="showButton">Progress Task</button>
+            <div class="vt" id="progress_edit" style="display:none">
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
+            method="POST" class="mt-4 w-75" id = "edit">
+                <div class="mb-3">
+                    <label for="tID" style="margin-bottom: 10px"
+                    class="form-label">Task ID:</label>
+                    <input type="text" class="form-control 
+                        <?php echo $tIDErr ? 'is-invalid' : null ?>
+                        " id="tID" name="tID" placeholder="Enter Task ID">
+                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
+                        <?php echo $tIDErr; ?>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="progress" style="margin-bottom: 10px"
+                    class="form-label">Add Progress:</label>
+                    <input type="text" class="form-control 
+                        <?php echo $progressErr ? 'is-invalid' : null ?>
+                        " id="progress" name="progress" placeholder="Enter Progress">
+                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
+                        <?php echo $progressErr; ?>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="hours" style="margin-bottom: 10px"
+                    class="form-label">Add Hours:</label>
+                    <input type="text" class="form-control 
+                        <?php echo $hoursErr ? 'is-invalid' : null ?>
+                        " id="hours" name="hours" placeholder="Enter Total Hours">
+                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
+                        <?php echo $hoursErr; ?>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="end" style="margin-bottom: 10px"
+                    class="form-label">Set End Date:</label>
+                    <input type="text" class="form-control 
+                        <?php echo $endErr ? 'is-invalid' : null ?>
+                        " id="end" name="end" placeholder="YYYY-MM-DD">
+                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
+                        <?php echo $endErr; ?>
+                    </div>
+                </div>
+                <p></p>
+                <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100" style="width: auto">
+            </form>
+            </div>
+        </div>
         <h2>Pending Tasks (<?php echo (count($overdueTasks) + count($incompleteTasks)); ?>)</h2>
         <table>
             <tr>
@@ -273,54 +333,6 @@ $conn = connect();
                     ?>
                 </table>
             </div>
-        </div>
-        <div>
-            <button onClick="showHide('edit')" class="showButton">Progress Task</button>
-            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
-            method="POST" class="mt-4 w-75" id = "edit" style="display:none">
-                <div class="mb-3">
-                    <label for="tID" style="margin-bottom: 10px"
-                    class="form-label">Task ID:</label>
-                    <input type="text" class="form-control 
-                        <?php echo $tIDErr ? 'is-invalid' : null ?>
-                        " id="tID" name="tID" placeholder="Enter Task ID">
-                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
-                        <?php echo $tIDErr; ?>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="progress" style="margin-bottom: 10px"
-                    class="form-label">Add Progress:</label>
-                    <input type="text" class="form-control 
-                        <?php echo $progressErr ? 'is-invalid' : null ?>
-                        " id="progress" name="progress" placeholder="Enter Progress">
-                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
-                        <?php echo $progressErr; ?>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="hours" style="margin-bottom: 10px"
-                    class="form-label">Add Hours:</label>
-                    <input type="text" class="form-control 
-                        <?php echo $hoursErr ? 'is-invalid' : null ?>
-                        " id="hours" name="hours" placeholder="Enter Total Hours">
-                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
-                        <?php echo $hoursErr; ?>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="end" style="margin-bottom: 10px"
-                    class="form-label">Set End Date:</label>
-                    <input type="text" class="form-control 
-                        <?php echo $endErr ? 'is-invalid' : null ?>
-                        " id="end" name="end" placeholder="YYYY-MM-DD">
-                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
-                        <?php echo $endErr; ?>
-                    </div>
-                </div>
-                <p></p>
-                <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100" style="width: auto">
-            </form>
         </div>
     </center>
 </html>

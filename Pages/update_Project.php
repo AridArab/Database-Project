@@ -56,6 +56,8 @@ if( $stmt === false ) {
 }
 
 sqlsrv_close($conn);
-header('Location: edit_Project.php');
+echo '<script type="text/javascript">';
+echo "window.location.href='./edit_Project.php'";
+echo '</script>';
 
 exit();

@@ -6,7 +6,9 @@
       $id = $_GET["id"];
     } 
     else {
-      header('Location: ./home.php');
+      echo '<script type="text/javascript">';
+      echo "window.location.href='./home.php'";
+      echo '</script>';
       exit();
     }
 
@@ -18,7 +20,9 @@
     $result = select_query("select * from Employee where ID = ".$id, $conn)[0];
 
     if ($result['Department_ID'] != $_SESSION['obj']['Department_ID']) {
-      header('Location: ./home.php');
+      echo '<script type="text/javascript">';
+      echo "window.location.href='./home.php'";
+      echo '</script>';
       exit();
     }
     

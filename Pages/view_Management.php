@@ -4,13 +4,17 @@
     include '../Logic/sqlconn.php';
 
     if($_SESSION['obj']['Is_Manager'] == 0){
-        header('Location: ./home.php');
+        echo '<script type="text/javascript">';
+        echo "window.location.href='./home.php'";
+        echo '</script>';
         exit();
     }
     $conn = connect();
     if($_SESSION['obj']['Is_Manager'] == 1 && select_query("select * from Employee where 
     ID = ".$_SESSION['obj']['ID'], $conn)[0]['Department_ID'] == null){
-        header('Location: ./assign_dept.php');
+        echo '<script type="text/javascript">';
+        echo "window.location.href='./assign_dept.php'";
+        echo '</script>';
         sqlsrv_close($conn);
         exit();
     }

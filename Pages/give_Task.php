@@ -86,7 +86,9 @@ if (isset($_POST['submit'])) {
                 die( print_r( sqlsrv_errors(), true));
             }
             sqlsrv_close($conn);
-            header("Location: ./view_Tasks_M.php?id=".$_SESSION['taskE']['ID']);
+            echo '<script type="text/javascript">';
+            echo "window.location.href='./view_Tasks_M.php?id=".$_SESSION["taskE"]["ID"]."'";
+            echo '</script>';
         }
     }
 }
@@ -94,7 +96,7 @@ if (isset($_POST['submit'])) {
 ?>
 
 <html>
-    <header>
+    <header >
         <style>
             div {
                 margin-bottom: 10px;

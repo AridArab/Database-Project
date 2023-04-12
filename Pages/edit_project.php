@@ -8,6 +8,15 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
 <html>
     <header>
+    <script type="text/javascript">
+        function showHide(idName){
+            var temp = document.getElementById(idName);
+            if(temp.style.display === "none")
+                temp.style.display = "block";
+            else
+                temp.style.display = "none";
+        }
+    </script>
     <style>
     label {
         margin-bottom: 10px;
@@ -65,7 +74,12 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
             exit("<p> Connection Error: " . sqlsrv_connect_error() . "</p>");
         }
         ?>
-        <center>
+            <center>
+            <button id = "see" onClick="showHide('edit'); showHide('see'); showHide('hide')" 
+            class="showButton">Edit Project</button>
+            <button id = "hide" onClick="showHide('edit'); showHide('see'); showHide('hide')" 
+            style="display:none" class="showButton">Hide Edit Project</button>
+            <div id="edit" style="display:none">
             <table>
                 <tr>
                     <td>
@@ -93,6 +107,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                         }
                         </script>
 
+                        <div>
                         <label for="projectID">ID:</label>
                         <input type="text" id="projectID" name="projectID" onblur="validateID()" required><br>
                         <span id="IDError" style="color: red;"></span>
@@ -217,7 +232,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                             }
                             }
                             </script>
-
+                            <div>
                             <label for="deptID">Department ID:</label>
                             <input type="text" id="deptID" name="deptID" onblur="validatedeptID()" required><br>
                             <span id="deptidError" style="color: red;"></span>
@@ -342,7 +357,8 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                     </td>
                 </tr>
 
-            <table>
+            </table>
+        </div>
     <?php
         // check if a search ID was submitted
     if(isset($_POST['searchID']) && $_POST['searchID'] != '') {

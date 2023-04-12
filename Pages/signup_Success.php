@@ -17,10 +17,11 @@ $id = $_SESSION['id'];
 <body>
     <center style="transform: translate(0, -12px)">
         <h1 style="background-color:rgb(0, 0, 0); color: white; width: 80%;" >Successful Signup!</h1>
-        <h1 style="background-color:rgb(0, 0, 0); color: yellow; transform: translate(0, -12px) width: 80%;" >Your ID is
+        <h1 style="background-color:rgb(0, 0, 0); color: yellow; position:absolute; top: 80%; left: 10%; width: 80%;" 
+        >Your ID is
             <?php echo $id ?>
         </h1>
-        <h1><a href="../"> Login!</a></h1>
+        <h1><a href="../" style="position:absolute; top: 250%; left: 47%"> Login!</a></h1>
     </center>
 
     <div class="container">
