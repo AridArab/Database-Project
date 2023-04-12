@@ -24,7 +24,7 @@
 
 <?php
     error_reporting(E_ERROR | E_PARSE);
-    // include './navbar.php';
+    include './navbar.php';
     // include '../Logic/sqlconn.php';
 
     $serverName = "tcp:uhteam6-database-server.database.windows.net,1433";

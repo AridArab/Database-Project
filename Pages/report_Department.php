@@ -24,8 +24,8 @@
 
 <?php
     error_reporting(E_ERROR | E_PARSE);
-    include './navbar.php';
-    include '../Logic/sqlconn.php';
+    // include './navbar.php';
+    // include '../Logic/sqlconn.php';
 
     $conn = connect();
     
