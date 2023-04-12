@@ -46,7 +46,13 @@ function generateQuery($progress, $budget, $totalCost, $includeEmployee)
   {
     if ($includeEmployee) 
     {
-      $sql = "SELECT E.ID, E.First_Name, E.Last_Name, E.Salary, E.Department_ID, P.Name, P.ID, P.Progress, P.Total_Cost, P.Budget, P.City FROM Employee as E, Project as P WHERE P.isActive = 1 ";
+      $sql = "SELECT DISTINCT E.ID AS Employee_ID, E.First_Name, E.Last_Name, E.Salary, E.Department_ID, P.Name AS Project_Name, P.ID AS Project_ID, P.Total_Cost, P.Budget, 
+      P.City
+      FROM Employee E 
+      INNER JOIN WORKS_ON WO ON E.ID = WO.Employee_ID 
+      INNER JOIN Project P ON WO.Project_ID = P.ID 
+      WHERE P.isActive = 1
+       ";
     }
     else
     {

@@ -375,7 +375,6 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
         }
     ?>
 
-    <!-- display search form -->
     <h3 class="top">Search Project</h3>
     <form action="edit_Project.php" method="POST">
         <label for="searchID">Search ID:</label>
@@ -384,7 +383,6 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
         <button type="button" onclick="window.location.href='edit_Project.php'">Show All Projects</button>
         </form>
 
-    <!-- display table -->
     <table>
         <tr>
             <td>Progress</td>
@@ -400,6 +398,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
         </tr>
         <?php
             while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                if($row['isActive'] == 1){
                 echo "<tr><td>$row[Progress]</td>
                 <td>$row[ID]</td>
                 <td>$row[Name]</td>
@@ -411,6 +410,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                 <td>$row[Department_ID]</td>
                 <td>$row[Budget]</td></tr>";
             }
+        }
         ?>
     </table>
 
