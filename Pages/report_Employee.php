@@ -41,6 +41,8 @@
         $stmt = "SELECT * FROM Employee LEFT JOIN Department ON Department.ID = Department_ID";
     }
 
+    $sql = sqlsrv_query($conn, $stmt);
+
     echo "
         <center>
             <table>
@@ -51,7 +53,7 @@
                 <td>Department</td>
             </tr>";
 
-    while($result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_BOTH)){
+    while($result = sqlsrv_fetch_array($sql, SQLSRV_FETCH_ASSOC)){
         echo
             "<tr>
                 <td>".$result['ID']."</td>
