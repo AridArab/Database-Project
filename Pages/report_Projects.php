@@ -110,7 +110,7 @@ for ($i = 0; $i < $num_cols; $i++)
   $field = sqlsrv_get_field($stmt, $i);
   $column_names[] = $metadata[$i]['Name'];
 }
-
+echo "<a href='./home.php'>Home</a>";
 echo "<table>";
 echo "<tr>";
 foreach ($column_names as $column) 

@@ -24,24 +24,34 @@
 
 <?php
     error_reporting(E_ERROR | E_PARSE);
-    include './Navbar.php';
+    // include './navbar.php';
     include '../Logic/sqlconn.php';
+
+    if(!isset($_POST['edept'])){
+        echo '<script type="text/javascript">';
+        echo "window.location.href='../'";
+        echo '</script>';
+    }
+
+    $serverName = "tcp:uhteam6-database-server.database.windows.net,1433";
+    $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Database" => "UMADATABASE_TEAM6", "LoginTimeout" => 31, "Encrypt" => 1, "TrustServerCertificate" => 1);
     
-    $conn = connect();
+    $conn = sqlsrv_connect($serverName, $connectionInfo);
 
     $stmt = "";
 
     if($_POST['edept'] != ''){
-        $stmt = "SELECT * FROM Employee, Department WHERE Department_ID = ".$_POST['edept']." AND Department.ID = ".$_POST['edept'];
+        $stmt = "SELECT Employee.ID AS EID, * FROM Employee, Department WHERE Department_ID = ".$_POST['edept']." AND Department.ID = ".$_POST['edept'];
     }
     else{
-        $stmt = "SELECT * FROM Employee LEFT JOIN Department ON Department.ID = Department_ID";
+        $stmt = "SELECT Employee.ID AS EID, * FROM Employee LEFT JOIN Department ON Department.ID = Department_ID";
     }
 
-    select_query($stmt, $conn);
+    $sql = sqlsrv_query($conn, $stmt);
 
     echo "
         <center>
+            <a href='./home.php'>Home</a>
             <table>
             <tr>
                 <td>ID</td>
@@ -50,15 +60,13 @@
                 <td>Department</td>
             </tr>";
 
-    $result = select_query($stmt, $conn);
-
-    foreach($result as $row){
+    while($result = sqlsrv_fetch_array($sql, SQLSRV_FETCH_ASSOC)){
         echo
             "<tr>
-                <td>".$row['ID']."</td>
-                <td>".$row['First_Name']." ".$row['Middle_Initial']." ".$row['Last_Name']."</td>
-                <td>".$row['Department_ID']."</td>
-                <td>".$row['Dept_Name']."</td>
+                <td>".$result['EID']."</td>
+                <td>".$result['First_Name']." ".$result['Middle_Initial']." ".$result['Last_Name']."</td>
+                <td>".$result['Department_ID']."</td>
+                <td>".$result['Dept_Name']."</td>
             </tr>";
     }
 
