@@ -107,26 +107,6 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                         }
                         </script>
 
-                        <div>
-                        <label for="projectID">ID:</label>
-                        <input type="text" id="projectID" name="projectID" onblur="validateID()" required><br>
-                        <span id="IDError" style="color: red;"></span>
-                        </div>
-
-                        <script>
-                            function validateID() {
-                            const projectID = document.getElementById("projectID");
-                            const IDError = document.getElementById("IDError");
-                            const costRegex = /^\d+$/; // Regex to validate positive integers
-
-                            if (!costRegex.test(projectID.value)) {
-                                IDError.textContent = "Please enter a valid numerical ID value.";
-                                projectID.focus();
-                            } else {
-                                IDError.textContent = "";
-                            }
-                            }
-                            </script>
 
                             <div class="form-group">
                             <label for="projectName">Name:</label>
@@ -392,8 +372,8 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
     <p></p>
     <table>
         <tr>
-            <td>Progress</td>
             <td>ID</td>
+            <td>Progress</td>
             <td>Name</td>
             <td>Total Cost</td>
             <td>Street Address</td>
@@ -406,8 +386,8 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
         <?php
             while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
                 if($row['isActive'] == 1){
-                echo "<tr><td>$row[Progress]</td>
-                <td>$row[ID]</td>
+                echo "<tr><td>$row[ID]</td>
+                <td>$row[Progress]</td>
                 <td>$row[Name]</td>
                 <td>$row[Total_Cost]</td>
                 <td>$row[Street_Address]</td>
