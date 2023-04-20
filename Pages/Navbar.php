@@ -18,11 +18,13 @@ session_start();
         <li style="float:left"> <a href="./home.php">Home</a> </li>
         <?php
         if (isset($_SESSION['obj'])) { //Given a user has logged in we want to display 
-            if($_SESSION['obj']['Is_Manager'] == 1){
+            if($_SESSION['obj']['Is_Manager'] == 1 || $_SESSION['obj']['Is_Manager'] == 2){
                 echo '<li style="float:left"> <a href="./view_Management.php">Manage</a> </li>';
                 echo '<li style="float:left"> <a href="./view_Logs.php">Logs</a> </li>';
                 echo '<li style="float:left"> <a href="./edit_Project.php">Projects</a> </li>';
-
+                if($_SESSION['obj']['Is_Manager'] == 2){
+                    echo '<li style="float:left"> <a href="./view_Admin.php">Admin</a> </li>';
+                }
             }
             else{
                 echo '<li style="float:left"> <a href="./view_Tasks.php">Tasks</a> </li>';
