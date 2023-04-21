@@ -29,7 +29,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 <?php
 $conn = sqlsrv_connect($serverName, $connectionInfo);;
 if($conn === false ) {
-     die( print_r( sqlsrv_errors(), true));
+  die( print_r( sqlsrv_errors(), true));
 }
 
 if(isset($_POST['employees'])) 
@@ -40,7 +40,18 @@ else
 {
   $includeEmployee = false;
 }
+$title = "Projects Report from " . $_POST['from'] . " to " . $_POST['to'];
+if (isset($_POST['dropdown_Progress'])) {
+  $title .= " (Progress: " . $_POST['progress'] . ")";
+}
 
+if (isset($_POST['dropdown_Budget'])) {
+  $title .= " (Budget: " . $_POST['budget'] . ")";
+}
+
+if (isset($_POST['dropdown_TotalCost'])) {
+  $title .= " (Total Cost: " . $_POST['totalCost'] . ")";
+}
 
 function generateQuery($progress, $budget, $totalCost, $includeEmployee)
 {
@@ -63,6 +74,7 @@ function generateQuery($progress, $budget, $totalCost, $includeEmployee)
   if ($progress === 'Greater than') 
     {
       $sql .= "AND P.progress >= ? ";
+      
     } 
   else if ($progress === 'Less than') 
     {
@@ -139,7 +151,8 @@ echo "table { margin: 20px; }";
 echo "td, th { padding: 10px; }";
 echo "</style>";
 
-$title = "Projects Report from " . $_POST['from'] . " to " . $_POST['to'];
+
+
 echo "<table>";
 echo "<caption style='font-size: 1.5em; font-weight: bold; margin-bottom: 10px;'>" . $title . "</caption>";
 echo "<tr>";
