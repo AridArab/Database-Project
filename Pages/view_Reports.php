@@ -71,7 +71,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
     <select id="report" onchange="hide('department');hide('employee');hide('project');showHide(value)">
         <option value="" disabled selected>Select</option>
         <option value="department">Departments</option>
-        <?php if($_SESSION['obj']['Is_Manager'] == 1){echo '<option value="employee">Employees</option>';}?>
+        <?php if($_SESSION['obj']['Is_Manager'] == 1 || $_SESSION['obj']['Is_Manager'] == 2){echo '<option value="employee">Employees</option>';}?>
         <option value="project">Projects</option>
     </select>
     <p></p>
