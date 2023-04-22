@@ -73,9 +73,9 @@
         <table><div class="forms">
         <form action="" method="POST">
             <label for="name">Name:</label>
-            <input type="text" id="name">
+            <input type="text" id="name" required>
             <label for="mail">Email:</label>
-            <input type="email" id="mail"><br>
+            <input type="email" id="mail" required><br>
             <span id="nameError" style="color: red;"></span>
             <span id="mailError" style="color: red;"></span><br>
             <script>
@@ -103,7 +103,7 @@
                 }
             </script>
             <label for="phone">Phone:</label>
-            <input type="number" id="phone">    
+            <input type="number" id="phone" required>    
             <label for="budget">Budget:</label>
             <input type="number" id="budget"><br>
             <span id="budgetError" style="color: red;"></span>
@@ -114,36 +114,65 @@
                     const phoneError = document.getElementById("phoneError")
                     const phoneRegex = /^\d+$/;
 
-                    if (!phoneRegex.test(phoneInput.value)) {
+                    if (!phoneRegex.test(phoneInput.value) && phoneInput.value.length > 10) {
                         phoneError.textContent = "Please enter a valid phone number";
                         phoneInput.focus()
                     } else {
                         phoneError.textContent = "";
                     }
                 }
-                function validateMail() {
-                    const phoneInput = document.getElementById("mail");
-                    const phoneError = document.getElementById("mailError");
+                function validatebudget() {
+                    const budgetInput = document.getElementById("budget");
+                    const budgetError = document.getElementById("budgetError");
+                    const budgetRegex = /^\d+$/;
 
-                    if (phoneInput.value.length > 50) {
-                        phoneError.textContent = "Please enter an email address with a maxiumum length of 50 characters.";
+                    if (!budgetRegex.test(budgetInput.value)) {
+                        budgetError.textContent = "Please enter a valid numerical budget.";
+                        budgetInput.focus();
                     } else {
-                        phoneError.textContent = "";
+                        budgetError.textContent = "";
                     }
                 }
             </script>
             <label for="street">Street:</label>
-            <input type="text" id="street">
+            <input type="text" id="street" required>
             <label for="city">City:</label>
-            <input type="text" id="city"><br>
+            <input type="text" id="city" required><br>
             <span id="streetError" style="color: red;"></span>
             <span id="cityError" style="color: red;"></span><br>
+            <script>
+                function validateStreet() {
+                    const streetInput = document.getElementById("street");
+                    const streetError = document.getElementById("streetError");
+
+                    if (streetInput.value.length > 50) {
+                        streetError.textContent = "Please enter a street address with a maximum length of 50 characters";
+                        streetInput.focus();
+                    } else {
+                        streetError.textContent = "";
+                    }
+                }
+                function validateCity() {
+                    const cityInput = document.getElementById("city");
+                    const cityError = document.getElementById("cityError");
+
+                    if (cityInput.value.length > 50) {
+                        cityError.textContent = "Please enter a city with a maximum length of 50 characters";
+                        cityInput.focus();
+                    } else {
+                        cityError.textContent = "";
+                    }
+                }
+            </script>
             <label for="state">State:</label>
-            <input type="text" id="state">
+            <input type="text" id="state" required>
             <label for="zipcode">Zipcode:</label>
-            <input type="number" id="zipcode"><br>
+            <input type="number" id="zipcode" required><br>
             <span id="stateError" style="color: red;"></span>
-            <span id="zipcodeError" style="color: red;"></span><br>            
+            <span id="zipcodeError" style="color: red;"></span><br>
+            <label for="manager">Manager:</label>
+            <input type="text" id="manager">
+            <input type="submit" value="Add Department">         
         </form>
         </div>
         </table>
