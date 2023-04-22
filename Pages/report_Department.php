@@ -35,41 +35,50 @@
 
     $conn = connect();
     
-    $stmt = "";
+    $stmt = "SELECT Department.ID, Department.Dept_Name, SUM(Budget) AS Budget, 
+    SUM(Total_Cost) AS Expenses FROM Project INNER JOIN Department ON Department.ID = Department_ID 
+    GROUP BY Department.ID, Department.Dept_Name";
 
-    if($_POST['ddept'] != ''){
-        $stmt = "SELECT Department.ID, Department.Dept_Name, SUM(Budget) AS Budget, 
-        SUM(Total_Cost) AS Expenses FROM Project INNER JOIN Department ON Department.ID = ".$_POST['ddept']."
-        GROUP BY Department.ID, Department.Dept_Name";
-    }
-    else{
-        $stmt = "SELECT Department.ID, Department.Dept_Name, SUM(Budget) AS Budget, 
-        SUM(Total_Cost) AS Expenses FROM Project INNER JOIN Department ON Department.ID = Department_ID 
-        GROUP BY Department.ID, Department.Dept_Name";
-    }
     select_query($stmt, $conn);
 
     echo "
         <center>
-        <a href='./home.php'>Home</a>
+            <a href='./view_Reports.php'>Back</a>
             <table>
             <tr>
                 <td>Department ID</td>
                 <td>Department</td>
                 <td>Budget</td>
                 <td>Expenses</td>
+                <td>Projects</td>
             </tr>";
 
     $result = select_query($stmt, $conn);
 
-    foreach($result as $row){
-        echo
-            "<tr>
-                <td>".$row['ID']."</td>
-                <td>".$row['Dept_Name']." ".$row['Middle_Initial']." ".$row['Last_Name']."</td>
-                <td>".$row['Budget']."</td>
-                <td>".$row['Expenses']."</td>
-            </tr>";
+    if($_POST['ddept'] != ''){
+        foreach($result as $row){
+            if(str_contains(strtoupper($row['Dept_Name']), strtoupper($_POST['ddept'])) || $row['ID'] == $_POST['ddept']){
+                echo
+                    "<tr>
+                        <td>".$row['ID']."</td>
+                        <td>".$row['Dept_Name']." ".$row['Middle_Initial']." ".$row['Last_Name']."</td>
+                        <td>".$row['Budget']."</td>
+                        <td>".$row['Expenses']."</td>
+                        <td>Projects</td>
+                    </tr>";
+            }
+        }
+    }
+    else{
+        foreach($result as $row){
+                echo
+                    "<tr>
+                        <td>".$row['ID']."</td>
+                        <td>".$row['Dept_Name']." ".$row['Middle_Initial']." ".$row['Last_Name']."</td>
+                        <td>".$row['Budget']."</td>
+                        <td>".$row['Expenses']."</td>
+                    </tr>";
+        }
     }
 
     echo "
