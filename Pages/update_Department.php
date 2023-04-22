@@ -8,36 +8,35 @@ if($conn === false ) {
 }
 
 $column = ($_POST['dropdown_Select']);
-$deptName = $_POST['deptName'];
+$deptName = ($_POST['project_id']);
 $updateValue = $_POST['update'];
 
 
-
 if($column == 'Name')
-    $sql = "UPDATE Project SET Dept_Name = ? WHERE Dept_Name = ?";
+    $sql = "UPDATE Department SET Dept_Name = ? WHERE ID = ?";
 
 if($column == 'Email')
-    $sql = "UPDATE Project SET Email_Address = ? WHERE Dept_Name = ?";
+    $sql = "UPDATE Department SET Email_Address = ? WHERE ID = ?";
 
 if($column == 'Phone Number')
-    $sql = "UPDATE Project SET Phone_Number = ? WHERE Dept_Name = ?";
+    $sql = "UPDATE Department SET Phone_Number = ? WHERE ID = ?";
 
 if($column == 'Address')
-    $sql = "UPDATE Project SET Address = ? WHERE Dept_Name = ?";
+    $sql = "UPDATE Department SET Address = ? WHERE ID = ?";
 
 if($column == 'Manager')
-    $sql = "UPDATE Project SET Manager = ? WHERE Dept_Name = ?";
+    $sql = "UPDATE Department SET Manager = ? WHERE ID = ?";
 
 if($column == 'Budget')
-    $sql = "UPDATE Project SET Dept_budget = ? WHERE Dept_Name = ?";
+    $sql = "UPDATE Department SET Dept_budget = ? WHERE ID = ?";
 
 
 
 
-$params = array($_POST['update'], $_POST['deptName']);
+$params = array($_POST['update'], ($_POST['project_id']));
 
 $nameExists = false;
-$checkNameQuery = "SELECT ID FROM Project WHERE ID = ?";
+$checkNameQuery = "SELECT ID FROM Department WHERE ID = ?";
 $params = array($deptName);
 $checkNameStmt = sqlsrv_query($conn, $checkNameQuery, $params);
 if ($checkNameStmt !== false) {

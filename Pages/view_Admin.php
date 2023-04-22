@@ -1,6 +1,6 @@
 <?php
     error_reporting(E_ERROR | E_PARSE);
-    include './navbar.php';
+    include './Navbar.php';
     include '../Logic/sqlconn.php';
 
     if($_SESSION['obj']['Is_Manager'] != 2){
@@ -15,6 +15,18 @@
     $result = sqlsrv_query($conn,
         "SELECT D.Phone_Number, D.Dept_Name, D.Email_Address, D.Dept_Budget, D.ID, D.Manager_ID, E.First_Name, E.Last_Name, DL.Street_Address, DL.City, DL.State, DL.Zip_Code FROM Department AS D, Employee AS E, Dept_Locations AS DL WHERE E.ID = D.Manager_ID and DL.Department_ID = D.ID"
     );
+
+    $connName = connect();
+    
+        $resultName = sqlsrv_query($connName, 
+            "select D.Dept_Name, D.ID from Department AS D" 
+        );
+
+        $projects = array();
+
+        while($row = sqlsrv_fetch_array($resultName, SQLSRV_FETCH_ASSOC)){
+            array_push($projects, $row);
+        }
 
 ?>
 
@@ -201,9 +213,24 @@
             </script>
 
                       
-            <label for="manager">Manager:</label>
-            <input type="text" id="manager"><br><br>
-            <input type="submit" value="Add Department">       
+            <label for="manager">Manager ID:</label>
+            <input type="number" name="manager" id="manager"><br><br>
+            <input type="submit" value="Add Department">
+            <span id="managerError" style="color:red;"></span><br>    
+            <script>
+                function validateZipCode() {
+                    const managerInput = document.getElementById("zipcode");
+                    const managerError = document.getElementById("zipError");
+                    const managerRegex = /^\d+$/; // Regex to validate 5 digits
+
+                    if (!managerRegex.test(managerInput.value)) {
+                        mangaerError.textContent = "Please enter a valid 5-digit zipcode.";
+                        managerInput.focus();
+                    } else {
+                        managerError.textContent = "";
+                    }
+                }
+            </script>
         </form>
         </div>
         </table>
@@ -230,9 +257,15 @@
                 <div id="update" style="display:none">
                 <table><div class="forms">
                 <form action="update_Department.php" method="POST">
-                    <label for="deptName">Enter Name:</label>
-                    <input type="text" id="deptName" name="deptName"><br>
-
+                    <select name="project_id">
+                            <option selected>Choose Project</option>
+                            <?php foreach ($projects as $project) : ?>
+                                <option value="<?php echo $project['ID']; ?>">
+                                    <?php echo $project['Dept_Name'] . ' ID: ' . $project['ID']; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <br>         
                     <label for="column">Select Category:</label>
                     <select name="dropdown_Select">
                         <option value="Name">Name</option>

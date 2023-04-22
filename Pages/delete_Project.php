@@ -10,7 +10,7 @@ if($conn === false ) {
 $sql = "UPDATE Project SET isActive = 0 WHERE ID = ?";
 
 
-$params = array($_POST['projectID']);
+$params = array($_POST['project_id']);
 
 $stmt = sqlsrv_query($conn, $sql, $params);
 if( $stmt === false ) {
