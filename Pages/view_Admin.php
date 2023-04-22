@@ -13,7 +13,7 @@
     $conn = connect();
 
     $result = sqlsrv_query($conn,
-        "SELECT * FROM Department"
+        "SELECT D.Phone_Number, D.Dept_Name, D.Number_of_Employees, D.Email_Address, D.Dept_Budget, D.ID, D.Manager_ID, E.First_Name, E.Last_Name, DL.Street_Address, DL.City, DL.State, DL.Zip_Code FROM Department AS D, Employee AS E, Dept_Locations AS DL WHERE E.ID = D.Manager_ID and DL.Department_ID = D.ID"
     );
 
 ?>
@@ -42,15 +42,16 @@
     <center>
         <h1>Admin</h1>
         <p><?php
-        //Unsure how to retrieve first and last name from query -Zohair
          while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
-            $manager = select_query("SELECT Employee.First_Name, Employee.Last_Name FROM Department, Employee WHERE Employee.ID = Department.Manager_ID", $conn);
             echo
             "<div class='department'>
             $row[Dept_Name]<br>
             Email: $row[Email_Address]<br>
             Phone: $row[Phone_Number]<br>
-            Manager: $manager[1]
+            Address: $row[Street_Address] $row[City], $row[State] $row[Zip_Code]<br>
+            Manager: $row[First_Name] $row[Last_Name]<br>
+            Employee Count: $row[Number_of_Employees]<br>
+            Budget: \$$row[Dept_Budget]
             </div>";
          }
         ?></p>
