@@ -122,7 +122,6 @@
         <table>
             <tr>
                 <td style = "width: 150px;">Task</td>
-                <td>ID</td>
                 <td>Project</td>
                 <td>Date Assigned</td>
                 <td>Deadline</td>
@@ -137,7 +136,6 @@
                             <h5>$task[Job_Title]</h5>
                             <p>$task[Description]</p>
                         </td>
-                        <td>$task[ID]</td>
                         <td>$task[Name]</td>
                         <td>".$task['Start_Date']->format('m-d-Y')."</td>
                         <td>".$task['Deadline']->format('m-d-Y')."</td>
@@ -152,7 +150,6 @@
                             <h5>$task[Job_Title]</h5>
                             <p>$task[Description]</p>
                         </td>
-                        <td>$task[ID]</td>
                         <td>$task[Name]</td>
                         <td>".$task['Start_Date']->format('m-d-Y')."</td>
                         <td>".$task['Deadline']->format('m-d-Y')."</td>
@@ -170,12 +167,12 @@
                 <table>
                     <tr>
                         <td style = "width: 150px;">Task</td>
-                        <td>ID</td>
                         <td>Project</td>
                         <td>Date Assigned</td>
                         <td>Deadline</td>
+                        <td>Completed</td>
                         <td>Progress</td>
-                        <td>Hours Spent</td>
+                        <td>Hours Logged</td>
                     </tr>
                     <?php
                         while($task = array_pop($completedTasks)){
@@ -185,10 +182,10 @@
                                     <h5>$task[Job_Title]</h5>
                                     <p>$task[Description]</p>
                                 </td>
-                                <td>$task[ID]</td>
                                 <td>$task[Name]</td>
                                 <td>".$task['Start_Date']->format('m-d-Y')."</td>
                                 <td>".$task['Deadline']->format('m-d-Y')."</td>
+                                <td>".$task['End_Date']->format('m-d-Y')."</td>
                                 <td>$task[Progress]</td>
                                 <td>$task[Total_Hours]</td>
                             </tr>";
