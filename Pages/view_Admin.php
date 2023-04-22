@@ -223,20 +223,46 @@
         </div>
         </table>
         </div>
+
         
         <p><?php
          while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
-            echo
-            "<div class='department'>
-            $row[Dept_Name]<br>
-            Email: $row[Email_Address]<br>
-            Phone: $row[Phone_Number]<br>
-            Address: $row[Street_Address] $row[City], $row[State] $row[Zip_Code]<br>
-            Manager: $row[First_Name] $row[Last_Name]<br>
-            Budget: \$$row[Dept_Budget]
-            </div>";
-         }
-        ?></p>
+             echo
+             "<div class='department'>
+             $row[Dept_Name]<br>
+             Email: $row[Email_Address]<br>
+             Phone: $row[Phone_Number]<br>
+             Address: $row[Street_Address] $row[City], $row[State] $row[Zip_Code]<br>
+             Manager: $row[First_Name] $row[Last_Name]<br>
+             Budget: \$$row[Dept_Budget]
+             </div>";
+            }
+            ?></p>
+            <button id = "see" onClick="showHide('update');"
+                class="showButton">Update Department</button>
+                <button id = "hide" onClick="showHide('update');"
+                style="display:none" class="showButton">Hide Update Departments</button>
+                <div id="update" style="display:none">
+                <table><div class="forms">
+                <form action="update_Department.php" method="POST">
+                    <label for="deptName">Enter Name:</label>
+                    <input type="text" id="deptName" name="deptName"><br>
+
+                    <label for="column">Select Category:</label>
+                    <select name="dropdown_Select">
+                        <option value="Name">Name</option>
+                        <option value="Email">Email</option>
+                        <option value="Phone Number">Phone Number</option>
+                        <!-- <option value="Address">Address</option>
+                        <option value="Manager">Manager</option> -->
+                        <option value="Budget">Budget</option>
+                    </select><br>
+
+                    <label for="update">Enter new value:</label>
+                    <input type="text" id="update" name="update" required><br>
+                    <div id="errorMessage"></div>
+                    <input type="submit" value="Update Department">
+                </form>
     </center>
 </body>
 

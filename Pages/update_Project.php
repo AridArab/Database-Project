@@ -8,7 +8,7 @@ if($conn === false ) {
 }
 
 $column = ($_POST['dropdown_Select']);
-$projectID = $_POST['projectID'];
+$projectID = ($_POST['project_id']);
 $updateValue = $_POST['update'];
 
 
@@ -47,7 +47,7 @@ if($column == 'Budget')
     $sql = "UPDATE Project SET Budget = ? WHERE ID = ?";
 
 
-$params = array($_POST['update'], $_POST['projectID']);
+$params = array($_POST['update'], $_POST['project_id']);
 
 $idExists = false;
 $checkIdQuery = "SELECT ID FROM Project WHERE ID = ?";

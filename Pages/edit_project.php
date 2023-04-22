@@ -69,6 +69,20 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
             <h1>Projects</h1>
         </center>
         <?php
+        $connName = connect();
+    
+        $resultName = sqlsrv_query($connName, 
+            "select P.Name, P.ID 
+            from Employee AS M, Department AS D, Project AS P
+            where M.ID = ".$_SESSION['obj']['ID']." AND D.Manager_ID = M.ID AND P.Department_ID = D.ID and P.IsActive = 1" 
+        );
+
+        $projects = array();
+
+        while($row = sqlsrv_fetch_array($resultName, SQLSRV_FETCH_ASSOC)){
+            array_push($projects, $row);
+        }
+    
         $conn = sqlsrv_connect($serverName, $connectionInfo);
         if(!$conn) {
             exit("<p> Connection Error: " . sqlsrv_connect_error() . "</p>");
@@ -267,9 +281,15 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
 
                     <h3 class="top">Update Project</h3>
                         <form action="update_Project.php" method="POST" onsubmit="return validateUpdateForm()">
-                            <label for="projectID">Enter ID:</label>
-                            <input type="text" id="projectID" name="projectID" required pattern="\d+"><br>
-
+                        <select name="project_id">
+                            <option selected>Choose Project</option>
+                            <?php foreach ($projects as $project) : ?>
+                                <option value="<?php echo $project['ID']; ?>">
+                                    <?php echo $project['Name'] . ' ID: ' . $project['ID']; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                            <br>
                             <label for="column">Select Category:</label>
                             <select name="dropdown_Select">
                                 <option value="Progress">Progress</option>
@@ -328,13 +348,17 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                     </td>
                     <td>
                     <h3 class="top">Remove Project</h3>
-                    <form action="delete_Project.php" method ="POST">
-                        <label for="projectID">Enter ID:</label>
-                        <input type="text" id="projectID" name="projectID" required pattern="\d+"><br>
+                    <form action="delete_Project.php" method="POST">
+                        <select name="project_id">
+                            <option selected>Choose Project</option>
+                            <?php foreach ($projects as $project) : ?>
+                                <option value="<?php echo $project['ID']; ?>">
+                                    <?php echo $project['Name'] . ' ID: ' . $project['ID']; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                         <input type="submit" value="Remove Project">
-                        <div id="error-message"></div>
                     </form>
-
                     </td>
                 </tr>
 
