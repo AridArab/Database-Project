@@ -165,11 +165,42 @@
                 }
             </script>
             <label for="state">State:</label>
-            <input type="text" id="state" required>
-            <label for="zipcode">Zipcode:</label>
-            <input type="number" id="zipcode" required><br>
+            <input type="text" id="state" name="stateName" onblur="validateState()"required>
             <span id="stateError" style="color: red;"></span>
-            <span id="zipcodeError" style="color: red;"></span><br>
+            <script>
+                function validateState() {
+                const stateNameInput = document.getElementById("state");
+                const stateNameError = document.getElementById("stateError");
+
+                if (stateNameInput.value.length != 2) {
+                    stateNameError.textContent = "Abbrevation only.";
+                    stateNameInput.focus();
+                } else {
+                    stateNameError.textContent = "";
+                }
+                }
+            </script>
+            <label for="zipcode">Zipcode:</label>
+            <input type="number" id="zipcode" name="zipcode" onblur="validateZipCode()"required><br>
+            <span id="zipError" style="color: red;"></span>
+
+
+            <script>
+    function validateZipCode() {
+                const zipCodeInput = document.getElementById("zipcode");
+                const zipCodeError = document.getElementById("zipError");
+                const zipCodeRegex = /^\d{5}$/; // Regex to validate 5 digits
+
+                if (!zipCodeRegex.test(zipCodeInput.value)) {
+                    zipCodeError.textContent = "Please enter a valid 5-digit zipcode.";
+                    zipCodeInput.focus();
+                } else {
+                    zipCodeError.textContent = "";
+                }
+            }
+            </script>
+
+                      
             <label for="manager">Manager:</label>
             <input type="text" id="manager">
             <input type="submit" value="Add Department">         
