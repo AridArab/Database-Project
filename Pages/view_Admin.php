@@ -21,6 +21,15 @@
 <html>
 
 <header>
+    <script type="text/javascript">
+        function showHide(idName){
+            var temp = document.getElementById(idName);
+            if(temp.style.display === "none")
+                temp.style.display = "block";
+            else
+                temp.style.display = "none";
+        }
+    </script>
     <style>
         .department {
             border: 1px solid rgb(0, 0, 0);
@@ -35,12 +44,111 @@
             background-color: rgba(225, 225, 225, 0.75);
             border-radius: 25px;            
         }
+        .forms {
+            border: 2px solid rgb(0, 0, 0);
+            text-align: center;
+            padding-left: 8px;
+            padding-right: 8px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-left: 2px;
+            margin-right: 2px;
+            width: 35%;
+            background-color: rgba(108, 200, 150, 0.75);
+            border-radius: 25px;
+        }
     </style>
 </header>
 
 <body>
     <center>
-        <h1>Admin</h1>
+        <h1>Admin</h1><br>
+        <button id = "see" onClick="showHide('add');"
+        class="showButton">Add Departments</button>
+        <button id = "hide" onClick="showHide('add');"
+        style="display:none" class="showButton">Hide Add Departments</button>
+        <div id="add" style="display:none">
+        <table><div class="forms">
+        <form action="" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name">
+            <label for="mail">Email:</label>
+            <input type="email" id="mail"><br>
+            <span id="nameError" style="color: red;"></span>
+            <span id="mailError" style="color: red;"></span><br>
+            <script>
+                function validateName() {
+                    const nameInput = document.getElementById("name");
+                    const nameError = document.getElementById("nameError")
+
+                    if (nameInput.value.length > 50) {
+                        nameError.textContent = "Please enter a department name with a maximum length of 50 characters.";
+                        nameInput.focus();
+                    } else {
+                        nameError.textContent = "";
+                    }
+                }
+                function validateMail() {
+                    const mailInput = document.getElementById("mail");
+                    const mailError = document.getElementById("mailError");
+
+                    if (mailInput.value.length > 50) {
+                        mailError.textContent = "Please enter an email address with a maxiumum length of 50 characters.";
+                        mailInput.focus()
+                    } else {
+                        mailError.textContent = "";
+                    }
+                }
+            </script>
+            <label for="phone">Phone:</label>
+            <input type="number" id="phone">    
+            <label for="budget">Budget:</label>
+            <input type="number" id="budget"><br>
+            <span id="budgetError" style="color: red;"></span>
+            <span id="phoneError" style="color: red;"></span><br>
+            <script>
+                function validatePhone() {
+                    const phoneInput = document.getElementById("phone");
+                    const phoneError = document.getElementById("phoneError")
+                    const phoneRegex = /^\d+$/;
+
+                    if (!phoneRegex.test(phoneInput.value)) {
+                        phoneError.textContent = "Please enter a valid phone number";
+                        phoneInput.focus()
+                    } else {
+                        phoneError.textContent = "";
+                    }
+                }
+                function validateMail() {
+                    const phoneInput = document.getElementById("mail");
+                    const phoneError = document.getElementById("mailError");
+
+                    if (phoneInput.value.length > 50) {
+                        phoneError.textContent = "Please enter an email address with a maxiumum length of 50 characters.";
+                    } else {
+                        phoneError.textContent = "";
+                    }
+                }
+            </script>
+            <label for="street">Street:</label>
+            <input type="text" id="street">
+            <label for="city">City:</label>
+            <input type="text" id="city"><br>
+            <span id="streetError" style="color: red;"></span>
+            <span id="cityError" style="color: red;"></span><br>
+            <label for="state">State:</label>
+            <input type="text" id="state">
+            <label for="zipcode">Zipcode:</label>
+            <input type="number" id="zipcode"><br>
+            <span id="stateError" style="color: red;"></span>
+            <span id="zipcodeError" style="color: red;"></span><br>            
+        </form>
+        </div>
+        </table>
+        </div>
+        
         <p><?php
          while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
             echo
