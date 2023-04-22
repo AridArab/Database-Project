@@ -114,7 +114,7 @@
             <div class="mb-3">
                 <select class="form-control 
                     <?php echo $EIDErr ? 'is-invalid' : null ?>
-                    " id="addEmployee" name="addEmployee" style="width: 151px">
+                    " id="addEmployee" name="addEmployee" style="width: 160px">
                     <option selected ="selected"> Choose Employee </option>
                     <?php
                         foreach($unassignedEmployees as $employee){
