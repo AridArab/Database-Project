@@ -40,24 +40,12 @@ else
 {
   $includeEmployee = false;
 }
-$title = "Projects Report from " . $_POST['from'] . " to " . $_POST['to'];
-if (isset($_POST['dropdown_Progress'])) {
-  $title .= " (Progress: " . $_POST['progress'] . ")";
-}
-
-if (isset($_POST['dropdown_Budget'])) {
-  $title .= " (Budget: " . $_POST['budget'] . ")";
-}
-
-if (isset($_POST['dropdown_TotalCost'])) {
-  $title .= " (Total Cost: " . $_POST['totalCost'] . ")";
-}
 
 function generateQuery($progress, $budget, $totalCost, $includeEmployee)
 {
   if ($includeEmployee) 
   {
-    $sql = "SELECT DISTINCT E.ID AS Employee_ID, E.First_Name, E.Last_Name, E.Salary, E.Department_ID, P.Name AS Project_Name, P.ID AS Project_ID, P.Total_Cost, P.Budget, 
+    $sql = "SELECT DISTINCT E.ID AS Employee_ID, E.First_Name, E.Last_Name, E.Salary, E.Department_ID, WO.Total_Hours, P.Name AS Project_Name, P.ID AS Project_ID, P.Progress, P.Total_Cost, P.Budget, 
       P.City
       FROM Employee E 
       INNER JOIN WORKS_ON WO ON E.ID = WO.Employee_ID 
@@ -65,71 +53,109 @@ function generateQuery($progress, $budget, $totalCost, $includeEmployee)
       WHERE P.isActive = 1
        ";
     
-    }
-    else
-    {
+  }
+  else
+  {
       $sql = "SELECT P.Name, P.ID, P.Progress, P.Total_Cost, P.Budget, P.City FROM Project as P WHERE P.isActive = 1 ";
     }
-
-  if ($progress === 'Greater than') 
+    
+    if ($progress === 'Greater than') 
     {
       $sql .= "AND P.progress >= ? ";
       
     } 
-  else if ($progress === 'Less than') 
+    else if ($progress === 'Less than') 
     {
       $sql .= "AND P.progress <= ? ";
     }
-
-  if ($budget === 'Greater than') 
+    
+    if ($budget === 'Greater than') 
     {
       $sql .= "AND P.budget >= ? ";
     } 
-  else if ($budget === 'Less than') 
+    else if ($budget === 'Less than') 
     {
       $sql .= "AND P.budget <= ? ";
     }
-
-  if ($totalCost === 'Greater than') 
+    
+    if ($totalCost === 'Greater than') 
     {
       $sql .= "AND P.Total_Cost >= ? ";
     } 
-  else if ($totalCost === 'Less than') 
+    else if ($totalCost === 'Less than') 
     {
       $sql .= "AND P.Total_Cost <= ? ";
     }
-
+    
     $sql .= "AND P.Start_Date >= ? AND P.Deadline <= ? ";
     return $sql;
-}
+  }
+  
+  function employeeQuery($includeEmployee)
+  {
+    $employeeSql = "SELECT DISTINCT E.ID, E.First_Name, E.Last_Name, E.Sex, E.City, E.State, E.Email_Address, E.Department_ID FROM Employee as E, Project as P WHERE P.isActive = ?"; 
+    return $employeeSql;
+    
+  }
+  
+  function worksOnQuery($includeEmployee)
+  {
+    $worksOnSql = "SELECT DISTINCT W.ID, W.Job_Title, W.Total_Hours, W.Employee_ID, W.Project_ID, W.Progress FROM WORKS_ON as W, Project as P WHERE P.isActive = ?"; 
+    return $worksOnSql;
+    
+  }
+  
+  $sql = generateQuery($_POST['dropdown_Progress'], $_POST['dropdown_Budget'], $_POST['dropdown_TotalCost'], $includeEmployee);
+  $employeeSql = employeeQuery($includeEmployee);
+  $worksOnSql = worksOnQuery($includeEmployee);
+  
+  $params = array($_POST['progress'], $_POST['budget'], $_POST['totalCost'], $_POST['from'], $_POST['to']);
+  $employeeParams = array(1);
+  $worksOnParams = array(1);
+  
+  
+  $stmt = sqlsrv_query($conn, $sql, $params);
+  $employeeStmt = sqlsrv_query($conn, $employeeSql, $employeeParams);
+  $worksOnStmt = sqlsrv_query($conn, $worksOnSql, $worksOnParams);
+  
+  $title = "Projects Report from " . $_POST['from'] . " to " . $_POST['to'];
 
-function employeeQuery($includeEmployee)
-{
-  $employeeSql = "SELECT DISTINCT E.ID, E.First_Name, E.Last_Name, E.Sex, E.City, E.State, E.Email_Address, E.Department_ID FROM Employee as E, Project as P WHERE P.isActive = ?"; 
-  return $employeeSql;
+    if ($_POST['dropdown_Progress'] === 'Greater than') 
+    {
+      $title .= " (Progress > " . $_POST['progress'] . ")";
+      
+    } 
+    else if ($_POST['dropdown_Progress'] === 'Less than') 
+    {
+      $title .= " (Progress < " . $_POST['progress'] . ")";
+    }
 
-}
+  
+  
+    if ($_POST['dropdown_TotalCost'] === 'Greater than') 
+    {
+      $title .= " (Total Cost > " . $_POST['totalCost'] . ")";
+      
+    } 
+    else if ($_POST['dropdown_TotalCost'] === 'Less than') 
+    {
+      $title .= " (Total Cost < " . $_POST['totalCost'] . ")";
+    }
 
-function worksOnQuery($includeEmployee)
-{
-  $worksOnSql = "SELECT DISTINCT W.ID, W.Job_Title, W.Total_Hours, W.Employee_ID, W.Project_ID, W.Progress FROM WORKS_ON as W, Project as P WHERE P.isActive = ?"; 
-  return $worksOnSql;
+  
 
-}
-
-$sql = generateQuery($_POST['dropdown_Progress'], $_POST['dropdown_Budget'], $_POST['dropdown_TotalCost'], $includeEmployee);
-$employeeSql = employeeQuery($includeEmployee);
-$worksOnSql = worksOnQuery($includeEmployee);
-
-$params = array($_POST['progress'], $_POST['budget'], $_POST['totalCost'], $_POST['from'], $_POST['to']);
-$employeeParams = array(1);
-$worksOnParams = array(1);
+    if ($_POST['dropdown_Budget'] === 'Greater than') 
+    {
+      $title .= " (Budget > " . $_POST['budget'] . ")";
+      
+    } 
+    else if ($_POST['dropdown_Budget'] === 'Less than') 
+    {
+      $title .= " (Budget < " . $_POST['budget'] . ")";
+    }
 
 
-$stmt = sqlsrv_query($conn, $sql, $params);
-$employeeStmt = sqlsrv_query($conn, $employeeSql, $employeeParams);
-$worksOnStmt = sqlsrv_query($conn, $worksOnSql, $worksOnParams);
-
+  
 
 if ($stmt === false) 
 {
