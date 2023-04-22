@@ -16,6 +16,18 @@
         "SELECT D.Phone_Number, D.Dept_Name, D.Email_Address, D.Dept_Budget, D.ID, D.Manager_ID, E.First_Name, E.Last_Name, DL.Street_Address, DL.City, DL.State, DL.Zip_Code FROM Department AS D, Employee AS E, Dept_Locations AS DL WHERE E.ID = D.Manager_ID and DL.Department_ID = D.ID"
     );
 
+    $connName = connect();
+    
+        $resultName = sqlsrv_query($connName, 
+            "select D.Dept_Name, D.ID from Department AS D" 
+        );
+
+        $projects = array();
+
+        while($row = sqlsrv_fetch_array($resultName, SQLSRV_FETCH_ASSOC)){
+            array_push($projects, $row);
+        }
+
 ?>
 
 <html>
@@ -230,9 +242,15 @@
                 <div id="update" style="display:none">
                 <table><div class="forms">
                 <form action="update_Department.php" method="POST">
-                    <label for="deptName">Enter Name:</label>
-                    <input type="text" id="deptName" name="deptName"><br>
-
+                    <select name="project_id">
+                            <option selected>Choose Project</option>
+                            <?php foreach ($projects as $project) : ?>
+                                <option value="<?php echo $project['ID']; ?>">
+                                    <?php echo $project['Dept_Name'] . ' ID: ' . $project['ID']; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <br>         
                     <label for="column">Select Category:</label>
                     <select name="dropdown_Select">
                         <option value="Name">Name</option>
