@@ -73,9 +73,9 @@
         <table><div class="forms">
         <form action="" method="POST">
             <label for="name">Name:</label>
-            <input type="text" id="name" required>
+            <input type="text" id="name" name="name" onblur="validateName()" required>
             <label for="mail">Email:</label>
-            <input type="email" id="mail" required><br>
+            <input type="email" id="mail" name="mail" onblur="validateMail()" required><br>
             <span id="nameError" style="color: red;"></span>
             <span id="mailError" style="color: red;"></span><br>
             <script>
@@ -103,9 +103,9 @@
                 }
             </script>
             <label for="phone">Phone:</label>
-            <input type="number" id="phone" required>    
+            <input type="number" id="phone" name="phone" onblur="validatePhone()" required>    
             <label for="budget">Budget:</label>
-            <input type="number" id="budget"><br>
+            <input type="number" id="budget" name="budget" onblur="validateBudget()"><br>
             <span id="budgetError" style="color: red;"></span>
             <span id="phoneError" style="color: red;"></span><br>
             <script>
@@ -135,9 +135,9 @@
                 }
             </script>
             <label for="street">Street:</label>
-            <input type="text" id="street" required>
+            <input type="text" id="street" name="street" onblur="validateStreet()" required>
             <label for="city">City:</label>
-            <input type="text" id="city" required><br>
+            <input type="text" id="city" name="city" onblur="validateCity()" required><br>
             <span id="streetError" style="color: red;"></span>
             <span id="cityError" style="color: red;"></span><br>
             <script>
@@ -186,7 +186,7 @@
 
 
             <script>
-    function validateZipCode() {
+            function validateZipCode() {
                 const zipCodeInput = document.getElementById("zipcode");
                 const zipCodeError = document.getElementById("zipError");
                 const zipCodeRegex = /^\d{5}$/; // Regex to validate 5 digits
