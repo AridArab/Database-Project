@@ -13,7 +13,7 @@
     $conn = connect();
 
     $result = sqlsrv_query($conn,
-        "SELECT D.Phone_Number, D.Dept_Name, D.Number_of_Employees, D.Email_Address, D.Dept_Budget, D.ID, D.Manager_ID, E.First_Name, E.Last_Name, DL.Street_Address, DL.City, DL.State, DL.Zip_Code FROM Department AS D, Employee AS E, Dept_Locations AS DL WHERE E.ID = D.Manager_ID and DL.Department_ID = D.ID"
+        "SELECT D.Phone_Number, D.Dept_Name, D.Email_Address, D.Dept_Budget, D.ID, D.Manager_ID, E.First_Name, E.Last_Name, DL.Street_Address, DL.City, DL.State, DL.Zip_Code FROM Department AS D, Employee AS E, Dept_Locations AS DL WHERE E.ID = D.Manager_ID and DL.Department_ID = D.ID"
     );
 
 ?>
@@ -71,7 +71,7 @@
         style="display:none" class="showButton">Hide Add Departments</button>
         <div id="add" style="display:none">
         <table><div class="forms">
-        <form action="" method="POST">
+        <form action="add_Department.php" method="POST">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" onblur="validateName()" required>
             <label for="mail">Email:</label>
@@ -218,7 +218,6 @@
             Phone: $row[Phone_Number]<br>
             Address: $row[Street_Address] $row[City], $row[State] $row[Zip_Code]<br>
             Manager: $row[First_Name] $row[Last_Name]<br>
-            Employee Count: $row[Number_of_Employees]<br>
             Budget: \$$row[Dept_Budget]
             </div>";
          }

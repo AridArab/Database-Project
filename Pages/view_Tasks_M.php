@@ -109,15 +109,19 @@
     <center>
     <h1>Tasks assigned to <?php echo $employee['First_Name']." ".
             $employee['Middle_Initial']." ".$employee['Last_Name']?></h1>
-        <?php $_SESSION['taskE'] = $employee; ?>
-        <div style='margin:20px;'>
-            <a href='./give_Task.php'>Assign Task</a>
-        </div>
+        <?php 
+            $_SESSION['taskE'] = $employee;
+            if($employee['Department_ID'] == $_SESSION['obj']['Department_ID']){
+                echo
+                    "<div style='margin:20px;'>
+                        <a href='./give_Task.php'>Assign Task</a>
+                    </div>";
+            }
+        ?>
         <h2>Incomplete Tasks (<?php echo (count($overdueTasks) + count($incompleteTasks));?>)</h2>
         <table>
             <tr>
                 <td style = "width: 150px;">Task</td>
-                <td>ID</td>
                 <td>Project</td>
                 <td>Date Assigned</td>
                 <td>Deadline</td>
@@ -132,7 +136,6 @@
                             <h5>$task[Job_Title]</h5>
                             <p>$task[Description]</p>
                         </td>
-                        <td>$task[ID]</td>
                         <td>$task[Name]</td>
                         <td>".$task['Start_Date']->format('m-d-Y')."</td>
                         <td>".$task['Deadline']->format('m-d-Y')."</td>
@@ -147,7 +150,6 @@
                             <h5>$task[Job_Title]</h5>
                             <p>$task[Description]</p>
                         </td>
-                        <td>$task[ID]</td>
                         <td>$task[Name]</td>
                         <td>".$task['Start_Date']->format('m-d-Y')."</td>
                         <td>".$task['Deadline']->format('m-d-Y')."</td>
@@ -165,12 +167,12 @@
                 <table>
                     <tr>
                         <td style = "width: 150px;">Task</td>
-                        <td>ID</td>
                         <td>Project</td>
                         <td>Date Assigned</td>
                         <td>Deadline</td>
+                        <td>Completed</td>
                         <td>Progress</td>
-                        <td>Hours Spent</td>
+                        <td>Hours Logged</td>
                     </tr>
                     <?php
                         while($task = array_pop($completedTasks)){
@@ -180,10 +182,10 @@
                                     <h5>$task[Job_Title]</h5>
                                     <p>$task[Description]</p>
                                 </td>
-                                <td>$task[ID]</td>
                                 <td>$task[Name]</td>
                                 <td>".$task['Start_Date']->format('m-d-Y')."</td>
                                 <td>".$task['Deadline']->format('m-d-Y')."</td>
+                                <td>".$task['End_Date']->format('m-d-Y')."</td>
                                 <td>$task[Progress]</td>
                                 <td>$task[Total_Hours]</td>
                             </tr>";

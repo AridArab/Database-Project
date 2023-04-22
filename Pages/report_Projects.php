@@ -171,7 +171,7 @@ for ($i = 0; $i < $num_cols; $i++)
   $field = sqlsrv_get_field($stmt, $i);
   $column_names[] = $metadata[$i]['Name'];
 }
-echo "<a href='./home.php'>Home</a>";
+echo "<a href='./view_Reports.php'>Back</a>";
 echo "<style>";
 echo "table { margin: 20px; }";
 echo "td, th { padding: 10px; }";

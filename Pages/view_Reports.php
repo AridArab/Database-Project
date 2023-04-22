@@ -87,6 +87,12 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                 <form action="report_Employee.php" method ="POST">
                     <label for="edept">Department:</label>
                     <input type="text" id="edept" name="edept">
+                    <p>Had Task:</p>
+                    <label for="efrom">From:</label>
+                    <input type="date" id="efrom" name="efrom">
+                    <p></p>
+                    <label for="eto">To:</label>
+                    <input type="date" id="eto" name="eto">
                     <p></p>
                     <input type="submit" id="submit" value="Generate Report">
                 </form>
