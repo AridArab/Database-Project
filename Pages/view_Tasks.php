@@ -30,116 +30,16 @@ $conn = connect();
     $col = array_column($completedTasks, "Progress");
     array_multisort($col, SORT_ASC, $completedTasks);
 
-    $tID = $progress = $hours = $end = '';
-    $tIDErr = $progressErr = $hoursErr = $endErr = '';
-
-    if (isset($_POST['submit'])) {
-        if (empty($_POST['tID'])) {
-            $tIDErr = 'Please enter task ID';
-        }
-        else if (!is_numeric($_POST['tID'])){
-            $tIDErr = 'ID needs to be a number';
-        }  
-        else {
-            $tID = filter_input(
-                INPUT_POST,
-                'tID',
-                FILTER_SANITIZE_NUMBER_INT
-            );
-        }
-        if (!is_numeric($_POST['progress']) && !empty($_POST['progress'])){
-            $progressErr = 'Progress needs to be a number';
-        }  
-        else {
-            $progress = filter_input(
-                INPUT_POST,
-                'progress',
-                FILTER_SANITIZE_NUMBER_INT
-            );
-        }
-        if (!is_numeric($_POST['hours']) && !empty($_POST['hours'])){
-            $hoursErr = 'Total hours needs to be a number';
-        }  
-        else {
-            $hours = filter_input(
-                INPUT_POST,
-                'hours',
-                FILTER_SANITIZE_NUMBER_INT
-            );
-        }
-        if ((!is_numeric(substr($_POST['end'], 0, 4)) || substr($_POST['end'], 4, 1) != '-' ||
-        !is_numeric(substr($_POST['end'], 5, 2)) || substr($_POST['end'], 7, 1) != '-' ||
-        !is_numeric(substr($_POST['end'], 8, 2))) && !empty($_POST['end'])) {
-            $endErr = 'End date needs to be in YYYY-MM-DD';
-        }
-        else if ((!checkdate((int)substr($_POST['end'], 5, 7), (int)substr($_POST['end'], 8, 10), 
-        (int)substr($_POST['end'], 0, 4))) && !empty($_POST['end'])){
-            $endErr = 'End date needs to be a real date';
-        }
-        else {
-            $end = filter_input(
-                INPUT_POST,
-                'end',
-                FILTER_SANITIZE_NUMBER_INT
-            );
-        }
-        if ($tIDErr == '' && $progressErr == '' && $hoursErr == '' && $endErr == ''){
-            if(select_query("select * from WORKS_ON where 
-                ID = ".$tID, $conn)[0]['ID'] == null){
-                $tIDErr = 'Not a valid ID';
-            }
-            else{
-                
-                if ($progress != '' && $progressErr == ''){
-                    $res = sqlsrv_query($conn, 'select Progress from WORKS_ON where ID = '.$tID);
-                    if(sqlsrv_fetch_array($res, SQLSRV_FETCH_ASSOC)['Progress'] == null){
-                        sqlsrv_query($conn, 
-                        "update WORKS_ON set Progress = ".$progress." 
-                        where ID = ".$tID
-                        );
-                    }
-                    else{
-                        sqlsrv_query($conn, 
-                        "update WORKS_ON set Progress = Progress + ".$progress." 
-                        where ID = ".$tID
-                        );
-                    }          
-                }
-                if ($hours != '' && $hoursErr == ''){
-                    $res = sqlsrv_query($conn, 'select Total_Hours from WORKS_ON where ID = '.$tID);
-                    if(sqlsrv_fetch_array($res, SQLSRV_FETCH_ASSOC)['Total_Hours'] == null){
-                        sqlsrv_query($conn, 
-                        "update WORKS_ON set Total_Hours = ".$hours." 
-                        where ID = ".$tID
-                        );
-                    }
-                    else{
-                        sqlsrv_query($conn, 
-                        "update WORKS_ON set Total_Hours = Total_Hours + ".$hours." 
-                        where ID = ".$tID
-                        );
-                    }
-                }
-                if ($end != '' && $endErr == ''){
-                    sqlsrv_query($conn, 
-                        "update WORKS_ON set End_Date = '".$end."'
-                        where ID = ".$tID
-                    );
-                }
-            }
-            header("Refresh:0");
-        }
-    }
-
-    
+    $progress = $hours = $end = '';
 ?>
 
 <html>
     <script type="text/javascript">
-        function showHide(idName){
+        function showHide(idName, dispType){
             var temp = document.getElementById(idName);
+            
             if(temp.style.display === "none")
-                temp.style.display = "block";
+                temp.style.display = dispType;
             else
                 temp.style.display = "none";
         }
@@ -192,6 +92,9 @@ $conn = connect();
         input {
             width: 140px;
         }
+        .interaction:hover {
+            background-color:lightskyblue;
+        }
         .vt {
             display: grid;
             width: 300px;
@@ -204,113 +107,182 @@ $conn = connect();
         }
     </style>
     <center>
-        <div>
-            <button onClick="showHide('progress_edit')" class="showButton">Progress Task</button>
-            <div class="vt" id="progress_edit" style="display:none">
-            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
-            method="POST" class="mt-4 w-75" id = "edit">
-                <div class="mb-3">
-                    <label for="tID" style="margin-bottom: 10px"
-                    class="form-label">Task ID:</label>
-                    <input type="text" class="form-control 
-                        <?php echo $tIDErr ? 'is-invalid' : null ?>
-                        " id="tID" name="tID" placeholder="Enter Task ID">
-                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
-                        <?php echo $tIDErr; ?>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="progress" style="margin-bottom: 10px"
-                    class="form-label">Add Progress:</label>
-                    <input type="text" class="form-control 
-                        <?php echo $progressErr ? 'is-invalid' : null ?>
-                        " id="progress" name="progress" placeholder="Enter Progress">
-                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
-                        <?php echo $progressErr; ?>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="hours" style="margin-bottom: 10px"
-                    class="form-label">Add Hours:</label>
-                    <input type="text" class="form-control 
-                        <?php echo $hoursErr ? 'is-invalid' : null ?>
-                        " id="hours" name="hours" placeholder="Enter Total Hours">
-                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
-                        <?php echo $hoursErr; ?>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="end" style="margin-bottom: 10px"
-                    class="form-label">Set End Date:</label>
-                    <input type="text" class="form-control 
-                        <?php echo $endErr ? 'is-invalid' : null ?>
-                        " id="end" name="end" placeholder="YYYY-MM-DD">
-                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
-                        <?php echo $endErr; ?>
-                    </div>
-                </div>
-                <p></p>
-                <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100" style="width: auto">
-            </form>
-            </div>
-        </div>
         <h2>Pending Tasks (<?php echo (count($overdueTasks) + count($incompleteTasks)); ?>)</h2>
+        <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method='POST' id = "edit">
         <table>
             <tr>
                 <td style = "width: 250px;">Task</td>
-                <td>ID</td>
                 <td>For Project</td>
                 <td>Assignment Date</td>
                 <td>Due Date</td>
                 <td>Progress</td>
                 <td>Hours Logged</td>
+                <td>Mark Progress</td>
             </tr>
             <?php
-                sqlsrv_close($conn);
                 while($task = array_pop($overdueTasks)){
+                    $progressID = "progress_".$task['ID'];
+                    $hoursID = "hours_".$task['ID'];
+                    $progressInput = "progressInput_".$task['ID'];
+                    $hoursInput = "hoursInput_".$task['ID'];
+                    $type = "table-cell";
+
+                    if (isset($_POST['submit'])) {
+                        if(isset($_POST['prog_'.$task['ID']]) && is_numeric($_POST['prog_'.$task['ID']]) && (int)$_POST['prog_'.$task['ID']] >= 0){
+                            $progress = filter_input(
+                                INPUT_POST,
+                                'prog_'.$task['ID'],
+                                FILTER_SANITIZE_NUMBER_INT
+                            );
+                            if((int)$progress >= 100){
+                                $end = date("Y/m/d");
+                                sqlsrv_query($conn, 
+                                    "update WORKS_ON set Progress = 100, End_Date = '".$end."'
+                                    where ID = ".$task['ID']
+                                );
+                            }
+                            else{
+                                sqlsrv_query($conn, 
+                                    "update WORKS_ON set Progress = ".$progress."
+                                    where ID = ".$task['ID']
+                                );
+                            }
+                        }
+
+                        if(isset($_POST['hrs_'.$task['ID']]) && is_numeric($_POST['hrs_'.$task['ID']]) && (int)$_POST['hrs_'.$task['ID']] >= 0){
+                            $hours = filter_input(
+                                INPUT_POST,
+                                'hrs_'.$task['ID'],
+                                FILTER_SANITIZE_NUMBER_INT
+                            );
+                            sqlsrv_query($conn, 
+                                "update WORKS_ON set Total_Hours = ".$hours."
+                                where ID = ".$task['ID']
+                            );
+                        }
+                        
+                    }
+
                     echo
                     "<tr class='overdue'>
                         <td class = 'taskName'>
                             <h5>$task[Job_Title]</h5>
                             <p>$task[Description]</p>
                         </td>
-                        <td>$task[ID]</td>
                         <td>$task[Name]</td>
                         <td>".$task['Start_Date']->format('m-d-Y')."</td>
                         <td>!! ".$task['Deadline']->format('m-d-Y')." !!</td>
-                        <td>$task[Progress]</td>
-                        <td>$task[Total_Hours]</td>
+
+                        <td id = '$progressID'>$task[Progress]</td>
+                        <td id = '$hoursID'>$task[Total_Hours]</td>
+
+                        <td id = '$progressInput' style='display:none'>
+                            <input type='text' id='prog_".$task['ID']."' name = 'prog_".$task['ID']."' style='text-align:center; width:45px;' placeholder='$task[Progress]'></input>
+                        </td>
+                        <td id = '$hoursInput' style='display:none'>
+                            <input type='text' id='hrs_".$task['ID']."' name = 'hrs_".$task['ID']."' style='text-align:center; width:45px;' placeholder='$task[Total_Hours]'></input>
+                        </td>
+
+                        <td 
+                            onClick=\"showHide('$progressID','$type'); 
+                                      showHide('$progressInput','$type');
+                                      showHide('$hoursID','$type');
+                                      showHide('$hoursInput','$type');\" 
+                                      class='interaction'
+                        >
+                            [ Edit ]
+                        </td>
                     </tr>";
                 }
                 while($task = array_pop($incompleteTasks)){
+                    $progressID = "progress_".$task['ID'];
+                    $hoursID = "hours_".$task['ID'];
+                    $progressInput = "progressInput_".$task['ID'];
+                    $hoursInput = "hoursInput_".$task['ID'];
+                    $type = "table-cell";
+
+                    if (isset($_POST['submit'])) {
+                        if(isset($_POST['prog_'.$task['ID']]) && is_numeric($_POST['prog_'.$task['ID']]) && (int)$_POST['prog_'.$task['ID']] >= 0){
+                            $progress = filter_input(
+                                INPUT_POST,
+                                'prog_'.$task['ID'],
+                                FILTER_SANITIZE_NUMBER_INT
+                            );
+                            if((int)$progress >= 100){
+                                $end = date("Y/m/d");
+                                sqlsrv_query($conn, 
+                                    "update WORKS_ON set Progress = 100, End_Date = '".$end."'
+                                    where ID = ".$task['ID']
+                                );
+                            }
+                            else{
+                                sqlsrv_query($conn, 
+                                    "update WORKS_ON set Progress = ".$progress."
+                                    where ID = ".$task['ID']
+                                );
+                            }
+                        }
+
+                        if(isset($_POST['hrs_'.$task['ID']]) && is_numeric($_POST['hrs_'.$task['ID']]) && (int)$_POST['hrs_'.$task['ID']] >= 0){
+                            $hours = filter_input(
+                                INPUT_POST,
+                                'hrs_'.$task['ID'],
+                                FILTER_SANITIZE_NUMBER_INT
+                            );
+                            sqlsrv_query($conn, 
+                                "update WORKS_ON set Total_Hours = ".$hours."
+                                where ID = ".$task['ID']
+                            );
+                        }
+                    }
+
                     echo
                     "<tr>
                         <td class = 'taskName'>
                             <h5>$task[Job_Title]</h5>
                             <p>$task[Description]</p>
                         </td>
-                        <td>$task[ID]</td>
                         <td>$task[Name]</td>
                         <td>".$task['Start_Date']->format('m-d-Y')."</td>
                         <td>".$task['Deadline']->format('m-d-Y')."</td>
-                        <td>$task[Progress]</td>
-                        <td>$task[Total_Hours]</td>
+
+                        <td id = '$progressID'>$task[Progress]</td>
+                        <td id = '$hoursID'>$task[Total_Hours]</td>
+
+                        <td id = '$progressInput' style='display:none'>
+                            <input type='text' id='prog_".$task['ID']."' name = 'prog_".$task['ID']."' style='text-align:center; width:45px;' placeholder='$task[Progress]'></input>
+                        </td>
+                        <td id = '$hoursInput' style='display:none'>
+                            <input type='text' id='hrs_".$task['ID']."' name = 'hrs_".$task['ID']."' style='text-align:center; width:45px;' placeholder='$task[Total_Hours]'></input>
+                        </td>
+                        <td 
+                            onClick=\"showHide('$progressID','$type'); 
+                                      showHide('$progressInput','$type');
+                                      showHide('$hoursID','$type');
+                                      showHide('$hoursInput','$type');\" 
+                                      class='interaction'
+                        >
+                            [ Edit ]
+                        </td>
                     </tr>";
                 }
             ?>
         </table>
+        <input type='submit' name='submit' value='Commit Changes' class='btn btn-dark w-100' style='width: auto; margin-bottom: 50px;'></input>
+        </form>
+
         <div>
-            <button id = "see" onClick="showHide('complete'); showHide('see'); showHide('hide')" class="showButton">See Completed Tasks</button>
-            <button id = "hide" onClick="showHide('complete'); showHide('see'); showHide('hide')" style="display:none" class="showButton">Hide Completed Tasks</button>
+            <button id = "see" onClick="showHide('complete', 'block'); showHide('see', 'block'); showHide('hide', 'block')" class="showButton">See Completed Tasks</button>
+            <button id = "hide" onClick="showHide('complete', 'block'); showHide('see', 'block'); showHide('hide', 'block')" style="display:none" class="showButton">Hide Completed Tasks</button>
             <div id = 'complete' style="display:none">
                 <h2>Completed Tasks (<?php echo (count($completedTasks)); ?>)</h2>
                 <table>
                     <tr>
                         <td style = "width: 250px;">Task</td>
-                        <td>ID</td>
                         <td>For Project</td>
                         <td>Assignment Date</td>
                         <td>Due Date</td>
+                        <td>Completed</td>
                         <td>Progress</td>
                         <td>Hours Logged</td>
                     </tr>
@@ -322,10 +294,10 @@ $conn = connect();
                                     <h5>$task[Job_Title]</h5>
                                     <p>$task[Description]</p>
                                 </td>
-                                <td>$task[ID]</td>
                                 <td>$task[Name]</td>
                                 <td>".$task['Start_Date']->format('m-d-Y')."</td>
                                 <td>".$task['Deadline']->format('m-d-Y')."</td>
+                                <td>".$task['End_Date']->format('m-d-Y')."</td>
                                 <td>$task[Progress]</td>
                                 <td>$task[Total_Hours]</td>
                             </tr>";
@@ -336,3 +308,5 @@ $conn = connect();
         </div>
     </center>
 </html>
+
+<?php sqlsrv_close($conn); ?>
