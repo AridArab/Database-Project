@@ -19,6 +19,12 @@
         exit();
     }
 
+    $unassignedEmployees = array();
+    $result = sqlsrv_query($conn, "select First_Name, Middle_Initial, Last_Name, ID from Employee where Department_ID IS NULL OR NOT Department_ID = ".$_SESSION['obj']['Department_ID']);
+    while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
+        array_push($unassignedEmployees, $row);
+    }
+
     $result = select_query("select * from Employee where Department_ID = ".$_SESSION['obj']['Department_ID'], $conn
     );
 
@@ -106,10 +112,16 @@
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" 
         method="POST" class="mt-4 w-75">
             <div class="mb-3">
-                <input type="text" class="form-control 
+                <select class="form-control 
                     <?php echo $EIDErr ? 'is-invalid' : null ?>
-                    " id="addEmployee" name="addEmployee" style="width: 151px" 
-                    placeholder="Enter Employee ID">
+                    " id="addEmployee" name="addEmployee" style="width: 151px">
+                    <option selected ="selected"> Choose Employee </option>
+                    <?php
+                        foreach($unassignedEmployees as $employee){
+                            echo "<option value = $employee[ID]> $employee[First_Name] $employee[Middle_Initial]. $employee[Last_Name] - ID: $employee[ID] </option>";
+                        }
+                    ?>
+                </select>
             </div>
             <p></p>
             <input type="submit" name="submit" value="Submit" class="btn btn-dark w-100">
