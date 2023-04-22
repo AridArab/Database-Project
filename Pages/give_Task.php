@@ -2,14 +2,28 @@
     error_reporting(E_ERROR | E_PARSE);
     include '../Logic/sqlconn.php';
     include "./navbar.php";
+
+    $conn = connect();
+    
+    $result = sqlsrv_query($conn, 
+        "select P.Name, P.ID 
+        from Employee AS M, Department AS D, Project AS P
+        where M.ID = ".$_SESSION['obj']['ID']." AND D.Manager_ID = M.ID AND P.Department_ID = D.ID" 
+    );
+
+    $projects = array();
+
+    while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
+        array_push($projects, $row);
+    }
     
     $pID = $job = $desc = $deadline = '';
     $pIDErr = $jobErr = $descErr = $deadlineErr = '';
 
-    $conn = connect();
 
 if (isset($_POST['submit'])) {
     //Checks post
+    echo "<center>$_POST[pID]</center>";
     if (empty($_POST['pID'])) {
         $pIDErr = 'Project ID is required';
     }
@@ -107,7 +121,9 @@ if (isset($_POST['submit'])) {
                 width: 125px;
                 text-align: right;
             }
-
+            select {
+                width: 140px;
+            }
             input {
                 width: 140px;
             }
@@ -134,13 +150,19 @@ if (isset($_POST['submit'])) {
         <?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>
         " method="POST" class="mt-4 w-75" style="position:relative; left: -5%">
             <div class="mb-3">
-                <label for="pID" class="form-label">Project ID:</label>
-                <input type="text" class="form-control 
-            <?php echo $pIDErr ? 'is-invalid' : null ?>
-            " id="pID" name="pID" placeholder="Enter Project ID">
-                <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
-                    <?php echo $pIDErr; ?>
-                </div>
+                <label for="pID" class="form-label">Project:</label>
+                <select class="form-control <?php echo $pIDErr ? 'is-invalid' : null ?>"
+                        id = 'pID' name = 'pID'>
+                    <div class="invalid-feedback" style="color: rgb(255, 0, 0)">
+                        <?php echo $pIDErr; ?>
+                    </div>
+                    <option selected ="selected"> Choose Project </option>
+                    <?php
+                        foreach($projects as $project){
+                            echo "<option value = $project[ID]> $project[Name]  ID: $project[ID] </option>";
+                        }
+                    ?>
+                </select>
             </div>
             <div class="mb-3">
                 <label for="job" class="form-label">Job Title:</label>

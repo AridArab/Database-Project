@@ -182,7 +182,7 @@
             </script>
             <label for="zipcode">Zipcode:</label>
             <input type="number" id="zipcode" name="zipcode" onblur="validateZipCode()"required><br>
-            <span id="zipError" style="color: red;"></span>
+            <span id="zipError" style="color: red;"></span><br>
 
 
             <script>
@@ -202,8 +202,8 @@
 
                       
             <label for="manager">Manager:</label>
-            <input type="text" id="manager">
-            <input type="submit" value="Add Department">         
+            <input type="text" id="manager"><br><br>
+            <input type="submit" value="Add Department">       
         </form>
         </div>
         </table>
