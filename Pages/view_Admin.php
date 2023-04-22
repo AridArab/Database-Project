@@ -1,6 +1,6 @@
 <?php
     error_reporting(E_ERROR | E_PARSE);
-    include './navbar.php';
+    include './Navbar.php';
     include '../Logic/sqlconn.php';
 
     if($_SESSION['obj']['Is_Manager'] != 2){
@@ -213,9 +213,24 @@
             </script>
 
                       
-            <label for="manager">Manager:</label>
-            <input type="text" id="manager"><br><br>
-            <input type="submit" value="Add Department">       
+            <label for="manager">Manager ID:</label>
+            <input type="number" name="manager" id="manager"><br><br>
+            <input type="submit" value="Add Department">
+            <span id="managerError" style="color:red;"></span><br>    
+            <script>
+                function validateZipCode() {
+                    const managerInput = document.getElementById("zipcode");
+                    const managerError = document.getElementById("zipError");
+                    const managerRegex = /^\d+$/; // Regex to validate 5 digits
+
+                    if (!managerRegex.test(managerInput.value)) {
+                        mangaerError.textContent = "Please enter a valid 5-digit zipcode.";
+                        managerInput.focus();
+                    } else {
+                        managerError.textContent = "";
+                    }
+                }
+            </script>
         </form>
         </div>
         </table>
