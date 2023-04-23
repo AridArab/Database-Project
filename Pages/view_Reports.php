@@ -108,7 +108,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                         
                         <?php
                             if (isset($_SESSION['obj'])) { 
-                                if ($_SESSION['obj']['Is_Manager'] == 1) {
+                                if ($_SESSION['obj']['Is_Manager'] == 1 || $_SESSION['obj']['Is_Manager'] == 2) {
                                     echo '<label for="employees">Include Employees?</label>';
                                     echo '<input type="checkbox" id="employees" name="employees" value="true"><br>';
                                 }
