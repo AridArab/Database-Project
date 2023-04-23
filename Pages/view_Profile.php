@@ -319,7 +319,10 @@
             <td>Job Status</td>
             <td>
                 <?php 
-                if ($_SESSION['obj']['Is_Manager'] == 1){
+                if ($_SESSION['obj']['Is_Manager'] == 2){
+                    echo "Admin";
+                    }
+                else if ($_SESSION['obj']['Is_Manager'] == 1){
                   echo "Manager";
                 }
                 else{
