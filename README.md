@@ -1,11 +1,11 @@
 # Database-Project
 Semester Long Database Group Project for Uma Ramamurthy COSC3380
 
-Installation instructions:
+## Installation instructions:
 This project is currently being run on https://projectmanagementcosc3380team6.azurewebsites.net/, however if you would like to start up a local server on your computer, you will need to use XAMPP (Link to download: https://www.apachefriends.org/download.html). After installing xampp you will need to navigate to the xampp folder that will have been created. You will then need to locate the htdocs folder and copy the repo for this project directly into the folder. you will then need to install the mssql drivers required to run the application (Installing intructions: https://learn.microsoft.com/en-us/iis/application-frameworks/install-and-configure-php-on-iis/install-the-sql-server-driver-for-php), Once that is done run xampp and click start for apache. You can then navigate to localhost/database-project on a browser and be able to access the website locally.
 
 
-How to use:
+## How to use:
 You may create an account by signing up, or simply use one the sample logins.
 
 When logged in, navigate through the website by clicking the links in the navigation bar. Visibility will vary depending on the role that is logged in.
