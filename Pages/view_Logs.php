@@ -56,7 +56,7 @@
             <table>
                 <tr>
                     <td>Project ID</td>
-                    <td>Name</td>
+                    <td>Message</td>
                     <td>Date</td>
                 </tr>
                 <?php
