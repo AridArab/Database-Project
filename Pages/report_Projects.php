@@ -56,7 +56,10 @@ function generateQuery($progress, $budget, $totalCost, $includeEmployee)
   }
   else
   {
-      $sql = "SELECT P.Name, P.ID, P.Progress, P.Total_Cost, P.Budget, P.City FROM Project as P WHERE P.isActive = 1 ";
+      $sql = "SELECT P.Name, P.ID, P.Progress, P.Total_Cost, P.Budget, P.City, P.Department_ID, D.Dept_Name 
+      FROM Project as P 
+      INNER JOIN Department D ON P.Department_ID = D.ID 
+      WHERE P.isActive = 1 ";
     }
     
     if ($progress === 'Greater than') 
@@ -95,28 +98,35 @@ function generateQuery($progress, $budget, $totalCost, $includeEmployee)
   {
     $employeeSql = "SELECT DISTINCT E.ID, E.First_Name, E.Last_Name, E.Sex, E.City, E.State, E.Email_Address, E.Department_ID FROM Employee as E, Project as P WHERE P.isActive = ?"; 
     return $employeeSql;
-    
   }
   
   function worksOnQuery($includeEmployee)
   {
     $worksOnSql = "SELECT DISTINCT W.ID, W.Job_Title, W.Total_Hours, W.Employee_ID, W.Project_ID, W.Progress FROM WORKS_ON as W, Project as P WHERE P.isActive = ?"; 
     return $worksOnSql;
-    
+  }
+
+  function deptQuery($includeEmployee)
+  {
+    $deptSql = "SELECT DISTINCT D.ID, D.Dept_Name, D.Email_Address, D.Dept_budget, D.Phone_Number FROM Department as D WHERE D.isActive = ?"; 
+    return $deptSql;
   }
   
   $sql = generateQuery($_POST['dropdown_Progress'], $_POST['dropdown_Budget'], $_POST['dropdown_TotalCost'], $includeEmployee);
   $employeeSql = employeeQuery($includeEmployee);
   $worksOnSql = worksOnQuery($includeEmployee);
+  $deptSql = deptQuery($includeEmployee);
   
   $params = array($_POST['progress'], $_POST['budget'], $_POST['totalCost'], $_POST['from'], $_POST['to']);
   $employeeParams = array(1);
   $worksOnParams = array(1);
+  $deptParams = array(1);
   
   
   $stmt = sqlsrv_query($conn, $sql, $params);
   $employeeStmt = sqlsrv_query($conn, $employeeSql, $employeeParams);
   $worksOnStmt = sqlsrv_query($conn, $worksOnSql, $worksOnParams);
+  $deptStmt = sqlsrv_query($conn, $deptSql, $deptParams);
   
   $title = "Projects Report from " . $_POST['from'] . " to " . $_POST['to'];
 
@@ -216,7 +226,7 @@ if ($includeEmployee)
 {
 echo "<table>";
 echo "<caption style='font-size: 1.5em; font-weight: bold; margin-bottom: 10px;'>Joined from Employee table: </caption>";
-echo "<tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Sex</th><th>City</th><th>State</th><th>Email Address</th><th>Department ID</th></tr>";
+echo "<tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Sex</th><th>City</th><th>State</th><th>Email Address</th></tr>";
 while( $row = sqlsrv_fetch_array( $employeeStmt, SQLSRV_FETCH_ASSOC) ) {
     echo "<tr>";
     echo "<td>".$row['ID']."</td>";
@@ -226,7 +236,6 @@ while( $row = sqlsrv_fetch_array( $employeeStmt, SQLSRV_FETCH_ASSOC) ) {
     echo "<td>".$row['City']."</td>";
     echo "<td>".$row['State']."</td>";
     echo "<td>".$row['Email_Address']."</td>";
-    echo "<td>".$row['Department_ID']."</td>";
     echo "</tr>";
 }
 echo "</table>";
@@ -242,6 +251,24 @@ while( $row = sqlsrv_fetch_array( $worksOnStmt, SQLSRV_FETCH_ASSOC) ) {
   echo '<td>' . $row['Employee_ID'] . '</td>';
   echo '<td>' . $row['Project_ID'] . '</td>';
   echo '<td>' . $row['Progress'] . '</td>';
+  echo '</tr>';
+}
+
+echo '</table>';
+
+}
+
+else{
+echo "<table>";
+echo "<caption style='font-size: 1.5em; font-weight: bold; margin-bottom: 10px;'>Joined from Department table: </caption>";
+echo '<tr><th>ID</th><th>Name</th><th>Email Address</th><th>Budget</th><th>Phone Number</th>';
+while( $row = sqlsrv_fetch_array( $deptStmt, SQLSRV_FETCH_ASSOC) ) {
+  echo '<tr>';
+  echo '<td>' . $row['ID'] . '</td>';
+  echo '<td>' . $row['Dept_Name'] . '</td>';
+  echo '<td>' . $row['Email_Address'] . '</td>';
+  echo '<td>' . $row['Dept_budget'] . '</td>';
+  echo '<td>' . $row['Phone_Number'] . '</td>';
   echo '</tr>';
 }
 
