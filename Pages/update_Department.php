@@ -8,7 +8,7 @@ if($conn === false ) {
 }
 
 $column = ($_POST['dropdown_Select']);
-$deptName = ($_POST['project_id']);
+$deptName = ($_POST['update_id']);
 $updateValue = $_POST['update'];
 
 

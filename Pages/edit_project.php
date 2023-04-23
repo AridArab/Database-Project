@@ -413,13 +413,13 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
                 echo "<tr><td>$row[ID]</td>
                 <td>$row[Progress]</td>
                 <td>$row[Name]</td>
-                <td>$row[Total_Cost]</td>
+                <td>\$$row[Total_Cost]</td>
                 <td>$row[Street_Address]</td>
                 <td>$row[City]</td>
                 <td>$row[State]</td>
                 <td>$row[Zip_Code]</td>
                 <td>$row[Department_ID]</td>
-                <td>$row[Budget]</td></tr>";
+                <td>\$$row[Budget]</td></tr>";
             }
         }
         ?>

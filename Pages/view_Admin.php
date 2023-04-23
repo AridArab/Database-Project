@@ -13,19 +13,19 @@
     $conn = connect();
 
     $result = sqlsrv_query($conn,
-        "SELECT D.Phone_Number, D.Dept_Name, D.Email_Address, D.Dept_Budget, D.ID, D.Manager_ID, E.First_Name, E.Last_Name, DL.Street_Address, DL.City, DL.State, DL.Zip_Code FROM Department AS D, Employee AS E, Dept_Locations AS DL WHERE E.ID = D.Manager_ID and DL.Department_ID = D.ID"
+        "SELECT D.Phone_Number, D.Dept_Name, D.Email_Address, D.Dept_Budget, D.ID, D.Manager_ID, E.First_Name, E.Last_Name, DL.Street_Address, DL.City, DL.State, DL.Zip_Code FROM Department AS D, Employee AS E, Dept_Locations AS DL WHERE E.ID = D.Manager_ID and DL.Department_ID = D.ID and D.IsActive = 1"
     );
 
     $connName = connect();
     
         $resultName = sqlsrv_query($connName, 
-            "select D.Dept_Name, D.ID from Department AS D" 
+            "select D.Dept_Name, D.ID from Department AS D WHERE D.IsActive = 1" 
         );
 
-        $projects = array();
+        $depts = array();
 
-        while($row = sqlsrv_fetch_array($resultName, SQLSRV_FETCH_ASSOC)){
-            array_push($projects, $row);
+        while($rowName = sqlsrv_fetch_array($resultName, SQLSRV_FETCH_ASSOC)){
+            array_push($depts, $rowName);
         }
 
 ?>
@@ -235,55 +235,88 @@
         </div>
         </table>
         </div>
+        <div>
+            <button id="see-update" onClick="showHide('update');" class="showButton">Update Department</button>
+            <button id="hide-update" onClick="showHide('update');" style="display:none" class="showButton">Hide Update Departments</button>
+            <div id="update" style="display:none">
+                    <table>
+                        <div class="forms">
+                        <form action="update_Department.php" method="POST">
+                            <select name="update_id">
+                                <option selected>Choose Project</option>
+                                <?php foreach ($depts as $dept) : ?>
+                                    <option value="<?php echo $dept['ID']; ?>">
+                                        <?php echo $dept['Dept_Name'] . ' ID: ' . $dept['ID']; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <br>
+                            <label for="column">Select Category:</label>
+                            <select name="dropdown_Select">
+                                <option value="Name">Name</option>
+                                <option value="Email">Email</option>
+                                <option value="Phone Number">Phone Number</option>
+                                <option value="Street Address">Street Address</option>
+                                <option value="City">City</option>
+                                <option value="State">State</option>
+                                <option value="Zip Code">Zip Code</option>
+                                <option value="Budget">Budget</option>
+                            </select>
+                            <br>
+                            <label for="update">Enter new value:</label>
+                            <input type="text" id="update" name="update" required><br>
+                            <div id="errorMessage"></div>
+                            <input type="submit" value="Update Department">
+                        </form>
+                        </div>
+                    </table>
+                </div>
+                    </div>
+                <div>
+            <button id="see-delete" onClick="showHide('delete');" class="showButton">Delete Department</button>
+            <button id="hide-delete" onClick="showHide('delete');" style="display:none" class="showButton">Hide Delete Departments</button>
+            <div id="delete" style="display:none">
+                <table>
+                    <div class="forms">
+                        <form action="delete_Department.php" method="POST">
+                            <select name="delete_id">
+                                <option selected>Choose Project</option>
+                                <?php foreach ($depts as $dept) : ?>
+                                    <option value="<?php echo $dept['ID']; ?>">
+                                        <?php echo $dept['Dept_Name'] . ' ID: ' . $dept['ID']; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <br>
+                            <input type="submit" value="Delete Department">
+                            </form>
+                        </div>
+                    </table>
+                </div>
+            </div>
+
 
         
         <p><?php
-         while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
-             echo
-             "<div class='department'>
-             $row[Dept_Name]<br>
-             Email: $row[Email_Address]<br>
-             Phone: $row[Phone_Number]<br>
-             Address: $row[Street_Address] $row[City], $row[State] $row[Zip_Code]<br>
-             Manager: $row[First_Name] $row[Last_Name]<br>
-             Budget: \$$row[Dept_Budget]
-             </div>";
-            }
-            ?></p>
-            <button id = "see" onClick="showHide('update');"
-                class="showButton">Update Department</button>
-                <button id = "hide" onClick="showHide('update');"
-                style="display:none" class="showButton">Hide Update Departments</button>
-                <div id="update" style="display:none">
-                <table><div class="forms">
-                <form action="update_Department.php" method="POST">
-                    <select name="project_id">
-                            <option selected>Choose Project</option>
-                            <?php foreach ($projects as $project) : ?>
-                                <option value="<?php echo $project['ID']; ?>">
-                                    <?php echo $project['Dept_Name'] . ' ID: ' . $project['ID']; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                        <br>         
-                    <label for="column">Select Category:</label>
-                    <select name="dropdown_Select">
-                        <option value="Name">Name</option>
-                        <option value="Email">Email</option>
-                        <option value="Phone Number">Phone Number</option>
-                        <option value="Street Address">Street Address</option>
-                        <option value="City">City</option>
-                        <option value="State">State</option>
-                        <option value="Zip Code">Zip Code</option>
-                        <!-- <option value="Manager">Manager</option> -->
-                        <option value="Budget">Budget</option>
-                    </select><br>
+         $query = "SELECT * FROM Department WHERE isActive = 1";
+         $resultDisplay = sqlsrv_query($conn, $query);
 
-                    <label for="update">Enter new value:</label>
-                    <input type="text" id="update" name="update" required><br>
-                    <div id="errorMessage"></div>
-                    <input type="submit" value="Update Department">
-                </form>
+         while($rowDisplay=sqlsrv_fetch_array($resultDisplay, SQLSRV_FETCH_ASSOC)){
+             if($rowDisplay['isActive'] == 1){
+                while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
+                    echo
+                    "<div class='department'>
+                    $row[Dept_Name]<br>
+                    Email: $row[Email_Address]<br>
+                    Phone: $row[Phone_Number]<br>
+                    Address: $row[Street_Address] $row[City], $row[State] $row[Zip_Code]<br>
+                    Manager: $row[First_Name] $row[Last_Name]<br>
+                    Budget: \$$row[Dept_Budget]
+                    </div>";
+                    }
+            }
+        }
+            ?></p>
     </center>
 </body>
 
