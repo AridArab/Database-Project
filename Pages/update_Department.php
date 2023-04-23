@@ -21,8 +21,17 @@ if($column == 'Email')
 if($column == 'Phone Number')
     $sql = "UPDATE Department SET Phone_Number = ? WHERE ID = ?";
 
-if($column == 'Address')
-    $sql = "UPDATE Department SET Address = ? WHERE ID = ?";
+if($column == 'Street Address')
+    $sql = "UPDATE Dept_Locations SET Street_Address = ? WHERE Department_ID = ?";
+
+if($column == 'Zip Code')
+    $sql = "UPDATE Dept_Locations SET Zip_Code = ? WHERE Department_ID = ?";
+
+if($column == 'City')
+    $sql = "UPDATE Dept_Locations SET City = ? WHERE Department_ID = ?";
+
+if($column == 'State')
+    $sql = "UPDATE Dept_Locations SET State = ? WHERE Department_ID = ?";
 
 if($column == 'Manager')
     $sql = "UPDATE Department SET Manager = ? WHERE ID = ?";

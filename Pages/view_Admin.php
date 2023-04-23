@@ -271,8 +271,11 @@
                         <option value="Name">Name</option>
                         <option value="Email">Email</option>
                         <option value="Phone Number">Phone Number</option>
-                        <!-- <option value="Address">Address</option>
-                        <option value="Manager">Manager</option> -->
+                        <option value="Street Address">Street Address</option>
+                        <option value="City">City</option>
+                        <option value="State">State</option>
+                        <option value="Zip Code">Zip Code</option>
+                        <!-- <option value="Manager">Manager</option> -->
                         <option value="Budget">Budget</option>
                     </select><br>
 
