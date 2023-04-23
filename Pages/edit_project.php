@@ -368,7 +368,7 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
         // check if a search ID was submitted
     if(isset($_POST['searchID']) && $_POST['searchID'] != '') {
             $searchID = $_POST['searchID'];
-            $query = "SELECT * FROM Project WHERE ID = '$searchID' AND isActive = 1";
+            $query = "SELECT * FROM Project WHERE Project.Name LIKE '%$searchID%' AND isActive = 1";
         } else {
             $query = "SELECT * FROM Project WHERE isActive = 1";
         }
@@ -387,8 +387,8 @@ $connectionInfo = array("UID" => "DATABASE_TEAM_6", "pwd" => "Umapass321", "Data
     <div id="searchp" style="display:none">
     <h3 class="top">Search Project</h3>
     <form action="edit_Project.php" method="POST">
-        <label for="searchID">Search ID:</label>
-        <input type="text" id="searchID" name="searchID" required>
+        <label for="searchID">Search:</label>
+        <input type="text" id="searchID" name="searchID" placeholder="Search project name" required>
         <input type="submit" value="Search">
         <button type="button" onclick="window.location.href='edit_Project.php'">Show All Projects</button>
         </form>

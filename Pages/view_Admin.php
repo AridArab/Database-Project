@@ -18,15 +18,35 @@
 
     $connName = connect();
     
-        $resultName = sqlsrv_query($connName, 
-            "select D.Dept_Name, D.ID from Department AS D WHERE D.IsActive = 1" 
-        );
+    $resultName = sqlsrv_query($connName, 
+        "select D.Dept_Name, D.ID from Department AS D WHERE D.IsActive = 1" 
+    );
 
-        $depts = array();
+    $depts = array();
 
-        while($rowName = sqlsrv_fetch_array($resultName, SQLSRV_FETCH_ASSOC)){
-            array_push($depts, $rowName);
-        }
+    while($rowName = sqlsrv_fetch_array($resultName, SQLSRV_FETCH_ASSOC)){
+        array_push($depts, $rowName);
+    }
+
+    $resultManager = sqlsrv_query($connName,
+        "SELECT E.First_Name, E.Last_Name, E.ID FROM Employee AS E WHERE E.Is_Manager = 1"
+    );
+
+    $mangs = array();
+
+    while ($rowManage = sqlsrv_fetch_array($resultManager, SQLSRV_FETCH_ASSOC)){
+        array_push($mangs, $rowManage);
+    }
+
+    $resultAdmin = sqlsrv_query($connName,
+        "SELECT E.First_Name, E.Last_Name, E.ID FROM Employee AS E WHERE E.Is_Manager = 2"
+    );
+
+    $admins = array();
+
+    while ($rowAdmin = sqlsrv_fetch_array($resultAdmin, SQLSRV_FETCH_ASSOC)) {
+        array_push($admins, $rowAdmin);
+    }
 
 ?>
 
@@ -77,7 +97,7 @@
 <body>
     <center>
         <h1>Admin</h1><br>
-        <button id = "see" onClick="showHide('add');"
+        <button id = "see" style="width: 20ch;" onClick="showHide('add');"
         class="showButton">Add Departments</button>
         <button id = "hide" onClick="showHide('add');"
         style="display:none" class="showButton">Hide Add Departments</button>
@@ -236,14 +256,14 @@
         </table>
         </div>
         <div>
-            <button id="see-update" onClick="showHide('update');" class="showButton">Update Department</button>
+            <button id="see-update" onClick="showHide('update');" style="width: 20ch;" class="showButton">Update Department</button>
             <button id="hide-update" onClick="showHide('update');" style="display:none" class="showButton">Hide Update Departments</button>
             <div id="update" style="display:none">
                     <table>
                         <div class="forms">
                         <form action="update_Department.php" method="POST">
-                            <select name="update_id">
-                                <option selected>Choose Project</option>
+                            <select required name="update_id">
+                                <option value="" selected>Choose Department</option>
                                 <?php foreach ($depts as $dept) : ?>
                                     <option value="<?php echo $dept['ID']; ?>">
                                         <?php echo $dept['Dept_Name'] . ' ID: ' . $dept['ID']; ?>
@@ -273,14 +293,14 @@
                 </div>
                     </div>
                 <div>
-            <button id="see-delete" onClick="showHide('delete');" class="showButton">Delete Department</button>
+            <button id="see-delete" onClick="showHide('delete');" style="width: 20ch;" class="showButton">Delete Department</button>
             <button id="hide-delete" onClick="showHide('delete');" style="display:none" class="showButton">Hide Delete Departments</button>
             <div id="delete" style="display:none">
                 <table>
                     <div class="forms">
                         <form action="delete_Department.php" method="POST">
-                            <select name="delete_id">
-                                <option selected>Choose Project</option>
+                            <select required name="delete_id">
+                                <option value="" selected>Choose Department</option>
                                 <?php foreach ($depts as $dept) : ?>
                                     <option value="<?php echo $dept['ID']; ?>">
                                         <?php echo $dept['Dept_Name'] . ' ID: ' . $dept['ID']; ?>
@@ -294,9 +314,48 @@
                     </table>
                 </div>
             </div>
-
-
-        
+            <button id="see-admin-add" onClick="showHide('administrate-add');" style="width: 20ch;" class="showButton">Add Admin</button>
+            <button id="hide-admin-add" onClick="showHide('administrate-add');" style="display:none" class="showButton">Hide Add Admin</button>
+            <div id="administrate-add" style="display:none">
+                <table>
+                    <div class="forms">
+                        <form action="add_Admin.php" method="POST">
+                            <select required name="add_admin">
+                                <option value="" selected>Choose Manager</option>
+                                <?php foreach ($mangs as $mang) : ?>
+                                    <option value="<?php echo $mang['ID']; ?>">
+                                        <?php echo $mang['First_Name'] . ' ' . $mang['Last_Name'] . ' ID: ' . $mang['ID']; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <br>
+                            <input type="submit" value="Add Admin">
+                        </form>
+                    </div>
+                </table>
+            </div>
+            <br>
+            <button id="see-admin-remove" onClick="showHide('administrate-remove');" style="width: 20ch;" class="showButton">Remove Admin</button>
+            <button id="hide-admin-remove" onClick="showHide('administrate-remove');" style="display:none" class="showButton">Hide Remove Admin</button>
+            <div id="administrate-remove" style="display:none">
+                <table>
+                    <div class="forms">
+                        <form action="remove_Admin.php" method="POST">
+                            <select required name="remove_admin">
+                                <option value="" selected>Choose Admin</option>
+                                <?php foreach ($admins as $admin) : ?>
+                                    <option value="<?php echo $admin['ID']; ?>">
+                                        <?php echo $admin['First_Name'] . ' ' . $admin['Last_Name'] . ' ID: ' . $admin['ID']; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <br>
+                            <input type="submit" value="Remove Admin">
+                        </form>
+                    </div>
+                </table>
+            </div>
+        </div>
         <p><?php
          $query = "SELECT * FROM Department WHERE isActive = 1";
          $resultDisplay = sqlsrv_query($conn, $query);
