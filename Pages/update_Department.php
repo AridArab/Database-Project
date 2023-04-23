@@ -11,7 +11,6 @@ $column = ($_POST['dropdown_Select']);
 $deptName = ($_POST['update_id']);
 $updateValue = $_POST['update'];
 
-
 if($column == 'Name')
     $sql = "UPDATE Department SET Dept_Name = ? WHERE ID = ?";
 
@@ -40,10 +39,6 @@ if($column == 'Budget')
     $sql = "UPDATE Department SET Dept_budget = ? WHERE ID = ?";
 
 
-
-
-$params = array($_POST['update'], ($_POST['project_id']));
-
 $nameExists = false;
 $checkNameQuery = "SELECT ID FROM Department WHERE ID = ?";
 $params = array($deptName);
@@ -63,7 +58,7 @@ if (!$nameExists) {
 
 $stmt = sqlsrv_query($conn, $sql, $params);
 if( $stmt === false ) {
-     die( print_r( sqlsrv_errors(), true));
+    die( print_r( sqlsrv_errors(), true ));
 }
 
 
