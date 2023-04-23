@@ -39,7 +39,8 @@
     SUM(Total_Cost) AS Expenses FROM Project INNER JOIN Department ON Department.ID = Department_ID 
     GROUP BY Department.ID, Department.Dept_Name";
     
-    $stmt2 = "SELECT Department.ID, MAX(Start_Date) AS DSTART, MIN(End_Date) AS DEND FROM Department
+    #Checks if at least 1 project in the department fits into the specified range of start dates.
+    $stmt2 = "SELECT Department.ID, MIN(Start_Date) AS DSTART, MAX(Start_Date) AS DEND FROM Department
     LEFT JOIN Project ON Department.ID = Department_ID GROUP BY Department.ID";
 
     $sql2 = sqlsrv_query($conn, $stmt2);
@@ -48,18 +49,32 @@
     $invalidDate = [];
 
     if($_POST['pfrom'] != null){
+        $allProjInvalid = true;
         while($dates = sqlsrv_fetch_array($sql2, SQLSRV_FETCH_ASSOC)){
-            if($dates['DSTART'] == null || $dates['DSTART']->format("Y-m-d") < date("Y-m-d", strtotime($_POST['pfrom']))){
+            if($dates['DSTART'] == null || $dates['DSTART']->format("Y-m-d") >= date("Y-m-d", strtotime($_POST['pfrom']))){
                 array_push($invalidDate, $dates['ID']);
             }
+            else{
+                $allProjInvalid = false;
+            }
+        }
+        if(!$allProjInvalid){
+            $invalidDate = [];
         }
     }
-    
     if($_POST['pto'] != null){
+        $tmp = $invalidDate;
+        $allProjInvalid = true;
         while($dates2 = sqlsrv_fetch_array($sql3, SQLSRV_FETCH_ASSOC)){
-            if($dates2['DEND'] == null || $dates2['DEND']->format("Y-m-d") > date("Y-m-d", strtotime($_POST['pto']))){
+            if($dates2['DEND'] == null || $dates2['DEND']->format("Y-m-d") <= date("Y-m-d", strtotime($_POST['pto']))){
                 array_push($invalidDate, $dates2['ID']);
             }
+            else{
+                $allProjInvalid = false;
+            }
+        }
+        if(!$allProjInvalid){
+            $invalidDate = $tmp;
         }
     }
 
@@ -87,9 +102,18 @@
                             <td>".$row['ID']."</td>
                             <td>".$row['Dept_Name']." ".$row['Middle_Initial']." ".$row['Last_Name']."</td>
                             <td>".$row['Budget']."</td>
-                            <td>".$row['Expenses']."</td>
-                            <td><a href='./deptpbe.php?id=".$row['ID']."'>View Projects</a></td>
-                        </tr>";
+                            <td>".$row['Expenses']."</td>";
+                        
+                    if($_POST['pfrom'] != null && $_POST['pto'] != null)
+                        echo "<td><a href='./deptpbe.php?id=".$row['ID']."&start=".$_POST['pfrom']."&end=".$_POST['pto']."'>View Projects</a></td>";
+                    else if($_POST['pfrom'] != null)
+                        echo "<td><a href='./deptpbe.php?id=".$row['ID']."&start=".$_POST['pfrom']."'>View Projects</a></td>";
+                    else if($_POST['pto'] != null)
+                        echo "<td><a href='./deptpbe.php?id="."&end=".$_POST['pto']."'>View Projects</a></td>";
+                    else
+                        echo "<td><a href='./deptpbe.php?id=".$row['ID']."'>View Projects</a></td>";
+
+                    echo "</tr>";
                 }
             }
         }
@@ -102,9 +126,18 @@
                             <td>".$row['ID']."</td>
                             <td>".$row['Dept_Name']." ".$row['Middle_Initial']." ".$row['Last_Name']."</td>
                             <td>".$row['Budget']."</td>
-                            <td>".$row['Expenses']."</td>
-                            <td><a href='./deptpbe.php?id=".$row['ID']."'>View Projects</a></td>
-                        </tr>";
+                            <td>".$row['Expenses']."</td>";
+                        
+                    if($_POST['pfrom'] != null && $_POST['pto'] != null)
+                        echo "<td><a href='./deptpbe.php?id=".$row['ID']."&start=".$_POST['pfrom']."&end=".$_POST['pto']."'>View Projects</a></td>";
+                    else if($_POST['pfrom'] != null)
+                        echo "<td><a href='./deptpbe.php?id=".$row['ID']."&start=".$_POST['pfrom']."'>View Projects</a></td>";
+                    else if($_POST['pto'] != null)
+                        echo "<td><a href='./deptpbe.php?id="."&end=".$_POST['pto']."'>View Projects</a></td>";
+                    else
+                        echo "<td><a href='./deptpbe.php?id=".$row['ID']."'>View Projects</a></td>";
+
+                    echo "</tr>";
                 }
             }
         }
@@ -118,9 +151,18 @@
                             <td>".$row['ID']."</td>
                             <td>".$row['Dept_Name']." ".$row['Middle_Initial']." ".$row['Last_Name']."</td>
                             <td>".$row['Budget']."</td>
-                            <td>".$row['Expenses']."</td>
-                            <td><a href='./deptpbe.php?id=".$row['ID']."'>View Projects</a></td>
-                        </tr>";
+                            <td>".$row['Expenses']."</td>";
+                        
+                    if($_POST['pfrom'] != null && $_POST['pto'] != null)
+                        echo "<td><a href='./deptpbe.php?id=".$row['ID']."&start=".$_POST['pfrom']."&end=".$_POST['pto']."'>View Projects</a></td>";
+                    else if($_POST['pfrom'] != null)
+                        echo "<td><a href='./deptpbe.php?id=".$row['ID']."&start=".$_POST['pfrom']."'>View Projects</a></td>";
+                    else if($_POST['pto'] != null)
+                        echo "<td><a href='./deptpbe.php?id="."&end=".$_POST['pto']."'>View Projects</a></td>";
+                    else
+                        echo "<td><a href='./deptpbe.php?id=".$row['ID']."'>View Projects</a></td>";
+
+                    echo "</tr>";
                 }
             }
         }
@@ -132,9 +174,18 @@
                             <td>".$row['ID']."</td>
                             <td>".$row['Dept_Name']." ".$row['Middle_Initial']." ".$row['Last_Name']."</td>
                             <td>".$row['Budget']."</td>
-                            <td>".$row['Expenses']."</td>
-                            <td><a href='./deptpbe.php?id=".$row['ID']."'>View Projects</a></td>
-                        </tr>";
+                            <td>".$row['Expenses']."</td>";
+                        
+                    if($_POST['pfrom'] != null && $_POST['pto'] != null)
+                        echo "<td><a href='./deptpbe.php?id=".$row['ID']."&start=".$_POST['pfrom']."&end=".$_POST['pto']."'>View Projects</a></td>";
+                    else if($_POST['pfrom'] != null)
+                        echo "<td><a href='./deptpbe.php?id=".$row['ID']."&start=".$_POST['pfrom']."'>View Projects</a></td>";
+                    else if($_POST['pto'] != null)
+                        echo "<td><a href='./deptpbe.php?id="."&end=".$_POST['pto']."'>View Projects</a></td>";
+                    else
+                        echo "<td><a href='./deptpbe.php?id=".$row['ID']."'>View Projects</a></td>";
+
+                    echo "</tr>";
                 }
             }
         }

@@ -21,7 +21,7 @@ session_start();
             if($_SESSION['obj']['Is_Manager'] == 1 || $_SESSION['obj']['Is_Manager'] == 2){
                 echo '<li style="float:left"> <a href="./view_Management.php">Manage</a> </li>';
                 echo '<li style="float:left"> <a href="./view_Logs.php">Logs</a> </li>';
-                echo '<li style="float:left"> <a href="./edit_Project.php">Projects</a> </li>';
+                echo '<li style="float:left"> <a href="./edit_Project.php?id='.$_SESSION['obj']['ID'].'">Projects</a> </li>';
                 if($_SESSION['obj']['Is_Manager'] == 2){
                     echo '<li style="float:left"> <a href="./view_Admin.php">Admin</a> </li>';
                 }
