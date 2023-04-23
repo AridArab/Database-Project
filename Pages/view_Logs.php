@@ -52,7 +52,7 @@
 <body>
     <center>
         <h1>Logs</h1>
-        <form action="" method="post">
+        <form action="" method="POST">
             <table>
                 <tr>
                     <td>Project ID</td>

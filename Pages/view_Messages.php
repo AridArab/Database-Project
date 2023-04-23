@@ -8,10 +8,24 @@
     $user = $_SESSION['obj']['ID'];
 
     $result = sqlsrv_query($conn,
-        "SELECT * FROM Message WHERE RecipientID = $user");
+        "SELECT * FROM Message WHERE RecipientID = $user and isActive = 1");
     
     $employees = sqlsrv_query($conn,
         "SELECT * FROM Employee");
+    
+
+    if (isset($_POST['deleteMessage']) and is_numeric($_POST['deleteMessage'])) {
+        $ID = array($_POST['deleteMessage']);
+        $sql = "UPDATE Message SET isActive = 0 WHERE MessageID = ?";
+        $stmt = sqlsrv_query($conn, $sql, $ID);
+        if( $stmt === false ) {
+            die( print_r( sqlsrv_errors(), true ) );
+        }
+        else {
+            header("Refresh:0");
+        }
+    }
+
 
 ?>
 
@@ -37,6 +51,7 @@
     
     <center>
         <h1>Messages</h1>
+        <form action="" method="POST">
         <p><?php
         while($row=sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
             $date = $row['Date_Sent']->format('Y-m-d');
@@ -44,9 +59,11 @@
             "<div class='message'>
             $row[Message]<br>
             Date Recieved: $date
+            <button type=submit name=deleteMessage value=$row[MessageID]>Delete</button>
             </div>";
         }
         ?></p>
+        </form>
     </center>
 </body>
 
