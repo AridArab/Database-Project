@@ -12,30 +12,30 @@ When logged in, navigate through the website by clicking the links in the naviga
 The following instructions will assume a manager is logged in for learning purposes.
 
 
-Manage Page:
+### Manage Page:
 View all the employee accounts in your team. You can add an employee to your team by simply selecting in the dropdown and view their information by 
 clicking view profile. You can also view tasks given to this employee and assign new ones by clicking assign tasks and filling in the info.
 
 
-Logs Page:
+### Logs Page:
 View important updates for projects with the time and date. You have the option to delete them.
 
 
-Projects Page:
+### Projects Page:
 View all the projects that are currently active. You can quickly isolate one by searching through ID. While any manager can add a project,
 you can only update and delete projects you manage by selecting with the dropbox.
 
 
-Reports Page:
+### Reports Page:
 Select a type of report you would like to see. Dates are always required, but there are optional parameters, such as specifying department ID or
 filtering by budget amount. Reports always query by joining multiple tables.
 
 
-Messages Page:
+### Messages Page:
 Displays important notifications with a date such as changes in salary
 
 
-Profile Page:
+### Profile Page:
 View and edit information about yourself
 
 
